@@ -1,0 +1,39 @@
+.btn {
+  font-family: var(--font-oswald);
+  font-weight: 500;
+  cursor: pointer;
+}
+.btn-cta {
+  background: var(--coffee-900);
+  border-radius: 4px;
+  color: var(--coffee-100);
+  font-size: var(--font-16);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  width: 100%;
+  gap: 8px;
+}
+.btn-link {
+  position: relative;
+  background: none;
+  text-transform: uppercase;
+  font-size: var(--font-12);
+  color: var(--coffee-900);
+}
+.btn-link::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 0%;
+  background: var(--coffee-900);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 200ms;
+}
+.btn-link:hover::after {
+  width: 100%;
+}

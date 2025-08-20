@@ -1,0 +1,83 @@
+/* ---------- THEME ---------- */
+.light-header {
+  --background-color: white;
+  --color-link: var(--coffee-900);
+  --color-link-hover: var(--coffee-500);
+  --color-icons-hover: var(--coffee-300);
+}
+.dark-header {
+  --background-color: var(--coffee-900);
+  --color-link: var(--coffee-100);
+  --color-link-hover: var(--coffee-400);
+  --color-icons-hover: var(--coffee-700);
+}
+
+/* ---------- STYLES ---------- */
+.header {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 50px;
+  padding: 0 48px;
+  background: var(--background-color);
+}
+.header nav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.header ul {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.header .icons {
+  gap: 8px;
+}
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.links {
+  font-family: var(--font-oswald);
+  font-weight: 500;
+  font-size: var(--font-16);
+  text-transform: uppercase;
+}
+.links li {
+  position: relative;
+}
+
+.links a {
+  color: var(--color-link);
+}
+.links a:hover {
+  color: var(--color-link-hover);
+}
+.links li:hover::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 32px;
+  background: var(--color-link-hover);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -4px;
+}
+
+.icons a {
+  padding: 8px;
+}
+.icons li {
+  display: flex;
+}
+.icons li:hover {
+  background: var(--color-icons-hover);
+  border-radius: 50%;
+}
+.icons a {
+  line-height: 0;
+}
