@@ -73,5 +73,22 @@
 .caption-container {
   display: flex;
   justify-content: center;
-  margin-top: 12px;
+  margin: 12px 0;
+}
+
+/* ---------- RADIX UI ---------- */
+/* .select-trigger [data-state="open"] select {
+} */
+.select-content {
+  background: white;
+  border: 1px solid;
+  padding: 16px;
+}
+.select-label {
+  color: gray;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+.select-separator {
+  margin: 24px;
 }

@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -18,8 +17,7 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
-    addresses      Address[]
-
+  addresses     Address[]
 
   @@unique([email])
   @@map("user")
@@ -71,36 +69,35 @@ model Verification {
 }
 
 model Address {
-  id         String    @id
-    firstname String
-    lastname String
-    address String
-    address_2 String
-    city String
-    cp Int
-    phone String
-    isDefault Boolean
-      userId    String
+  id            Int          @id @default(autoincrement())
+  firstname     String
+  lastname      String
+  address       String
+  address_2     String?
+  city          String
+  cp            String
+  phone         String
+  isDefault     Boolean
+  userId        String
+  destinationId Int?         @unique
+  destination   Destination? @relation(fields: [destinationId], references: [id], onDelete: SetNull)
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-    @@map("address")
-
-
+  @@map("address")
 }
 
-enum DestinationGroup{
-  EUROPE
-  DOM_TOM
+enum DestinationGroup {
+  METROPOLE
+  DOM
 }
 
-model Destination{
-    id         String    @id
-nom String
-group DestinationGroup
-actif Boolean
-code_iso String
+model Destination {
+  id       Int              @id @default(autoincrement())
+  name     String
+  group    DestinationGroup
+  actif    Boolean
+  code_iso String
+  Address  Address?
 
+  @@map("destination")
 }
-
-

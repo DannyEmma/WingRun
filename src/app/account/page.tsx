@@ -52,7 +52,7 @@ export default function AccountPage() {
                 <Collapsible.Root>
                   <Collapsible.Trigger>Edit</Collapsible.Trigger>
                   <Collapsible.Content>
-                    <AdresseForm />
+                    <AdresseForm operation="update" />
                   </Collapsible.Content>
                 </Collapsible.Root>
                 <button>Delete</button>
@@ -62,7 +62,7 @@ export default function AccountPage() {
           <Collapsible.Root>
             <Collapsible.Trigger>Ajouter une adresse</Collapsible.Trigger>
             <Collapsible.Content>
-              <AdresseForm />
+              <AdresseForm operation="create" />
             </Collapsible.Content>
           </Collapsible.Root>
         </Tabs.Content>

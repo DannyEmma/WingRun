@@ -37,9 +37,9 @@ export default function RootLayout({
               toast: styles.toast,
               title: styles.title,
               description: styles.description,
+              closeButton: styles['close-button'],
             },
             closeButton: true,
-            duration: Infinity,
           }}
           icons={{
             success: <Image src={'/icons/success.svg'} width={20} height={20} alt="Success icon" />,
