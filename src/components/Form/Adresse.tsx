@@ -66,7 +66,8 @@ export default function Adresse({ operation }: { operation: 'create' | 'update' 
         <input id="lastname" type="text" name="lastname" required />
       </div>
       {/* ----- Country / Region ----- */}
-      <Select.Root defaultValue="France" name="destinationId" required>
+      {/*  destinationId -> 1 == 'France' */}
+      <Select.Root defaultValue="1" name="destinationId" required>
         <Select.Trigger className="select-trigger" aria-label="Country">
           <Select.Value placeholder="Séléctionner" />
           <Select.Icon>

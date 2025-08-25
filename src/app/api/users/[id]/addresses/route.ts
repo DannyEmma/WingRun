@@ -9,7 +9,18 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   delete address.destinationId
 
   try {
-    //-- Get the name of the destination --
+    //-- Only one default address --
+    if (address.isDefault) {
+      await prisma.address.updateMany({
+        where: {
+          userId: userId,
+        },
+        data: {
+          isDefault: false,
+        },
+      })
+    }
+
     await prisma.address.create({
       data: { ...address, user: { connect: { id: userId } }, destination: { connect: { id: destinationId } } },
     })
