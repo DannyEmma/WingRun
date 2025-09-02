@@ -1,11 +1,15 @@
 import './globals.css'
 import styles from './Toast.module.css'
 import type { Metadata } from 'next'
+import { headers } from 'next/headers'
 import { Roboto, Oswald } from 'next/font/google'
 import Image from 'next/image'
-import Header from '@/components/Header/Header'
 import { Toaster } from 'sonner'
-import SessionInitializer from '@/components/SessionInitializer/SessionInitializer'
+import { auth } from '@/lib/auth'
+import UserService from '@/lib/services/user'
+import SessionInitializer from '@/components/providers/SessionInitializer/SessionInitializer'
+import Header from '@/components/layouts/Header/Header'
+import Footer from '@/components/layouts/Footer/Footer'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -20,16 +24,23 @@ export const metadata: Metadata = {
   description: 'Site de sneakers',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const session = (
+    await auth.api.getSession({
+      headers: await headers(),
+    })
+  )?.session
+
   return (
     <html lang="fr" className={`${roboto.className} ${oswald.variable} `}>
       <body>
-        <Header />
-        <SessionInitializer />
+        <Header theme="dark" />
+        {/* -- Use to keep data when the page is reload  */}
+        <SessionInitializer session={session} />
         <Toaster
           position="top-right"
           toastOptions={{
@@ -46,6 +57,7 @@ export default function RootLayout({
           }}
         />
         {children}
+        <Footer />
       </body>
     </html>
   )

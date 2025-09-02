@@ -1,26 +1,7 @@
-import { Session } from 'better-auth'
-import * as z from 'zod'
+//---------- ZOD TYPE ----------//
 
-export type SessionType = Session | null | undefined
+export type { Address, CreateAddress } from './address'
 
-export const AddressSchema = z.object({
-  firstname: z.string(),
-  lastname: z.string(),
-  destinationId: z.number(),
-  address: z.string(),
-  address_2: z.string(),
-  city: z.string(),
-  cp: z.string(),
-  phone: z.string(),
-  isDefault: z.boolean(),
-})
+export type { Destination, DestinationGroup, DestinationPerGroup } from './destination'
 
-export type Address = z.infer<typeof AddressSchema>
-
-export type Destination = {
-  id: number
-  name: string
-  group: string
-  actif: boolean
-  code_iso: string
-}
+export type { User, UserWithAddresses } from './user'

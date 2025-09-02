@@ -1,0 +1,149 @@
+.form {
+  width: 525px;
+  margin: 0 auto;
+  margin-top: 192px;
+}
+.wing-run-icon {
+  display: inline-block;
+}
+
+.title {
+  font-family: var(--font-oswald);
+  font-weight: 600;
+  font-size: var(--font-24);
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 64px;
+}
+.registration-form .title {
+  justify-content: flex-start;
+}
+
+.button-container {
+  margin-top: 24px;
+}
+.registration-form .button-container {
+  margin-top: 48px;
+}
+
+.forgot-password {
+  font-size: var(--font-12);
+  font-weight: 400;
+  text-align: right;
+  color: var(--coffee-700);
+  margin-top: 8px;
+}
+.create-account {
+  font-size: var(--font-12);
+  font-weight: 400;
+  text-align: center;
+  color: var(--coffee-700);
+}
+.link {
+  font-size: var(--font-12);
+  font-weight: 400;
+  color: var(--coffee-700);
+}
+.link:hover {
+  text-decoration: underline;
+}
+.caption-container {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0;
+}
+.login-form .password-container div {
+  margin-bottom: 0;
+}
+
+.address-form {
+  width: 600px;
+  /* margin-bottom: 128px; */
+  /* margin-bottom: 128px; */
+}
+.address-form hr {
+  margin-bottom: 32px;
+}
+.is-default-container {
+  display: flex;
+  gap: 4px;
+}
+
+.country-label {
+  font-weight: 500;
+  font-size: var(--font-12);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.actions-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.secondary-title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.secondary-title-container button {
+  cursor: pointer;
+  padding: 8px;
+}
+.secondary-title {
+  font-family: var(--font-oswald);
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+/* ---------- RADIX UI ---------- */
+.select-group {
+  margin-bottom: 24px;
+}
+.select-trigger {
+  border: 1px solid;
+  height: 50px;
+  width: 100%;
+  margin-top: 0 !important;
+  margin-bottom: 24px !important;
+  border-radius: 4px;
+}
+.select-content {
+  background: white;
+  border: 1px solid;
+  padding: 16px;
+  position: absolute;
+  bottom: 54px;
+  width: 500px;
+  text-align: center;
+  border-radius: 4px;
+}
+.select-label {
+  color: gray;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+.select-item {
+  padding: 6px 0;
+  cursor: pointer;
+}
+.select-item[data-state='checked'] {
+  font-weight: bold;
+}
+.select-item:hover {
+  background: var(--coffee-900);
+}
+.select-item:hover span {
+  color: var(--coffee-100);
+  font-weight: bold;
+}
+.select-separator {
+  margin: 24px;
+}

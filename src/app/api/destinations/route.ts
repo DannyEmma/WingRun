@@ -16,8 +16,8 @@ export async function GET(request: Request) {
   } catch (error) {
     console.log(error)
 
-    return Response.json({ message: error }, { status: 500 })
+    return Response.json({ error, success: false }, { status: 500 })
   }
 
-  return Response.json({ data: destinations }, { status: 200 })
+  return Response.json({ data: destinations, success: true }, { status: 200 })
 }
