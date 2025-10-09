@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 48px;
+  margin-bottom: 32px;
+}
+
+.title {
+  font-family: var(--font-oswald);
+  font-size: 24px;
+  background: var(--coffee-900);
+  color: var(--coffee-200);
+  text-transform: uppercase;
+  padding: 0px 16px;
+  width: fit-content;
+}

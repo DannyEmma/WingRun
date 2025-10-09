@@ -1,0 +1,12 @@
+.breadcrumb {
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: capitalize;
+  padding: 24px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.breadcrumb a {
+  color: var(--coffee-800);
+}

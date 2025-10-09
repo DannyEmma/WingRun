@@ -1,0 +1,29 @@
+.title-container {
+  display: flex;
+  flex-direction: column;
+}
+.title-content {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.title {
+  font-family: var(--font-oswald);
+  font-size: 32px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.title-container .description {
+  font-weight: 300;
+}
+.article-number {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--coffee-800);
+}
+
+.sneakers-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 64px;
+}

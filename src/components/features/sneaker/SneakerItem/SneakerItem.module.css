@@ -1,0 +1,32 @@
+.sneaker-item {
+  width: fit-content;
+  cursor: pointer;
+}
+.image-container {
+  position: relative;
+  width: 290px;
+  aspect-ratio: 5/3;
+}
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.brand {
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.name {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--coffee-800);
+  margin-bottom: 4px;
+}
+.price {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--coffee-800);
+}

@@ -1,0 +1,49 @@
+.hero {
+  position: relative;
+  top: -56px;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 64px;
+}
+.hero img {
+  height: 100%;
+  width: auto;
+}
+.hero-content {
+  position: absolute;
+  left: 48px;
+  bottom: 128px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 32px;
+}
+.title-container {
+  height: 140px;
+  text-transform: capitalize;
+  font-family: var(--font-oswald);
+  background: rgba(255, 255, 255, 0.3);
+  padding: 0 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+.brand {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: var(--coffee-400);
+  font-size: 36px;
+  line-height: 36px;
+}
+.fullname {
+  font-weight: 600;
+  font-size: 64px;
+  color: var(--coffee-100);
+  line-height: 64px;
+  text-align: center;
+}

@@ -1,0 +1,48 @@
+.drop-down-menu {
+  position: relative;
+  z-index: 100;
+}
+.trigger {
+  display: flex;
+  align-items: baseline;
+  width: fit-content;
+  gap: 12px;
+  padding: 4px 16px;
+  border: 1px solid var(--coffee-900);
+  cursor: pointer;
+}
+.title {
+  font-family: var(--font-oswald);
+  font-size: 16px;
+  font-weight: 500;
+}
+.arrow {
+  transform: rotate(90deg);
+}
+
+.menu-content {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 36px;
+  border: 1px solid var(--coffee-900);
+  background: white;
+  min-width: calc(100% - 2px);
+}
+
+.show {
+  opacity: 1;
+  pointer-events: visible;
+}
+
+.menu-content li > * {
+  width: 100%;
+  text-align: left;
+  padding: 8px 16px;
+}
+.menu-content li > label {
+  display: flex;
+}
+.menu-content li.hovered:hover {
+  background: var(--gray-300);
+}

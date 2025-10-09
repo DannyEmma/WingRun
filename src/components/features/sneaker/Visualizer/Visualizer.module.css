@@ -1,0 +1,46 @@
+.visualizer-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 700;
+  background: black;
+  overflow: auto;
+  --visualizer-margin: 96px;
+}
+.visualizer-image {
+  height: calc(100vh - var(--visualizer-margin));
+  width: auto;
+  cursor: zoom-in;
+  user-select: none;
+}
+.cross-button {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 700;
+  cursor: pointer;
+  transition: all 200ms;
+}
+.cross-button:hover {
+  transform: scale(1.4);
+}
+
+.visualizer-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.prev-button,
+.next-button {
+  color: var(--coffee-100);
+  transition: all 200ms;
+}
+
+.prev-button:hover,
+.next-button:hover {
+  transform: scale(1.4);
+}

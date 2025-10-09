@@ -1,0 +1,28 @@
+.preview {
+  position: relative;
+  width: 100%;
+}
+.preview > .preview-image-container {
+  margin-bottom: 32px;
+}
+.primary-image {
+  width: 100%;
+  height: auto;
+}
+.preview-image-container {
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.preview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+.preview-grid img {
+  width: 100%;
+  height: auto;
+}
+.preview-grid .preview-image-container {
+  flex-basis: calc(50% - (32px / 2));
+}
