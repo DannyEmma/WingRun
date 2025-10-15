@@ -101,11 +101,13 @@ export default function FilterBar() {
             </Button>
           </div>
         )}
+
+        <p className={styles['article-number']}>240 articles</p>
       </div>
 
       {/* //---------- SORTS ----------// */}
       <div className={styles['sort-container']}>
-        <p>Trier par:</p>
+        <p className={styles['sort-label']}>Trier par :</p>
         <DropDownMenu title={activeSort} data={sortsItems} insideEventHandler={{ setState: setActiveSort, eventNameAttribut: 'onClick' }} isHovered />
       </div>
     </div>

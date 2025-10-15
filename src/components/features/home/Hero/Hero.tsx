@@ -5,7 +5,7 @@ import Button from '@/components/ui/Button/Button'
 export default function Hero() {
   return (
     <div className={styles['hero']}>
-      <Image src="/images/hero/hero3.jpg" alt="hero image" width={3000} height={2000} />
+      <Image src="/images/hero/hero.webp" alt="hero image" width={2000} height={680} />
 
       <div className={styles['hero-content']}>
         <div className={styles['title-container']}>

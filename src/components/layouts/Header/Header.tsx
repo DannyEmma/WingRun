@@ -7,19 +7,20 @@ import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 
 interface HeaderProps {
-  theme?: 'light' | 'dark' | 'transparent'
+  theme: 'light' | 'dark' | 'transparent'
 }
 
-export default function Header({ theme = 'light' }: HeaderProps) {
+export default function Header({ theme }: HeaderProps) {
   const session = useUserStore((state) => state.session)
   const pathname = usePathname()
   const [currentTheme, setCurrentTheme] = useState(pathname === '/' ? 'transparent' : theme)
 
   //---------- EVENTS HANDLERS ----------//
-  const handleScroll = () => (window.scrollY > 0 ? setCurrentTheme('light') : setCurrentTheme('transparent'))
+  const handleScroll = () => (window.scrollY > 0 ? setCurrentTheme('dark') : setCurrentTheme('transparent'))
 
   //---------- USE EFFECT ----------//
   //-- Use to change theme depending pathname or scroll event --
+  //-- When reloading page, the theme is set on the RootLayout --
   useEffect(() => {
     if (pathname === '/') {
       setCurrentTheme('transparent')
@@ -27,7 +28,7 @@ export default function Header({ theme = 'light' }: HeaderProps) {
       //-- Animate header on scroll, only on the home page --
       document.addEventListener('scroll', handleScroll)
     } else {
-      setCurrentTheme('light')
+      setCurrentTheme('dark')
     }
 
     return () => document.removeEventListener('scroll', handleScroll)

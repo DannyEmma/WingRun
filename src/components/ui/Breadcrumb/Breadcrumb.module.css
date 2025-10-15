@@ -1,7 +1,7 @@
 .breadcrumb {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 400;
-  text-transform: capitalize;
+  text-transform: uppercase;
   padding: 24px 0;
   display: flex;
   align-items: center;

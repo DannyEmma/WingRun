@@ -4,7 +4,7 @@ import SneakersSlider from '@/components/features/sneaker/SneakersSlider/Sneaker
 import Hero from '@/components/features/home/Hero/Hero'
 
 export default async function HomePage() {
-  const sneakers = Array(6).fill({
+  const sneakers = Array(10).fill({
     id: 1234,
     brand: 'Jordan',
     line: 'Air Jordan',
@@ -19,11 +19,11 @@ export default async function HomePage() {
     <>
       <EmailVerificationToast />
       <Hero />
-      <main>
+      <main className={styles['main']}>
         <div className={styles['sneakers-slider-container']}>
           <SneakersSlider title="Meilleurs ventes" sneakers={sneakers} />
-          <SneakersSlider title="Nouveautés" sneakers={sneakers} />
-          <SneakersSlider title="Populaire" sneakers={sneakers} />
+          {/* <SneakersSlider title="Nouveautés" sneakers={sneakers} />
+          <SneakersSlider title="Populaire" sneakers={sneakers} /> */}
         </div>
       </main>
     </>

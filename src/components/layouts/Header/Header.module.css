@@ -89,6 +89,11 @@
   --theme-color: var(--coffee-900);
   --theme-secondary-color: var(--coffee-100);
 }
+.header.dark {
+  --background: var(--coffee-900);
+  --theme-color: var(--coffee-100);
+  --theme-secondary-color: var(--coffee-900);
+}
 .header.transparent {
   --background: transparent;
   --theme-color: var(--coffee-100);

@@ -1,3 +1,6 @@
+/* .sneakers-slider-container {
+  margin-right: -48px;
+} */
 .header {
   display: flex;
   justify-content: space-between;
@@ -13,4 +16,11 @@
   text-transform: uppercase;
   padding: 0px 16px;
   width: fit-content;
+}
+.swiper {
+  padding: 0 48px !important;
+  max-height: 305px;
+}
+.hide-slider {
+  visibility: hidden;
 }

@@ -19,7 +19,7 @@ export default function SneakerItem({ sneaker, className }: SneakerItemProps) {
     <div className={`${styles['sneaker-item']} ${className}`}>
       <Link href={path.toLowerCase()}>
         <div className={styles['image-container']}>
-          <Image src="/pictures/jordan/air-jordan-4.webp" alt="Sneaker item" fill />
+          <Image src="/images/jordan/air-jordan-4.webp" alt="Sneaker item" fill />
         </div>
         <div className={styles.description}>
           <p className={styles.brand}>{sneaker.brand}</p>

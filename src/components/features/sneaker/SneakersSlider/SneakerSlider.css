@@ -1,8 +1,5 @@
-.sneakers-slider-container {
-  margin: 0 -48px;
-}
-.sneakers-slider-container:hover .swiper-button-next,
-.sneakers-slider-container:hover .swiper-button-prev {
+.swiper-slider-container:hover .swiper-button-next,
+.swiper-slider-container:hover .swiper-button-prev {
   opacity: 1;
 }
 /* ---------- SWIPER JS ---------- */

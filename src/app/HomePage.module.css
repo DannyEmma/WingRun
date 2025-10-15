@@ -3,3 +3,6 @@
   flex-direction: column;
   gap: 128px;
 }
+.main {
+  padding: 0;
+}

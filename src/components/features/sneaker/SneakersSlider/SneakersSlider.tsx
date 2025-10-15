@@ -1,7 +1,7 @@
 'use client'
 
 import styles from './SneakersSlider.module.css'
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Swiper from 'swiper'
 import { Navigation } from 'swiper/modules'
 import 'swiper/css'
@@ -14,10 +14,13 @@ import SneakerItem from '@/components/features/sneaker/SneakerItem/SneakerItem'
 import Button from '@/components/ui/Button/Button'
 
 export default function SneakersSlider({ title, sneakers }: { title: string; sneakers: any[] }) {
+  // const swiperRef = useRef(null)
+  const [showSlider, setShowSlider] = useState(false)
+
   useEffect(() => {
     const swiper = new Swiper('.swiper', {
-      slidesPerView: 'auto',
-      spaceBetween: 48,
+      slidesPerView: 5.5,
+      spaceBetween: 32,
       // Navigation arrows
       navigation: {
         nextEl: '.swiper-button-next',
@@ -25,22 +28,28 @@ export default function SneakersSlider({ title, sneakers }: { title: string; sne
       },
       // configure Swiper to use modules
       modules: [Navigation],
+      on: {
+        init() {
+          setShowSlider(true)
+        },
+      },
     })
   }, [])
 
   return (
-    <div className={'sneakers-slider-container'}>
+    <div className="swiper-slider-container">
       <div className={styles.header}>
         <h2 className={styles.title}>{title}</h2>
         <Button variant="link">Voir tout</Button>
       </div>
-      {/* <!-- Slider main container --> */}
-      <div className="swiper">
-        {/* <!-- Additional required wrapper --> */}
+
+      <div className={`${'swiper'} ${styles.swiper} ${!showSlider && styles['hide-slider']}`}>
         <div className="swiper-wrapper">
-          {/* <!-- Slides --> */}
+          {/* //-- Slides -- */}
           {sneakers.map((sneaker, index) => (
-            <SneakerItem key={index} sneaker={sneaker} className="swiper-slide" />
+            <div key={index} className={`${'swiper-slide'}`}>
+              <SneakerItem sneaker={sneaker} />
+            </div>
           ))}
         </div>
 

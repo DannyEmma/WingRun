@@ -18,16 +18,15 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 
   return (
     <main className={styles['category-page']}>
-      <Breadcrumb />
-
       {/* //---------- TITLE  ----------// */}
       <div className={styles['title-container']}>
         <div className={styles['title-content']}>
           <h1 className={styles['title']}>{category}</h1>
-          <p className={styles['article-number']}>(240 articles)</p>
         </div>
         <p className={styles['description']}>Découvrez la collection de sneakers pour homme chez WingRun.</p>
       </div>
+
+      <Breadcrumb />
 
       {/* //---------- FILTER BAR ----------// */}
       <FilterBar />

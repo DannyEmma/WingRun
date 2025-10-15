@@ -10,6 +10,7 @@ import SessionInitializer from '@/components/providers/SessionInitializer/Sessio
 import Header from '@/components/layouts/Header/Header'
 import Footer from '@/components/layouts/Footer/Footer'
 import ResetScrollTop from '@/components/layouts/ResetScrollTop/ResetScrollTop'
+import { cookies } from 'next/headers'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -30,6 +31,8 @@ interface RootLayoutProps {
 
 export default async function RootLayout({ children }: RootLayoutProps) {
   const headersList = await headers()
+  const pathname = headersList.get('x-pathname') //-- The x-pathname is set in middleware file --
+  const headerTheme = pathname === '/' ? 'transparent' : 'dark' //-- Use to change theme when page is reload --
 
   const session = (
     await auth.api.getSession({
@@ -62,7 +65,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         {/* //-- Use to reset scroll when page change -- */}
         <ResetScrollTop />
 
-        <Header />
+        <Header theme={headerTheme as 'dark' | 'light' | 'transparent'} />
         {children}
         <Footer />
       </body>
