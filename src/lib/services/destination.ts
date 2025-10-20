@@ -20,7 +20,7 @@ const DestinationService = {
       const groupBy = Object.groupBy(destinations, (destination: Destination) => destination.group)
       destinationsPerGroup = Object.entries(groupBy) as DestinationPerGroup
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
 
     return destinationsPerGroup

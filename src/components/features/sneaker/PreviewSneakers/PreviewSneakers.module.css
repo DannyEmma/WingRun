@@ -12,6 +12,7 @@
 .preview-image-container {
   overflow: hidden;
   cursor: pointer;
+  background: var(--coffee-900-015);
 }
 
 .preview-grid {

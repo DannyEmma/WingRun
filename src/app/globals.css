@@ -50,6 +50,9 @@
   --coffee-800: #686155;
   --coffee-900: #514e49;
 
+  /* -- Opacity - Coffee -- */
+  --coffee-900-015: hsla(38, 5%, 30%, 0.15);
+
   /* -- Gray -- */
 
   --gray-100: #f5f5f5;

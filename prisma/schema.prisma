@@ -91,3 +91,23 @@ model Destination {
   code_iso String
   Address  Address[]
 }
+
+enum Audience {
+  MEN
+  WOMEN
+  KIDS
+}
+
+model Product {
+  id       Int      @id @default(autoincrement())
+  brand    String
+  line     String
+  model    String
+  edition  String?
+  colorway String
+  year     String
+  price    Int
+  image    String
+  visuals  String[]
+  audience Audience
+}

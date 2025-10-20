@@ -7,19 +7,20 @@ interface SneakerItemProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export default function SneakerItem({ sneaker, className }: SneakerItemProps) {
-  const variant = sneaker.variant ? sneaker.variant : ''
-  const name = sneaker.line + ' ' + sneaker.model + ' ' + variant
-  const price = sneaker.price_cents / 100
+  const edition = sneaker.edition ? sneaker.edition : ''
+  const name = sneaker.line + ' ' + sneaker.model + ' ' + edition
+  const price = sneaker.price / 100
   const displayPrice = price.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })
   const colorway = '"' + sneaker.colorway + '"'
-  const slug = `${sneaker.line}-${sneaker.model}-${variant !== '' ? variant + '-' : ''}${sneaker.colorway}-${sneaker.id}`
+  const slug = `${sneaker.line}-${sneaker.model}-${edition !== '' ? edition + '-' : ''}${sneaker.colorway}-${sneaker.id}`
   const path = `/${sneaker.brand}/${slug.replaceAll(' ', '-')}`
+  const imageSrc = '/images/products/' + sneaker.image
 
   return (
     <div className={`${styles['sneaker-item']} ${className}`}>
       <Link href={path.toLowerCase()}>
         <div className={styles['image-container']}>
-          <Image src="/images/jordan/air-jordan-4.webp" alt="Sneaker item" fill />
+          <Image src={imageSrc} alt="Sneaker item" fill />
         </div>
         <div className={styles.description}>
           <p className={styles.brand}>{sneaker.brand}</p>

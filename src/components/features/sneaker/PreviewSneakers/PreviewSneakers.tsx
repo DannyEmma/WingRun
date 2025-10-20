@@ -7,15 +7,13 @@ import { useEffect, useState } from 'react'
 
 export default function PreviewSneakers() {
   const images = [
-    '/images/jordan/1.jpg',
-    '/images/jordan/2.jpg',
-    '/images/jordan/3.jpg',
-    '/images/jordan/4.jpg',
-    '/images/jordan/5.jpg',
-    '/images/jordan/6.jpg',
-    '/images/jordan/7.jpg',
-    '/images/jordan/8.jpg',
-    '/images/jordan/9.jpg',
+    '/images/products/jordan/air-jordan-4/standard/fear/visuals/1.webp',
+    '/images/products/jordan/air-jordan-4/standard/fear/visuals/2.webp',
+    '/images/products/jordan/air-jordan-4/standard/fear/visuals/3.webp',
+    '/images/products/jordan/air-jordan-4/standard/fear/visuals/4.webp',
+    '/images/products/jordan/air-jordan-4/standard/fear/visuals/5.webp',
+    '/images/products/jordan/air-jordan-4/standard/fear/visuals/6.webp',
+    '/images/products/jordan/air-jordan-4/standard/fear/visuals/7.webp',
   ]
 
   const [showVisualizer, setShowVisualizer] = useState(false)

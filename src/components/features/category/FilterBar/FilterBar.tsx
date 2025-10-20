@@ -17,7 +17,7 @@ const data = {
   sorts: ['Prix croissant', 'Prix décroissant'],
 }
 
-export default function FilterBar() {
+export default function FilterBar({ nbProduct }: { nbProduct: number }) {
   const [activeFilters, setActiveFilters] = useState<string[]>([])
   const [activeSort, setActiveSort] = useState<string>(data.sorts[0])
 
@@ -102,7 +102,7 @@ export default function FilterBar() {
           </div>
         )}
 
-        <p className={styles['article-number']}>240 articles</p>
+        <p className={styles['article-number']}>{nbProduct + ' produits'}</p>
       </div>
 
       {/* //---------- SORTS ----------// */}
