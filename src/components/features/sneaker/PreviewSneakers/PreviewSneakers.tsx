@@ -4,18 +4,13 @@ import Image from 'next/image'
 import styles from './PreviewSneakers.module.css'
 import Visualizer from '@/components/features/sneaker/Visualizer/Visualizer'
 import { useEffect, useState } from 'react'
+import { BASE_URL_PRODUCT_IMAGE } from '@/lib/constants'
 
-export default function PreviewSneakers() {
-  const images = [
-    '/images/products/jordan/air-jordan-4/standard/fear/visuals/1.webp',
-    '/images/products/jordan/air-jordan-4/standard/fear/visuals/2.webp',
-    '/images/products/jordan/air-jordan-4/standard/fear/visuals/3.webp',
-    '/images/products/jordan/air-jordan-4/standard/fear/visuals/4.webp',
-    '/images/products/jordan/air-jordan-4/standard/fear/visuals/5.webp',
-    '/images/products/jordan/air-jordan-4/standard/fear/visuals/6.webp',
-    '/images/products/jordan/air-jordan-4/standard/fear/visuals/7.webp',
-  ]
+interface PreviewSneakersProps {
+  images: string[]
+}
 
+export default function PreviewSneakers({ images }: PreviewSneakersProps) {
   const [showVisualizer, setShowVisualizer] = useState(false)
   const [startIndex, setStartIndex] = useState(0)
   //---------- EVENTS HANDLERS ----------//
@@ -41,15 +36,18 @@ export default function PreviewSneakers() {
       {showVisualizer && <Visualizer images={images} start={startIndex} setShowVisualizer={setShowVisualizer} />}
       <div className={styles['preview']}>
         <div className={styles['preview-image-container']}>
-          <Image onClick={() => handleVisualizer(0)} className={styles['primary-image']} src={images[0]} width={2424} height={1885} alt="Preview Image" />
+          <Image onClick={() => handleVisualizer(0)} className={styles['primary-image']} src={BASE_URL_PRODUCT_IMAGE + images[0]} width={2424} height={1885} alt="Preview Image" />
         </div>
 
         <div className={styles['preview-grid']}>
-          {images.map((src, index) => (
-            <div key={index} className={styles['preview-image-container']}>
-              <Image onClick={() => handleVisualizer(index)} src={src} width={2424} height={1885} alt="Preview Image" />
-            </div>
-          ))}
+          {images.map((src, index) => {
+            if (index !== 0)
+              return (
+                <div key={index} className={styles['preview-image-container']}>
+                  <Image onClick={() => handleVisualizer(index)} src={BASE_URL_PRODUCT_IMAGE + src} width={2424} height={1885} alt="Preview Image" />
+                </div>
+              )
+          })}
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import styles from './Visualizer.module.css'
 import Image from 'next/image'
+import { BASE_URL_PRODUCT_IMAGE } from '@/lib/constants'
 
 interface VisualizerProps {
   images: string[]
@@ -20,8 +21,6 @@ export default function Visualizer({ images, start, setShowVisualizer }: Visuali
   const [swiper, setSwiper] = useState<Swiper | null>(null)
 
   const handleZoom = (swiper: Swiper) => {
-    console.log('---------------- handleZoom -----------------')
-
     const visualizer = visualizerRef.current
     const currentSlide = swiper?.slides[swiper?.activeIndex].querySelector('img')
 
@@ -81,7 +80,14 @@ export default function Visualizer({ images, start, setShowVisualizer }: Visuali
         <div className="swiper-wrapper">
           {images.map((src, index) => (
             <div key={index} className={`swiper-slide ${styles['visualizer-image-container']}`}>
-              <Image onClick={() => setZoomIn((prev) => !prev)} className={styles['visualizer-image']} src={src} width={2424} height={1885} alt="Preview Image" />
+              <Image
+                onClick={() => setZoomIn((prev) => !prev)}
+                className={styles['visualizer-image']}
+                src={BASE_URL_PRODUCT_IMAGE + src}
+                width={2424}
+                height={1885}
+                alt="Preview Image"
+              />
             </div>
           ))}
         </div>

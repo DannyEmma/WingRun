@@ -3,41 +3,57 @@ import styles from './ProductPage.module.css'
 import Breadcrumb from '@/components/ui/Breadcrumb/Breadcrumb'
 import Image from 'next/image'
 import PreviewSneakers from '@/components/features/sneaker/PreviewSneakers/PreviewSneakers'
+import ProductService from '@/lib/services/product'
+import { Audience } from '@prisma/client'
+import { BreadcrumbItem } from '@/lib/types'
 
-export default async function ProductPage({ params }: { params: Promise<{ category: string; slug: string }> }) {
-  const { category, slug } = await params
-
-  const sneaker = {
-    id: 1234,
-    brand: 'Jordan',
-    line: 'Air Jordan',
-    model: '4',
-    variant: null,
-    colorway: 'Cave Stone',
-    year: null,
-    price_cents: 20000,
-  }
+export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   const sizes = Array(11).fill(42)
+  const splits = slug.split('-')
+  const id = splits[splits.length - 1]
+  const { data: product } = await ProductService.getProductById(parseInt(id))
+  let displayName = ''
+  let displayBrand = ''
+  let breadcrumbItems: BreadcrumbItem[] = []
 
-  const fullname = `${sneaker.line} ${sneaker.model} ${sneaker.variant ? sneaker.variant : ''} ${sneaker.colorway}`
-  const price = sneaker.price_cents / 100
+  const audiencesToLabel = { [Audience.MEN]: 'Hommes', [Audience.WOMEN]: 'Femmes', [Audience.KIDS]: 'Enfants' }
+
+  if (product) {
+    //-- Display name --
+    if (product.line) displayName += product.line + ' '
+    if (product.model) displayName += product.model + ' '
+    if (product.edition) displayName += product.edition + ' '
+    if (product.colorway) displayName += product.colorway + ' '
+
+    //-- Display brand --
+    if (product.brand) displayBrand += product.brand
+
+    const audienceLabel = audiencesToLabel[product.audience]
+
+    breadcrumbItems = [
+      { label: 'WingRun', url: '/' },
+      { label: audienceLabel, url: '/' + audienceLabel.toLowerCase() },
+      { label: displayName, url: null },
+    ]
+  }
+
+  const price = (product?.price ?? 0) / 100
   const displayPrice = price.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })
 
   return (
     <main className={styles['article-page']}>
-      <Breadcrumb category={category} slug={slug} />
+      <Breadcrumb items={breadcrumbItems} />
 
       <div className={styles['article-container']}>
         {/* //---------- PREVIEW CONTAINER ----------// */}
-        <div className={styles['preview-container']}>
-          <PreviewSneakers />
-        </div>
+        <div className={styles['preview-container']}>{product?.visuals && <PreviewSneakers images={product.visuals} />}</div>
 
         {/* //---------- BUY BOX CONTAINER ----------// */}
         <div className={styles['buy-box-container']}>
           <div className={styles['buy-box-header']}>
-            <p className={styles['brand']}>{sneaker.brand}</p>
-            <p className={styles['fullname']}>{fullname}</p>
+            <p className={styles['brand']}>{displayBrand}</p>
+            <p className={styles['fullname']}>{displayName}</p>
             <p className={styles['price']}>{displayPrice}</p>
           </div>
 

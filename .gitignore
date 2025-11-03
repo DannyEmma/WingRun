@@ -42,4 +42,5 @@ next-env.d.ts
 
 /src/generated/prisma
 
-paper-press.ts
+#bdd backup
+/bdd_backup

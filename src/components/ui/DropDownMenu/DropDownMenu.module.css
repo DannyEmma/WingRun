@@ -43,6 +43,7 @@
 }
 .menu-content li > label {
   display: flex;
+  width: max-content;
 }
 .menu-content li.hovered:hover {
   background: var(--gray-300);

@@ -1,113 +1,143 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean
-  image         String?
-  createdAt     DateTime
-  updatedAt     DateTime
-  sessions      Session[]
-  accounts      Account[]
-  addresses     Address[]
-
-  @@unique([email])
-}
-
-model Session {
-  id        String   @id
-  expiresAt DateTime
-  token     String
-  createdAt DateTime
-  updatedAt DateTime
-  ipAddress String?
-  userAgent String?
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([token])
-}
-
-model Account {
-  id                    String    @id
-  accountId             String
-  providerId            String
-  userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken           String?
-  refreshToken          String?
-  idToken               String?
-  accessTokenExpiresAt  DateTime?
-  refreshTokenExpiresAt DateTime?
-  scope                 String?
-  password              String?
-  createdAt             DateTime
-  updatedAt             DateTime
-}
-
-model Verification {
-  id         String    @id
-  identifier String
-  value      String
-  expiresAt  DateTime
-  createdAt  DateTime?
-  updatedAt  DateTime?
-}
-
-model Address {
-  id            Int         @id @default(autoincrement())
-  firstname     String
-  lastname      String
-  address       String
-  address_2     String?
-  city          String
-  cp            String
-  phone         String
-  isDefault     Boolean
-  userId        String
-  destinationId Int
-  destination   Destination @relation(fields: [destinationId], references: [id])
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-enum DestinationGroup {
-  METROPOLE
-  DOM
-}
-
-model Destination {
-  id       Int              @id @default(autoincrement())
-  name     String
-  group    DestinationGroup
-  actif    Boolean
-  code_iso String
-  Address  Address[]
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 enum Audience {
-  MEN
-  WOMEN
-  KIDS
+    MEN
+    WOMEN
+    KIDS
+}
+
+enum Brand {
+    ADIDAS
+    ASICS
+    JORDAN
+    NIKE
+    NEW_BALANCE
+}
+
+enum DestinationGroup {
+    METROPOLE
+    DOM
+}
+
+model Account {
+    id                    String    @id
+    accountId             String
+    providerId            String
+    userId                String
+    accessToken           String?
+    refreshToken          String?
+    idToken               String?
+    accessTokenExpiresAt  DateTime?
+    refreshTokenExpiresAt DateTime?
+    scope                 String?
+    password              String?
+    createdAt             DateTime
+    updatedAt             DateTime
+    User                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Session {
+    id        String   @id
+    expiresAt DateTime
+    token     String   @unique
+    createdAt DateTime
+    updatedAt DateTime
+    ipAddress String?
+    userAgent String?
+    userId    String
+    User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Verification {
+    id         String    @id
+    identifier String
+    value      String
+    expiresAt  DateTime
+    createdAt  DateTime?
+    updatedAt  DateTime?
+}
+
+model User {
+    id            String    @id
+    name          String
+    email         String    @unique
+    emailVerified Boolean
+    image         String?
+    createdAt     DateTime
+    updatedAt     DateTime
+    Account       Account[]
+    Address       Address[]
+    Session       Session[]
+}
+
+model Address {
+    id            Int         @id @default(autoincrement())
+    firstname     String
+    lastname      String
+    address       String
+    address_2     String?
+    city          String
+    cp            String
+    phone         String
+    isDefault     Boolean
+    userId        String
+    destinationId Int
+    Destination   Destination @relation(fields: [destinationId], references: [id])
+    User          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Destination {
+    id       Int              @id @default(autoincrement())
+    name     String
+    group    DestinationGroup
+    actif    Boolean
+    code_iso String
+    Address  Address[]
 }
 
 model Product {
-  id       Int      @id @default(autoincrement())
-  brand    String
-  line     String
-  model    String
-  edition  String?
-  colorway String
-  year     String
-  price    Int
-  image    String
-  visuals  String[]
-  audience Audience
+    id            Int           @id @default(autoincrement())
+    brand         Brand?
+    line          String
+    model         String
+    colorway      String
+    year          String
+    price         Int
+    image         String
+    visuals       String[]
+    edition       String?
+    audience      Audience
+    colorFilter   ColorFilter?  @relation(fields: [colorFilterId], references: [id])
+    colorFilterId Int?
+    sizes         ProductSize[]
+}
+
+model ColorFilter {
+    id       Int       @id @default(autoincrement())
+    name     String
+    color    String
+    products Product[]
+}
+
+model Size {
+    id       Int           @id @default(autoincrement())
+    size     String
+    audience Audience
+    products ProductSize[]
+}
+
+model ProductSize {
+    id        Int     @id @default(autoincrement())
+    productId Int
+    sizeId    Int
+    stock     Int
+    product   Product @relation(fields: [productId], references: [id])
+    size      Size    @relation(fields: [sizeId], references: [id])
 }
