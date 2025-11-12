@@ -5,7 +5,7 @@ import PriceRange from '@/components/features/category/PriceRange/PriceRange'
 import Button from '@/components/ui/Button/Button'
 import DropDownMenu from '@/components/ui/DropDownMenu/DropDownMenu'
 import { Filter, Sort } from '@/lib/types'
-import { Brand, ColorFilter } from '@prisma/client'
+import { ColorFilter } from '@prisma/client'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -21,6 +21,7 @@ interface FilterBarProps {
   colorsFilter: ColorFilter[]
   pricesRange: number[]
   sizesList: string[]
+  brandList: string[]
 }
 
 const sortData: Sort[] = [
@@ -28,7 +29,7 @@ const sortData: Sort[] = [
   { value: 'desc', name: 'Prix décroissant' },
 ]
 
-export default function FilterBar({ totalProducts, colorsFilter, pricesRange, sizesList }: FilterBarProps) {
+export default function FilterBar({ totalProducts, colorsFilter, pricesRange, sizesList, brandList }: FilterBarProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
@@ -39,7 +40,16 @@ export default function FilterBar({ totalProducts, colorsFilter, pricesRange, si
   const [activeSort, setActiveSort] = useState<Sort | null>(null)
 
   //---------- METHODS ----------//
-  const removeAllUrlFilter = () => router.push(pathname)
+  const removeAllUrlFilter = () => {
+    const newURL = new URLSearchParams(searchParams.toString())
+    newURL.delete('brands')
+    newURL.delete('sizes')
+    newURL.delete('colors')
+    newURL.delete('priceRange')
+
+    //-- Update the new url --
+    router.push(pathname + '?' + newURL.toString())
+  }
 
   const addUrlParamSort = (sort: Sort) => {
     //-- Prepare the new url --
@@ -94,7 +104,12 @@ export default function FilterBar({ totalProducts, colorsFilter, pricesRange, si
   //---------- RENDERED DATA ----------//
   const renderFilterItem = (filter: Filter) => (
     <label className={styles['item-filter']}>
-      <input type="checkbox" onChange={(e) => handleToggleFilter(e, filter)} checked={activeFilters.some((f) => f.value === filter.value)} />
+      <input
+        className={`${styles['checkbox-item-filter']} ${styles['dark-checkmark']}`}
+        type="checkbox"
+        onChange={(e) => handleToggleFilter(e, filter)}
+        checked={activeFilters.some((f) => f.value === filter.value)}
+      />
       <p className={styles.filter}>{filter.displayName}</p>
     </label>
   )
@@ -115,12 +130,14 @@ export default function FilterBar({ totalProducts, colorsFilter, pricesRange, si
     <label>
       <div className={styles['colorway-item']}>
         <input
+          className={`${styles['checkbox-item-filter']} ${['blanc', 'jaune', 'orange', 'rose', 'beige'].includes(filter.displayName) ? styles['dark-checkmark'] : styles['light-checkmark']}`}
           type="checkbox"
           onChange={(e) => handleToggleFilter(e, filter)}
           data-filter={JSON.stringify(filter)}
           checked={activeFilters.some((activeFilter) => activeFilter.value === filter.value)}
+          style={{ background: filter.value }}
         />
-        <div className={styles['colorway-indicator']} style={{ background: filter.value }}></div>
+        {/* <div className={styles['colorway-indicator']} style={{background: filter.value }}></div> */}
         <p className={styles.filter}>{filter.displayName}</p>
       </div>
     </label>
@@ -141,7 +158,8 @@ export default function FilterBar({ totalProducts, colorsFilter, pricesRange, si
   useEffect(() => {
     //-- Init filters data here else UUID cause hydratation problem --
     setFiltersData({
-      brands: Object.values(Brand).map((brand) => ({ type: 'brands', value: brand, displayName: brand.replace('_', ' ').toLowerCase() })),
+      brands: brandList.map((brand) => ({ type: 'brands', value: brand, displayName: brand.replace('_', ' ').toLowerCase() })),
+      // brands: Object.values(Brand).map((brand) => ({ type: 'brands', value: brand, displayName: brand.replace('_', ' ').toLowerCase() })),
       sizes: sizesList.map((size) => ({ type: 'sizes', value: size, displayName: size })),
       colors: colorsFilter.map((colorFilter) => ({ type: 'colors', value: colorFilter.color, displayName: colorFilter.name })),
       priceRange: pricesRange.map((priceRange) => ({ type: 'priceRange', value: priceRange.toString(), displayName: priceRange.toString() })),

@@ -14,7 +14,6 @@ import SneakerItem from '@/components/features/sneaker/SneakerItem/SneakerItem'
 import Button from '@/components/ui/Button/Button'
 
 export default function SneakersSlider({ title, sneakers }: { title: string; sneakers: any[] }) {
-  // const swiperRef = useRef(null)
   const [showSlider, setShowSlider] = useState(false)
 
   useEffect(() => {
@@ -26,7 +25,7 @@ export default function SneakersSlider({ title, sneakers }: { title: string; sne
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
-      // configure Swiper to use modules
+      // Configure Swiper to use modules
       modules: [Navigation],
       on: {
         init() {

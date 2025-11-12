@@ -6,8 +6,10 @@ const SizeService = {
     let sizes: string[] = []
 
     try {
-      const result = await prisma.size.findMany({ select: { size: true }, where: { audience } })
-      sizes = result.map((r) => r.size)
+      if (audience) {
+        const result = await prisma.size.findMany({ select: { size: true }, where: { audience } })
+        sizes = result.map((r) => r.size)
+      }
     } catch (error) {
       return { data: sizes, error }
     }

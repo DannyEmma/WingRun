@@ -10,7 +10,7 @@
   align-items: center;
   padding: 16px 48px;
   background: var(--background);
-  z-index: 700;
+  z-index: 200;
   transition: all 200ms;
 }
 .header nav {
@@ -18,7 +18,8 @@
   justify-content: space-between;
   width: 100%;
 }
-.header ul {
+.links,
+.icons {
   display: flex;
   align-items: center;
   gap: 24px;
@@ -42,6 +43,9 @@
 
 .search-icon path {
   fill: var(--theme-color);
+}
+.search-button {
+  cursor: pointer;
 }
 .account-icon path {
   fill: var(--theme-color);

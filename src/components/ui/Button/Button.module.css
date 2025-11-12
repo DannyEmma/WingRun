@@ -2,7 +2,7 @@
   font-family: var(--font-oswald);
   font-weight: 500;
   cursor: pointer;
-  padding: 12px 24px;
+  padding: 8px 24px;
   font-size: var(--font-16);
   text-transform: uppercase;
   width: 100%;
@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 24px;
+  padding: 8px 24px;
   gap: 8px;
 }
 .cta-secondary {

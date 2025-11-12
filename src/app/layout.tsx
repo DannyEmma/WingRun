@@ -10,7 +10,7 @@ import SessionInitializer from '@/components/providers/SessionInitializer/Sessio
 import Header from '@/components/layouts/Header/Header'
 import Footer from '@/components/layouts/Footer/Footer'
 import ResetScrollTop from '@/components/layouts/ResetScrollTop/ResetScrollTop'
-import { cookies } from 'next/headers'
+import BrandService from '@/lib/services/brand'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -40,6 +40,8 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     })
   )?.session
 
+  const brands = (await BrandService.getAllBrand()).data
+
   return (
     <html lang="fr" className={`${roboto.className} ${oswald.variable} `}>
       <body>
@@ -65,8 +67,10 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         {/* //-- Use to reset scroll when page change -- */}
         <ResetScrollTop />
 
-        <Header theme={headerTheme as 'dark' | 'light' | 'transparent'} />
+        <Header theme={headerTheme as 'dark' | 'light' | 'transparent'} brands={brands} />
+
         {children}
+
         <Footer />
       </body>
     </html>

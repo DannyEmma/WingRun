@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import styles from './PreviewSneakers.module.css'
+// import VisualizerTemp from '@/components/features/sneaker/VisualizerTemp/Visualizer'
 import Visualizer from '@/components/features/sneaker/Visualizer/Visualizer'
 import { useEffect, useState } from 'react'
 import { BASE_URL_PRODUCT_IMAGE } from '@/lib/constants'

@@ -1,0 +1,92 @@
+.search-bar {
+  position: fixed;
+  top: -100%;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  transition: top 300ms;
+}
+.open {
+  top: 0;
+}
+.container {
+  width: 70%;
+  margin: 0 auto;
+}
+.search-container {
+  background: var(--gray-100);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 50px;
+  padding: 0 12px;
+  margin: 24px 0;
+}
+.search-input {
+  height: 100%;
+  flex: 1;
+  padding: 0 8px;
+  outline: none;
+  font-size: 16px;
+}
+.search-icon,
+.close-icon {
+  cursor: pointer;
+}
+.separator {
+  position: absolute;
+  left: 0;
+  height: 2px;
+  background: var(--gray-200);
+  width: 100vw;
+}
+
+.menu {
+  display: flex;
+  margin-top: calc(48px + 24px);
+}
+.left-section {
+  width: 30%;
+  height: 800px;
+}
+.brands-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.brand-item button {
+  text-transform: uppercase;
+}
+.left-section-title,
+.right-section-title {
+  font-family: var(--font-oswald);
+  text-transform: uppercase;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+.left-section-title {
+  margin-bottom: 24px;
+}
+.right-section-title {
+  margin-bottom: 24px;
+}
+
+.right-section {
+  width: 70%;
+}
+
+.sneakers-grid {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 32px;
+}
+
+.sneaker-container {
+  width: 50%;
+}
+.see-more-result-button-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 48px;
+}

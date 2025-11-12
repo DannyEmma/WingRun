@@ -1,5 +1,6 @@
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
+    previewFeatures = ["fullTextSearchPostgres"]
 }
 
 datasource db {
@@ -11,14 +12,6 @@ enum Audience {
     MEN
     WOMEN
     KIDS
-}
-
-enum Brand {
-    ADIDAS
-    ASICS
-    JORDAN
-    NIKE
-    NEW_BALANCE
 }
 
 enum DestinationGroup {
@@ -104,12 +97,12 @@ model Destination {
 
 model Product {
     id            Int           @id @default(autoincrement())
-    brand         Brand?
     line          String
     model         String
     colorway      String
     year          String
     price         Int
+    description   String
     image         String
     visuals       String[]
     edition       String?
@@ -117,6 +110,14 @@ model Product {
     colorFilter   ColorFilter?  @relation(fields: [colorFilterId], references: [id])
     colorFilterId Int?
     sizes         ProductSize[]
+    brand         Brand?        @relation(fields: [brandId], references: [id])
+    brandId       Int?
+}
+
+model Brand {
+    id       Int       @id @default(autoincrement())
+    name     String
+    products Product[]
 }
 
 model ColorFilter {

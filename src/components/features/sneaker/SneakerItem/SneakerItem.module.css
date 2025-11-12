@@ -7,12 +7,14 @@
   width: 100%;
   aspect-ratio: 5/3;
 }
+
 .description {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
 .brand {
   font-size: 20px;
   font-weight: bold;
@@ -24,12 +26,28 @@
   font-weight: 400;
   color: var(--coffee-800);
   margin-bottom: 4px;
-  text-align: center;
   text-transform: capitalize;
   line-height: 24px;
+  text-align: center;
+}
+.search-variant .name {
+  text-align: start;
 }
 .price {
   font-size: 20px;
   font-weight: 500;
   color: var(--coffee-800);
+}
+
+/* //----------- VARIANT: SEARCH ----------// */
+.search-variant {
+  display: flex;
+  gap: 24px;
+}
+.search-variant .image-container {
+  width: 30%;
+}
+.search-variant .description {
+  align-items: flex-start;
+  width: 70%;
 }

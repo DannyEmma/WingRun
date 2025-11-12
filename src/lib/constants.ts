@@ -1,5 +1,7 @@
 export const PRODUCTS_PER_PAGE = 32
 
+export const PRODUCTS_PER_SEARCH = 8
+
 export const BASE_URL_PRODUCT_IMAGE = '/images/products/'
 
 export const PASSWORD_MIN_LENGTH: number = 8
