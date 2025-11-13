@@ -8,6 +8,10 @@
 .primary-image {
   width: 100%;
   height: auto;
+  user-select: none;
+}
+.image {
+  user-select: none;
 }
 .preview-image-container {
   overflow: hidden;

@@ -7,6 +7,7 @@
   align-items: center;
   gap: 8px;
 }
-.breadcrumb a {
+.link {
   color: var(--coffee-800);
+  text-decoration: underline;
 }

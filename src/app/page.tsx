@@ -7,12 +7,14 @@ export default async function HomePage() {
   const sneakers = Array(10).fill({
     id: 1234,
     brand: { name: 'Jordan' },
+    audience: 'MEN',
     line: 'Air Jordan',
     model: '4',
     variant: null,
-    colorway: 'Cave Stone',
+    colorway: 'Fear',
     year: null,
-    price_cents: 20000,
+    price: 18900,
+    image: '7f1c2879-8ce6-432c-871f-a0fc821ae402.webp',
   })
 
   return (

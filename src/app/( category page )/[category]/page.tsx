@@ -38,7 +38,7 @@ export default async function CategoryPage({ params, searchParams }: { params: P
 
   const breadcrumbItems: BreadcrumbItem[] = [
     { label: 'WingRun', url: '/' },
-    { label: category, url: '/' + category },
+    { label: category, url: null },
   ]
 
   return (
