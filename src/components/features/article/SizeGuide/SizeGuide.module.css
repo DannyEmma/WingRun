@@ -69,7 +69,6 @@
 }
 .tabs-content {
   flex: 1;
-  /* height: calc(100% - 87px); */
   overflow: auto;
 }
 .tabs-root[data-orientation='vertical'] .tabs-list {
@@ -81,11 +80,9 @@
   font-size: 16px;
   font-weight: bold;
   height: 40px;
+  cursor: pointer;
 }
-/* .tabs-trigger:hover {
-  background: var(--coffee-900);
-  color: var(--coffee-100);
-} */
+
 .tabs-trigger[data-state='active'] {
   background: var(--coffee-900);
   color: var(--coffee-100);

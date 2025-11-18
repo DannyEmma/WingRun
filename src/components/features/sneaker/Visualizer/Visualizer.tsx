@@ -67,7 +67,7 @@ export default function Visualizer({ images, initialSlide, setShowVisualizer }: 
               }}
               onClick={handleZoom}
               className={styles['image']}
-              src={BASE_URL_PRODUCT_IMAGE + src}
+              src={BASE_URL_PRODUCT_IMAGE + '/' + src}
               alt="Preview Image"
               fill
             />

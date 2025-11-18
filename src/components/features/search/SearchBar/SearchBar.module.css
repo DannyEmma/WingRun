@@ -57,6 +57,7 @@
 }
 .brand-item button {
   text-transform: uppercase;
+  cursor: pointer;
 }
 .left-section-title,
 .right-section-title {

@@ -133,7 +133,7 @@ export default function SearchBar({ close, brands }: SearchBarProps) {
             {searchProducts.products.length ? (
               <div className={styles['sneakers-grid']}>
                 {searchProducts.products.map((sneaker, index) => (
-                  <div key={index} className={styles['sneaker-container']}>
+                  <div key={index} onClick={handleClose} className={styles['sneaker-container']}>
                     <SneakerItem variant="search" sneaker={sneaker} highlight={highlight} />
                   </div>
                 ))}

@@ -53,6 +53,7 @@ export default async function SearchResultsPage({ searchParams }: { searchParams
 
   const breadcrumbItems: BreadcrumbItem[] = [
     { label: 'WingRun', url: '/' },
+    { label: categoryParam, url: '/collections/' + categoryParam },
     { label: `Résultats pour "${query}"`, url: null },
   ]
 

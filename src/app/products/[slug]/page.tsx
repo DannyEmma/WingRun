@@ -10,14 +10,18 @@ import { categoryToAudience } from '@/utils/category'
 import SizeService from '@/lib/services/size'
 import SizeGuide from '@/components/features/article/SizeGuide/SizeGuide'
 
-export default async function ProductPage({ params }: { params: Promise<{ category: string; slug: string }> }) {
-  const { category, slug } = await params
-  const audience = categoryToAudience[category]
-  const sizes = (await SizeService.getSizesByAudience(audience)).data
+export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+
   const splits = slug.split('-')
   const productId = parseInt(splits[splits.length - 1])
   const product = (await ProductService.getProductById(productId)).data
   const sizesStock = (await ProductService.getSizesStock(productId)).data
+
+  const audience = product?.audience
+
+  const sizes = audience ? (await SizeService.getSizesByAudience(audience)).data : []
+
   let displayName = ''
   let breadcrumbItems: BreadcrumbItem[] = []
 
@@ -30,14 +34,11 @@ export default async function ProductPage({ params }: { params: Promise<{ catego
     if (product.edition) displayName += product.edition + ' '
     if (product.colorway) displayName += product.colorway + ' '
 
-    //-- Display brand --
-    // if (product.brand) displayBrand += product.brand
-
     const audienceLabel = audiencesToLabel[product.audience]
 
     breadcrumbItems = [
       { label: 'WingRun', url: '/' },
-      { label: audienceLabel, url: '/' + audienceLabel.toLowerCase() },
+      { label: audienceLabel, url: '/collections/' + audienceLabel.toLowerCase() },
       { label: displayName, url: null },
     ]
   }

@@ -37,7 +37,14 @@ export default function PreviewSneakers({ images }: PreviewSneakersProps) {
       {showVisualizer && <Visualizer images={images} initialSlide={startIndex} setShowVisualizer={setShowVisualizer} />}
       <div className={styles['preview']}>
         <div className={styles['preview-image-container']}>
-          <Image onClick={() => handleVisualizer(0)} className={styles['primary-image']} src={BASE_URL_PRODUCT_IMAGE + images[0]} width={2424} height={1885} alt="Preview Image" />
+          <Image
+            onClick={() => handleVisualizer(0)}
+            className={styles['primary-image']}
+            src={BASE_URL_PRODUCT_IMAGE + '/' + images[0]}
+            width={2424}
+            height={1885}
+            alt="Preview Image"
+          />
         </div>
 
         <div className={styles['preview-grid']}>
@@ -45,7 +52,14 @@ export default function PreviewSneakers({ images }: PreviewSneakersProps) {
             if (index !== 0)
               return (
                 <div key={index} className={styles['preview-image-container']}>
-                  <Image onClick={() => handleVisualizer(index)} className={styles['image']} src={BASE_URL_PRODUCT_IMAGE + src} width={2424} height={1885} alt="Preview Image" />
+                  <Image
+                    onClick={() => handleVisualizer(index)}
+                    className={styles['image']}
+                    src={BASE_URL_PRODUCT_IMAGE + '/' + src}
+                    width={2424}
+                    height={1885}
+                    alt="Preview Image"
+                  />
                 </div>
               )
           })}

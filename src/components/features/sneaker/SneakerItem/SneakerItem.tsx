@@ -3,10 +3,12 @@ import styles from './SneakerItem.module.css'
 import Image from 'next/image'
 import { audienceToCategory } from '@/utils/audience'
 import { Audience } from '@prisma/client'
+import { ProductWithBrand } from '@/lib/types/product'
+import { BASE_URL_PRODUCT_IMAGE } from '@/lib/constants'
 
 interface SneakerItemProps {
   variant?: 'standard' | 'search'
-  sneaker: any
+  sneaker: ProductWithBrand
   category?: string
   highlight?: (text: string) => React.JSX.Element | string
   searchQuery?: string
@@ -31,13 +33,13 @@ export default function SneakerItem({ variant = 'standard', sneaker, category, h
   if (sneaker.colorway) slug += sneaker.colorway + '-'
   slug += sneaker.id
 
-  const path = `/${category}/products/${slug.replaceAll(' ', '-')}`
-  const imageSrc = '/images/products/' + sneaker.image
+  const path = `/products/${slug.replaceAll(' ', '-')}`
+  const imageSrc = BASE_URL_PRODUCT_IMAGE + '/' + sneaker.image
 
   //---------- VARIANT: "search" ----------//
   if (variant === 'search') {
-    const category = audienceToCategory[sneaker.audience as Audience]
-    const path = `/${category}/products/${slug.replaceAll(' ', '-')}`
+    // const category = audienceToCategory[sneaker.audience as Audience]
+    const path = `/products/${slug.replaceAll(' ', '-')}`
 
     return (
       <Link href={path.toLowerCase()}>

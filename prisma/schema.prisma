@@ -11,12 +11,21 @@ datasource db {
 enum Audience {
     MEN
     WOMEN
+    BOY
+    GIRL
     KIDS
 }
 
 enum DestinationGroup {
     METROPOLE
     DOM
+}
+
+enum ProductTag {
+    BEST_SELLER
+    OUR_PICK
+    NEW_ARRIVAL
+    POPULAR
 }
 
 model Account {
@@ -110,8 +119,9 @@ model Product {
     colorFilter   ColorFilter?  @relation(fields: [colorFilterId], references: [id])
     colorFilterId Int?
     sizes         ProductSize[]
-    brand         Brand?        @relation(fields: [brandId], references: [id])
-    brandId       Int?
+    brand         Brand         @relation(fields: [brandId], references: [id])
+    brandId       Int
+    tags          ProductTag[]
 }
 
 model Brand {

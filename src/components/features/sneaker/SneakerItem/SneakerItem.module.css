@@ -1,6 +1,7 @@
 .sneaker-item {
   width: 100%;
   cursor: pointer;
+  user-select: none;
 }
 .image-container {
   position: relative;

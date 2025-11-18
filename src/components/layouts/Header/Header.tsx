@@ -112,16 +112,16 @@ export default function Header({ theme, brands }: HeaderProps) {
       <nav>
         <ul className={styles['links']}>
           <li>
-            <Link href="/nouveautes">nouveautés</Link>
+            <Link href="/collections/nouveautes">nouveautés</Link>
           </li>
           <li>
-            <Link href="/hommes">hommes</Link>
+            <Link href="/collections/hommes">hommes</Link>
           </li>
           <li>
-            <Link href="/femmes">femmes</Link>
+            <Link href="/collections/femmes">femmes</Link>
           </li>
           <li>
-            <Link href="/enfants">enfants</Link>
+            <Link href="/collections/enfants">enfants</Link>
           </li>
         </ul>
 

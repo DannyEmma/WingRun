@@ -1,7 +1,8 @@
-import { PRODUCTS_PER_PAGE, PRODUCTS_PER_SEARCH } from '@/lib/constants'
+import { MAX_SLIDER_PRODUCTS, PRODUCTS_PER_PAGE, PRODUCTS_PER_SEARCH } from '@/lib/constants'
 import prisma from '@/lib/prisma'
-import { Sort } from '@/lib/types'
-import { Audience, Brand } from '@prisma/client'
+import { Product } from '@/lib/types'
+import { ProductWithBrand } from '@/lib/types/product'
+import { Audience, ProductTag } from '@prisma/client'
 
 const ProductService = {
   getProductById: async (id: number) => {
@@ -258,6 +259,27 @@ const ProductService = {
     }
 
     return { data: productsSearchPerPage }
+  },
+  getSliderProductsWithBrandByTag: async (tag: ProductTag) => {
+    let result: Record<'data', ProductWithBrand[]> = { data: [] }
+
+    try {
+      result.data = await prisma.product.findMany({
+        where: {
+          tags: {
+            has: tag,
+          },
+        },
+        include: {
+          brand: true,
+        },
+        take: MAX_SLIDER_PRODUCTS,
+      })
+    } catch (error) {
+      return { ...result, error }
+    }
+
+    return result
   },
 }
 
