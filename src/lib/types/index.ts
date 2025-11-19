@@ -19,7 +19,7 @@ export type { Brand } from './brand'
 export type BreadcrumbItem = { label: string; url: string | null }
 
 //-- Filter --
-export type Filter = { type: 'brands' | 'colors' | 'sizes' | 'priceRange' | 'sort'; value: string; displayName: string }
+export type Filter = { type: 'brands' | 'colors' | 'sizes' | 'priceRange' | 'adults' | 'kids'; value: string; displayName: string }
 
 //-- Sort --
 export type Sort = { name: 'Prix croissant'; value: 'asc' } | { name: 'Prix décroissant'; value: 'desc' }

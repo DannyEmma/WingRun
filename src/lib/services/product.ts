@@ -20,13 +20,13 @@ const ProductService = {
   getProductsPerPageByAudience: async ({
     skip,
     take,
-    audience,
+    audiences,
     filters,
     sort,
   }: {
     skip: number
     take: number
-    audience: Audience
+    audiences: Audience[]
     filters: Record<string, any[] | null>
     sort: string
   }) => {
@@ -34,12 +34,12 @@ const ProductService = {
     let paginationInfos = { totalPages: 0, totalProducts: 0 }
 
     try {
-      if (audience) {
+      if (audiences.length) {
         productsPerPage = await prisma.product.findMany({
           skip,
           take,
           where: {
-            audience: audience,
+            audience: { in: audiences },
             ...(filters.brands?.length && { brand: { name: { in: filters.brands } } }),
             ...(filters.colors?.length && { colorFilter: { color: { in: filters.colors } } }),
             ...(filters.sizes?.length && { sizes: { some: { size: { size: { in: filters.sizes } }, stock: { not: 0 } } } }),
@@ -54,7 +54,7 @@ const ProductService = {
         paginationInfos.totalProducts = (
           await prisma.product.aggregate({
             where: {
-              audience: audience,
+              audience: { in: audiences },
               ...(filters.brands?.length && { brand: { name: { in: filters.brands } } }),
               ...(filters.colors?.length && { colorFilter: { color: { in: filters.colors } } }),
               ...(filters.sizes?.length && { sizes: { some: { size: { size: { in: filters.sizes } }, stock: { not: 0 } } } }),
@@ -73,12 +73,12 @@ const ProductService = {
 
     return { data: productsPerPage, pagination: paginationInfos }
   },
-  getPriceRangeByAudience: async (audience: Audience) => {
+  getPriceRangeByAudience: async (audiences: Audience[]) => {
     let [min, max] = [0, 0]
 
     try {
-      if (audience) {
-        const result = await prisma.product.aggregate({ _min: { price: true }, _max: { price: true }, where: { audience } })
+      if (audiences.length) {
+        const result = await prisma.product.aggregate({ _min: { price: true }, _max: { price: true }, where: { audience: { in: audiences } } })
         min = result._min.price ? result._min.price / 100 : NaN
         max = result._max.price ? result._max.price / 100 : NaN
       }

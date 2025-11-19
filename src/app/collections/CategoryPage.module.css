@@ -1,4 +1,11 @@
 .title-container {
+  background: var(--gray-100);
+  padding: 32px calc(48px + 24px);
+  margin-left: -48px;
+  margin-right: -48px;
+  margin-bottom: 24px;
+}
+/* .title-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,7 +13,7 @@
   padding: 64px calc(48px + 24px);
   margin-left: -48px;
   margin-right: -48px;
-}
+} */
 .title-content {
   display: flex;
   align-items: baseline;
@@ -17,11 +24,12 @@
   font-size: 32px;
   font-weight: 500;
   text-transform: uppercase;
-  color: var(--coffee-100);
 }
-.title-container .description {
+.title small {
+  font-size: 14px;
+}
+.description {
   font-weight: 300;
-  color: var(--coffee-100);
 }
 
 .sneakers-grid {

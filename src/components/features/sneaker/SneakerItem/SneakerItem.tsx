@@ -9,12 +9,11 @@ import { BASE_URL_PRODUCT_IMAGE } from '@/lib/constants'
 interface SneakerItemProps {
   variant?: 'standard' | 'search'
   sneaker: ProductWithBrand
-  category?: string
   highlight?: (text: string) => React.JSX.Element | string
   searchQuery?: string
 }
 
-export default function SneakerItem({ variant = 'standard', sneaker, category, highlight }: SneakerItemProps) {
+export default function SneakerItem({ variant = 'standard', sneaker, highlight }: SneakerItemProps) {
   const price = sneaker.price / 100
   const displayPrice = price.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })
 

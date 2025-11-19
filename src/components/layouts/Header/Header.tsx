@@ -115,13 +115,13 @@ export default function Header({ theme, brands }: HeaderProps) {
             <Link href="/collections/nouveautes">nouveautés</Link>
           </li>
           <li>
-            <Link href="/collections/hommes">hommes</Link>
+            <Link href="/collections?adults=MEN">hommes</Link>
           </li>
           <li>
-            <Link href="/collections/femmes">femmes</Link>
+            <Link href="/collections?adults=WOMEN">femmes</Link>
           </li>
           <li>
-            <Link href="/collections/enfants">enfants</Link>
+            <Link href="/collections?kids=BOY,GIRL">enfants</Link>
           </li>
         </ul>
 

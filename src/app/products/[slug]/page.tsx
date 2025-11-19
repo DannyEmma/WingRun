@@ -20,12 +20,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   const audience = product?.audience
 
-  const sizes = audience ? (await SizeService.getSizesByAudience(audience)).data : []
+  const sizes = audience ? (await SizeService.getSizesByAudience([audience])).data : []
 
   let displayName = ''
   let breadcrumbItems: BreadcrumbItem[] = []
 
-  const audiencesToLabel = { [Audience.MEN]: 'Hommes', [Audience.WOMEN]: 'Femmes', [Audience.KIDS]: 'Enfants' }
+  const audiencesToLabel = { [Audience.MEN]: 'Hommes', [Audience.WOMEN]: 'Femmes', [Audience.BOY]: 'Garçon', [Audience.GIRL]: 'Fille' }
 
   if (product) {
     //-- Display name --
@@ -34,7 +34,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     if (product.edition) displayName += product.edition + ' '
     if (product.colorway) displayName += product.colorway + ' '
 
-    const audienceLabel = audiencesToLabel[product.audience]
+    const audienceLabel = audiencesToLabel[product.audience as keyof typeof audiencesToLabel]
 
     breadcrumbItems = [
       { label: 'WingRun', url: '/' },
