@@ -1,5 +1,7 @@
 //---------- ZOD TYPE ----------//
 
+import { Audience } from '@prisma/client'
+
 //-- Address --
 export type { Address, CreateAddress } from './address'
 
@@ -23,3 +25,9 @@ export type Filter = { type: 'brands' | 'colors' | 'sizes' | 'priceRange' | 'adu
 
 //-- Sort --
 export type Sort = { name: 'Prix croissant'; value: 'asc' } | { name: 'Prix décroissant'; value: 'desc' }
+
+//-- Adult --
+export type Adult = typeof Audience.MEN | typeof Audience.WOMEN
+
+//-- Kid --
+export type Kid = typeof Audience.BOY | typeof Audience.GIRL

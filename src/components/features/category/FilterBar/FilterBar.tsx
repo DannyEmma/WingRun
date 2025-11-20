@@ -38,7 +38,7 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
   //---------- STATE ----------//
   const [filtersData, setFiltersData] = useState<FiltersData>({ brands: [], sizes: [], colors: [], priceRange: [], adults: [], kids: [] })
   const [activeFilters, setActiveFilters] = useState<Filter[]>([])
-  const [activeSort, setActiveSort] = useState<Sort | null>(null)
+  const [activeSort, setActiveSort] = useState<Sort>({ name: 'Prix croissant', value: 'asc' })
 
   //---------- METHODS ----------//
   const removeAllUrlFilter = () => {
@@ -213,6 +213,16 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
 
   //----------  On Mount ----------//
   useEffect(() => {
+    //-- Use to clean sizesList, in fact sizesList contains list of men sizes and women sizes --
+    // Remove duplicate value
+    sizesList = sizesList.reduce((noDuplicateArray: string[], value) => {
+      if (!noDuplicateArray.includes(value)) noDuplicateArray.push(value)
+      return noDuplicateArray
+    }, [])
+
+    // Sort in ascending order
+    sizesList = sizesList.sort()
+
     //-- Init filters data here else UUID cause hydratation problem --
     setFiltersData({
       brands: brandList.map((brand) => ({ type: 'brands', value: brand, displayName: brand.replace('_', ' ').toLowerCase() })),
@@ -222,7 +232,7 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
       adults: [Audience.MEN, Audience.WOMEN].map((audience) => ({ type: 'adults', value: audience, displayName: audience === Audience.MEN ? 'Homme' : 'Femme' })),
       kids: [Audience.BOY, Audience.GIRL].map((audience) => ({ type: 'kids', value: audience, displayName: audience === Audience.BOY ? 'Garçon' : 'Fille' })),
     })
-  }, [])
+  }, [brandList, sizesList, colorsFilter, pricesRange])
 
   //-- Synchronisation between params filters and active filters state --
   useEffect(() => {
@@ -236,13 +246,18 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
     const kidsActiveFilters: Filter[] = kidsParams.map((kids) => ({ type: 'kids', value: kids, displayName: kids }))
 
     //-- Active sort --
-    const activeSort: Sort = searchParams.get('sort') === 'asc' ? { name: 'Prix croissant', value: 'asc' } : { name: 'Prix décroissant', value: 'desc' }
+    const activeSort = (): Sort => {
+      //-- Default value --
+      if (!searchParams.get('sort')) return { name: 'Prix croissant', value: 'asc' }
+
+      return searchParams.get('sort') === 'asc' ? { name: 'Prix croissant', value: 'asc' } : { name: 'Prix décroissant', value: 'desc' }
+    }
 
     //-- Update the active filters --
     setActiveFilters([...brandsActiveFilters, ...sizesActiveFilters, ...colorsActiveFilters, ...adultsActiveFilters, ...kidsActiveFilters])
 
     //-- Update the active sort --
-    setActiveSort(activeSort)
+    setActiveSort(activeSort())
   }, [searchParams])
 
   return (
@@ -276,7 +291,7 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
       {/* //---------- SORTS ----------// */}
       <div className={styles['sort-container']}>
         <p className={styles['sort-label']}>Trier par :</p>
-        <DropDownMenu title={activeSort?.name ?? sortData[0].name} data={sortData.map(renderSortItem)} isHovered />
+        <DropDownMenu title={activeSort.name} data={sortData.map(renderSortItem)} isHovered />
       </div>
     </div>
   )

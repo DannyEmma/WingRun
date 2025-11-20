@@ -3,14 +3,14 @@ import Breadcrumb from '@/components/ui/Breadcrumb/Breadcrumb'
 import SneakerItem from '@/components/features/sneaker/SneakerItem/SneakerItem'
 import FilterBar from '@/components/features/category/FilterBar/FilterBar'
 import ProductService from '@/lib/services/product'
-import { BreadcrumbItem } from '@/lib/types'
+import { Adult, BreadcrumbItem, Kid } from '@/lib/types'
 import PaginationRounded from '@/components/features/category/PaginationRounded/PaginationRounded'
 import { PRODUCTS_PER_PAGE } from '@/lib/constants'
 import ColorFilterService from '@/lib/services/colorFilter'
 import SizeService from '@/lib/services/size'
-import { categoryToAudience } from '@/utils/category'
 import BrandService from '@/lib/services/brand'
 import { Audience } from '@prisma/client'
+import { displayAudience } from '@/utils/audience'
 
 export default async function CategoryPage({ searchParams }: { searchParams: Record<string, string> }) {
   const {
@@ -26,6 +26,7 @@ export default async function CategoryPage({ searchParams }: { searchParams: Rec
 
   const audiencesParam = adultsParam ? adultsParam : kidsParam
   const audiences: Audience[] = audiencesParam.split(',').filter((value): value is Audience => value !== '' && Object.values(Audience).includes(value as Audience))
+  // const audiences: Adult[] | Kid[] = audiencesParam.split(',').filter((value) => value !== '' && Object.values(Audience).includes(value as Audience))
 
   const colorsFilter = (await ColorFilterService.getColorsFilter()).data
   const pricesRange = (await ProductService.getPriceRangeByAudience(audiences)).data
@@ -49,45 +50,18 @@ export default async function CategoryPage({ searchParams }: { searchParams: Rec
 
   const breadcrumbItems: BreadcrumbItem[] = [
     { label: 'WingRun', url: '/' },
-    // { label: category, url: null },
+    // { label: displayAudience(audiences), url: null },
   ]
-
-  //-- Display subtitle "Adultes" OU "Hommes" OU "Femme" OU "Enfants OU "Fille" OU "Garçon"--
-  const displaySubtitle = () => {
-    const isAdult = audiences.some((value) => value === Audience.MEN || value === Audience.WOMEN)
-    const isKids = audiences.some((value) => value === Audience.BOY || value === Audience.GIRL)
-
-    console.log('audiences', audiences)
-    console.log('isAdult', isAdult)
-    console.log('isKids', isKids)
-
-    if (isAdult) {
-      if (audiences.length === 2) return 'pour adultes'
-
-      return audiences[0] === Audience.MEN ? 'pour hommes' : 'pour femmes'
-    }
-    if (isKids) {
-      if (audiences.length === 2) return 'pour enfants'
-
-      return audiences[0] === Audience.BOY ? 'pour garçons' : 'pour filles'
-    }
-  }
 
   return (
     <main className={styles['category-page']}>
-      {/* //---------- TITLE  ----------// */}
-      {/* <div className={styles['title-container']}>
-        <div className={styles['title-content']}>
-        </div>
-        <p className={styles['description']}>Découvrez la collection de sneakers pour homme chez WingRun.</p>
-      </div> */}
-
       <Breadcrumb items={breadcrumbItems} />
+
       <div className={styles['title-container']}>
         <h1 className={styles['title']}>
           Sneakers <small>({totalProducts})</small>
         </h1>
-        <p className={styles['description']}>Découvrez la collection de sneakers {displaySubtitle()} chez WingRun.</p>
+        {/* <p className={styles['description']}>Découvrez la collection de sneakers {displayAudience()} chez WingRun.</p> */}
       </div>
 
       {/* //---------- FILTER BAR ----------// */}

@@ -38,7 +38,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
     breadcrumbItems = [
       { label: 'WingRun', url: '/' },
-      { label: audienceLabel, url: '/collections/' + audienceLabel.toLowerCase() },
+      { label: audienceLabel, url: '/collections' + audienceLabel.toLowerCase() },
       { label: displayName, url: null },
     ]
   }
