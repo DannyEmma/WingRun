@@ -9,7 +9,7 @@ const ProductService = {
     let product = null
 
     try {
-      product = await prisma.product.findUnique({ where: { id }, include: { brand: true } })
+      product = await prisma.product.findUnique({ where: { id }, include: { brand: true, colorFilter: true } })
     } catch (error) {
       return { data: null, error }
     }

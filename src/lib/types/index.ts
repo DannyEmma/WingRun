@@ -12,7 +12,10 @@ export type { Destination, DestinationGroup, DestinationPerGroup } from './desti
 export type { User, UserWithAddresses } from './user'
 
 //-- Product --
-export type { Product } from './product'
+export type { Product, ProductCart } from './product'
+
+//-- Shopping Cart --
+export type { CartItem } from './shopping-cart'
 
 //-- Brand --
 export type { Brand } from './brand'

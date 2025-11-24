@@ -8,7 +8,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export default function Button({ variant, fit, children, ...props }: ButtonProps) {
   return (
-    <button className={`${variant !== 'link' && styles.cta} ${styles[variant]} ${fit && styles['cta-fit']}`} {...props}>
+    <button className={`${variant !== 'link' ? styles.cta : ''} ${styles[variant]} ${fit ? styles['cta-fit'] : ''}`} {...props}>
       {children}
     </button>
   )

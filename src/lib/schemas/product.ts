@@ -1,4 +1,5 @@
 import { BrandSchema } from '@/lib/schemas/brand'
+import { ColorFilterSchema } from '@/lib/schemas/color-filter'
 import { Audience, ProductTag } from '@prisma/client'
 import z from 'zod'
 
@@ -22,3 +23,12 @@ export const ProductSchema = z.object({
 export const ProductWithBrandSchema = ProductSchema.extend({
   brand: BrandSchema,
 })
+
+export const ProductCartSchema = ProductWithBrandSchema.omit({
+  description: true,
+  visuals: true,
+  brandId: true,
+  colorFilterId: true,
+  tags: true,
+  audience: true,
+}).extend({ colorFilter: ColorFilterSchema })

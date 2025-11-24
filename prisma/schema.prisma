@@ -116,8 +116,8 @@ model Product {
     visuals       String[]
     edition       String?
     audience      Audience
-    colorFilter   ColorFilter?  @relation(fields: [colorFilterId], references: [id])
-    colorFilterId Int?
+    colorFilter   ColorFilter   @relation(fields: [colorFilterId], references: [id])
+    colorFilterId Int
     sizes         ProductSize[]
     brand         Brand         @relation(fields: [brandId], references: [id])
     brandId       Int

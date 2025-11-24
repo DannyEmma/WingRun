@@ -6,6 +6,8 @@ export { AddressSchema, CreateAddressSchema } from './address'
 
 export { UserSchema } from './user'
 
-export { ProductSchema, ProductWithBrandSchema } from './product'
+export { ProductSchema, ProductWithBrandSchema, ProductCartSchema } from './product'
 
 export { BrandSchema } from './brand'
+
+export { ColorFilterSchema } from './color-filter'

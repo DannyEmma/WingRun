@@ -22,3 +22,15 @@ export const displayAudience = (audiences: Adult[] | Kid[]): string => {
 
   return ''
 }
+
+export const audienceToLabel = (audience: Audience): string => {
+  const audiencesToLabel: Record<Audience, string> = {
+    [Audience.MEN]: 'Hommes',
+    [Audience.WOMEN]: 'Femmes',
+    [Audience.BOY]: 'Garçons',
+    [Audience.GIRL]: 'Filles',
+    [Audience.KIDS]: 'Enfants',
+  }
+
+  return audiencesToLabel[audience]
+}
