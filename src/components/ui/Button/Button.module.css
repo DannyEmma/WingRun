@@ -24,13 +24,14 @@
 }
 .cta-secondary {
   border-radius: 4px;
-  border: 1px solid var(--coffee-100);
-  color: var(--coffee-100);
+  border: 1px solid #514e49bd;
+  color: var(--coffee-900);
+  font-size: 15px;
 }
-.cta-secondary:hover {
+/* .cta-secondary:hover {
   color: var(--coffee-900);
   background: var(--coffee-100);
-}
+} */
 .cta-secondary[disabled] {
   opacity: 0.4;
   cursor: not-allowed;

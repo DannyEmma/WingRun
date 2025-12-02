@@ -10,7 +10,7 @@ export const AddressSchema = z.object({
 
   address: z.string().min(1, 'CUSTOM_ADDRESS_REQUIRED').max(100, 'CUSTOM_ADDRESS_TOO_LONG'),
 
-  address_2: z.string().max(100, 'CUSTOM_ADDRESS_2_TOO_LONG').optional(),
+  address_2: z.string().max(100, 'CUSTOM_ADDRESS_2_TOO_LONG').nullable(),
 
   city: z.string().min(1, 'CUSTOM_CITY_REQUIRED').max(80, 'CUSTOM_CITY_TOO_LONG'),
 

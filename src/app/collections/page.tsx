@@ -68,7 +68,7 @@ export default async function CategoryPage({ searchParams }: { searchParams: Rec
       <FilterBar brandList={brandList} colorsFilter={colorsFilter} pricesRange={pricesRange} sizesList={sizesList} />
 
       {/* //----------  SNEAKERS GRID ----------// */}
-      <div className={styles['sneakers-grid']}>{productPerPage && productPerPage.map((product, index) => <SneakerItem key={index} sneaker={product} />)}</div>
+      <div className={styles['sneakers-grid']}>{productPerPage && productPerPage.map((product, index) => <SneakerItem key={index} data={product} />)}</div>
 
       {pages > 1 && <PaginationRounded pages={pages} />}
     </main>

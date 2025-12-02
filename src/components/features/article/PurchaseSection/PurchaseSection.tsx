@@ -4,23 +4,28 @@ import Button from '@/components/ui/Button/Button'
 import styles from './PurchaseSection.module.css'
 import { useShoppingCartStore } from '@/lib/stores/shopping-cart.store'
 import Image from 'next/image'
-import { ProductCart } from '@/lib/types'
+import { ProductCart, Size } from '@/lib/types'
 
 interface PurchaseSection {
   sneaker: ProductCart
-  selectedSize: string
+  selectedSize: Size | null
 }
 
 export default function PurchaseSection({ sneaker, selectedSize }: PurchaseSection) {
   const addIntoShoppingCart = useShoppingCartStore((state) => state.add)
+  const setCartOpen = useShoppingCartStore((state) => state.setCartOpen)
+
+  //---------- EVENTS HANDLERS ----------//
+  const handleAddToCart = () => {
+    if (selectedSize) {
+      addIntoShoppingCart({ id: crypto.randomUUID(), quantity: 1, product: sneaker, size: selectedSize })
+      setCartOpen(true)
+    }
+  }
 
   return (
     <div className={styles['purchase-section']}>
-      <Button
-        onClick={() => addIntoShoppingCart({ id: crypto.randomUUID(), quantity: 1, product: sneaker, size: selectedSize })}
-        variant="cta-primary"
-        disabled={selectedSize === ''}
-      >
+      <Button onClick={handleAddToCart} variant="cta-primary" disabled={!selectedSize}>
         Ajouter au panier
       </Button>
 

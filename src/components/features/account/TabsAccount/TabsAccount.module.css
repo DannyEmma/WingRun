@@ -25,6 +25,7 @@
   text-align: left;
   padding: 26px 0;
   font-family: inherit;
+  cursor: pointer;
 }
 .tabs-trigger[data-state='active'] {
   font-weight: bold;
@@ -76,4 +77,20 @@
 }
 .content {
   margin-top: 32px;
+}
+
+.orders-table {
+  border-collapse: collapse;
+}
+.orders-table thead {
+  background: var(--coffee-900);
+}
+.orders-table th {
+  color: var(--coffee-100);
+  padding: 12px 32px;
+}
+.orders-table td {
+  text-align: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--gray-300);
 }

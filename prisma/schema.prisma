@@ -28,6 +28,12 @@ enum ProductTag {
     POPULAR
 }
 
+enum OrderStatus {
+    PENDING
+    REJECT
+    PAID
+}
+
 model Account {
     id                    String    @id
     accountId             String
@@ -42,7 +48,7 @@ model Account {
     password              String?
     createdAt             DateTime
     updatedAt             DateTime
-    User                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Session {
@@ -54,7 +60,7 @@ model Session {
     ipAddress String?
     userAgent String?
     userId    String
-    User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Verification {
@@ -74,9 +80,10 @@ model User {
     image         String?
     createdAt     DateTime
     updatedAt     DateTime
-    Account       Account[]
-    Address       Address[]
-    Session       Session[]
+    account       Account[]
+    addresses     Address[]
+    session       Session[]
+    orders        Order[]
 }
 
 model Address {
@@ -91,8 +98,8 @@ model Address {
     isDefault     Boolean
     userId        String
     destinationId Int
-    Destination   Destination @relation(fields: [destinationId], references: [id])
-    User          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+    destination   Destination @relation(fields: [destinationId], references: [id])
+    user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Destination {
@@ -101,7 +108,7 @@ model Destination {
     group    DestinationGroup
     actif    Boolean
     code_iso String
-    Address  Address[]
+    address  Address[]
 }
 
 model Product {
@@ -122,6 +129,7 @@ model Product {
     brand         Brand         @relation(fields: [brandId], references: [id])
     brandId       Int
     tags          ProductTag[]
+    orderItems    OrderItem[]
 }
 
 model Brand {
@@ -138,10 +146,11 @@ model ColorFilter {
 }
 
 model Size {
-    id       Int           @id @default(autoincrement())
-    size     String
-    audience Audience
-    products ProductSize[]
+    id         Int           @id @default(autoincrement())
+    size       String
+    audience   Audience
+    products   ProductSize[]
+    orderItems OrderItem[]
 }
 
 model ProductSize {
@@ -151,4 +160,33 @@ model ProductSize {
     stock     Int
     product   Product @relation(fields: [productId], references: [id])
     size      Size    @relation(fields: [sizeId], references: [id])
+}
+
+model Order {
+    id              Int         @id @default(autoincrement())
+    userId          String
+    totalAmountCent Int
+    status          OrderStatus @default(PENDING)
+    stripeSessionId String?     @unique
+    stripePaymentId String?
+    paymentMethod   String?
+    transactionId   String?
+    createdAt       DateTime    @default(now())
+    updatedAt       DateTime    @updatedAt
+
+    items OrderItem[]
+    user  User        @relation(fields: [userId], references: [id])
+}
+
+model OrderItem {
+    id        Int @id @default(autoincrement())
+    productId Int
+    quantity  Int
+    priceCent Int
+    orderId   Int
+    sizeId    Int
+
+    order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+    size    Size    @relation(fields: [sizeId], references: [id])
+    product Product @relation(fields: [productId], references: [id])
 }

@@ -1,0 +1,49 @@
+.country-label {
+  font-weight: 500;
+  font-size: var(--font-12);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.select-trigger {
+  border: 1px solid;
+  height: 50px;
+  width: 100%;
+  margin-top: 0 !important;
+  margin-bottom: 24px !important;
+  border-radius: 4px;
+}
+.select-content {
+  background: white;
+  border: 1px solid;
+  padding: 16px;
+  position: absolute;
+  bottom: 54px;
+  width: 500px;
+  text-align: center;
+  border-radius: 4px;
+}
+.select-group {
+  margin-bottom: 24px;
+}
+.select-label {
+  color: gray;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+.select-item {
+  padding: 6px 0;
+  cursor: pointer;
+}
+.select-item[data-state='checked'] {
+  font-weight: bold;
+}
+.select-item:hover {
+  background: var(--coffee-900);
+}
+.select-item:hover span {
+  color: var(--coffee-100);
+  font-weight: bold;
+}
+.select-separator {
+  margin: 24px;
+}

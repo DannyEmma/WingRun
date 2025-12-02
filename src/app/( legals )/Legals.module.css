@@ -1,0 +1,58 @@
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: 96px;
+}
+
+.title {
+  font-family: var(--font-oswald);
+  font-size: 48px;
+  font-weight: bold;
+  text-transform: capitalize;
+  text-align: center;
+  margin-bottom: 64px;
+}
+.sub-title {
+  display: inline-block;
+  font-size: 20px;
+  color: var(--gray-600);
+  text-transform: none;
+  line-height: 30px;
+}
+.secondary-title {
+  font-family: var(--font-oswald);
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--gray-300);
+  padding: 8px;
+  margin-bottom: 32px;
+}
+
+.section {
+  margin-bottom: 64px;
+}
+
+.list li {
+  margin-bottom: 24px;
+}
+.text {
+  line-height: 38px;
+}
+ol.list {
+  list-style-type: lower-alpha;
+  list-style-position: inside;
+}
+ol.list li {
+  list-style: revert;
+}
+
+.list-disc {
+  list-style: disc;
+}
+.list-disc li {
+  margin-bottom: 24px;
+  list-style: revert;
+  margin-left: 24px;
+  margin-top: 12px;
+}

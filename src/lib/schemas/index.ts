@@ -11,3 +11,5 @@ export { ProductSchema, ProductWithBrandSchema, ProductCartSchema } from './prod
 export { BrandSchema } from './brand'
 
 export { ColorFilterSchema } from './color-filter'
+
+export { SizeSchema } from './size'

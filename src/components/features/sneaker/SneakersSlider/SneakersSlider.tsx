@@ -21,7 +21,7 @@ export default function SneakersSlider({ title, sneakers }: { title: string; sne
       <Swiper className={styles['swiper']} spaceBetween={32} slidesPerView={5.5} slidesPerGroup={5} modules={[Navigation]} navigation>
         {sneakers.map((sneaker, index) => (
           <SwiperSlide key={index}>
-            <SneakerItem sneaker={sneaker} />
+            <SneakerItem data={sneaker} />
           </SwiperSlide>
         ))}
       </Swiper>

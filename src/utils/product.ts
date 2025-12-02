@@ -1,8 +1,15 @@
-export const getFullname = ({ line, model, edition, colorway }: { line: string | null; model: string | null; edition: string | null; colorway: string | null }): string => {
-  const fullnameArray = [line, model, edition, colorway].filter((value) => value !== null)
-  fullnameArray[fullnameArray.length - 1] = `"${colorway}"`
+import { ProductCart, ProductWithBrand } from '@/lib/types/product'
 
-  return fullnameArray.join(' ')
+export const getFullname = (sneaker: ProductWithBrand | ProductCart): string => {
+  const textCapitalize = (text: string) => {
+    return text
+      .split(' ')
+      .filter((value) => value !== '')
+      .map((word) => word.at(0)?.toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ')
+  }
+
+  return `${textCapitalize(sneaker.line ?? '')} ${textCapitalize(sneaker.model ?? '')} ${textCapitalize(sneaker.edition ?? '')} "${textCapitalize(sneaker.colorway ?? '')}"`
 }
 
 export const getIdFromSlug = (slug: string): number => {

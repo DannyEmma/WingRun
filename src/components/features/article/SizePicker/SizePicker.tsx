@@ -3,12 +3,13 @@
 import SizeGuide from '@/components/features/article/SizeGuide/SizeGuide'
 import styles from './SizePicker.module.css'
 import Button from '@/components/ui/Button/Button'
+import { Size } from '@/lib/types'
 
 interface SizePickerProps {
-  sizes: string[]
+  sizes: Size[]
   sizesStock: any[]
-  selectedSize: string
-  setSelectedSize: React.Dispatch<React.SetStateAction<string>>
+  selectedSize: Size | null
+  setSelectedSize: React.Dispatch<React.SetStateAction<Size | null>>
 }
 
 export default function SizePicker({ sizes, sizesStock, selectedSize, setSelectedSize }: SizePickerProps) {
@@ -24,10 +25,10 @@ export default function SizePicker({ sizes, sizesStock, selectedSize, setSelecte
           {sizes.map((size, index) => (
             <div
               key={index}
-              onClick={() => sizesStock.includes(size) && setSelectedSize(size)}
-              className={`${styles['size']} ${!sizesStock.includes(size) && styles['disabled']} ${selectedSize === size && styles['selected']}`}
+              onClick={() => sizesStock.includes(size.size) && setSelectedSize(size)}
+              className={`${styles['size']} ${!sizesStock.includes(size.size) && styles['disabled']} ${selectedSize && selectedSize.size === size.size ? styles['selected'] : ''}`}
             >
-              {size}
+              {size.size}
             </div>
           ))}
         </div>

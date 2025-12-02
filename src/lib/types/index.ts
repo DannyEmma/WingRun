@@ -6,13 +6,16 @@ import { Audience } from '@prisma/client'
 export type { Address, CreateAddress } from './address'
 
 //-- Destination --
-export type { Destination, DestinationGroup, DestinationPerGroup } from './destination'
+export type { Destination, DestinationGroup, DestinationsPerGroup } from './destination'
 
 //-- User --
 export type { User, UserWithAddresses } from './user'
 
 //-- Product --
 export type { Product, ProductCart } from './product'
+
+//-- Product --
+export type { Size } from './size'
 
 //-- Shopping Cart --
 export type { CartItem } from './shopping-cart'

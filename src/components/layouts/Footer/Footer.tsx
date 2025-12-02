@@ -61,9 +61,15 @@ export default function Footer() {
       <div className={styles['copyright-container']}>
         <p className={styles['copyright']}>© WingRun - Tous droits réservés | Projet fictif - non affilié aux marques.</p>
         <ul className={styles['links']}>
-          <li>Mentions légales</li>
-          <li>Politique de confidentialité</li>
-          <li>Conditions générales de vente</li>
+          <li>
+            <Link href="/legal-notices">Mentions légales</Link>
+          </li>
+          <li>
+            <Link href="/privacy-policy">Politique de confidentialité</Link>
+          </li>
+          <li>
+            <Link href="/terms-of-sale">Conditions générales de vente</Link>
+          </li>
         </ul>
       </div>
     </footer>

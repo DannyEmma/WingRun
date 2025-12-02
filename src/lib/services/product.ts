@@ -88,10 +88,10 @@ const ProductService = {
     return { data: [min, max] }
   },
   getSizesStock: async (productId: number) => {
-    let products: any[] = []
+    let sizesStock: string[] = []
 
     try {
-      products = await prisma.productSize.findMany({
+      const result = await prisma.productSize.findMany({
         select: {
           size: {
             select: {
@@ -107,13 +107,13 @@ const ProductService = {
         },
       })
 
-      //-- Reformated products data --//
-      products = products.map((product) => product.size.size)
+      //-- Reformated data to string[] --//
+      sizesStock = result.map((productSize) => productSize.size.size)
     } catch (error) {
-      return { data: products, error }
+      return { data: sizesStock, error }
     }
 
-    return { data: products }
+    return { data: sizesStock }
   },
 
   getSearchProducts: async (audience: Audience, searchQuery: string) => {

@@ -7,18 +7,23 @@ import Logout from '@/components/features/auth/Logout/Logout'
 import Button from '@/components/ui/Button/Button'
 import ListAddresses from '@/components/features/account/ListAddresses/ListAddresses'
 import AdresseForm from '@/components/forms/AddressForm'
-import { Address, DestinationPerGroup, User } from '@/lib/types'
+import { Address, DestinationsPerGroup, User } from '@/lib/types'
+import { useRouter } from 'next/navigation'
+import { getFormattedPrice } from '@/utils/product'
 
 interface TabsAccountProps {
   user: User
-  destinationsPerGroup: DestinationPerGroup
+  destinationsPerGroup: DestinationsPerGroup
   addresses: Address[] | null | undefined
   defaultAddress: Address | null | undefined
+  orders: any[]
+  tab: string
 }
 
-export default function TabsAccount({ user, destinationsPerGroup, addresses: initialAddresses, defaultAddress }: TabsAccountProps) {
+export default function TabsAccount({ user, destinationsPerGroup, addresses: initialAddresses, defaultAddress, orders, tab }: TabsAccountProps) {
+  const router = useRouter()
   const [addresses, setAddresses] = useState<Address[]>(initialAddresses || [])
-  const [tabValue, setTabValue] = useState('tab1')
+  const [tabValue, setTabValue] = useState(tab)
   const [openAddForm, setOpenAddForm] = useState(false)
 
   const isAddressesEmpty = addresses?.length === 0
@@ -26,16 +31,22 @@ export default function TabsAccount({ user, destinationsPerGroup, addresses: ini
   const handleOpenChange = () => setOpenAddForm(!openAddForm)
 
   return (
-    <Tabs.Root value={tabValue} onValueChange={setTabValue} orientation="vertical" className={`${styles.tabs}`}>
-      <Tabs.List className={styles['tabs-list']} aria-label="tabs account">
-        <Tabs.Trigger className={`${styles['tabs-trigger']}`} value="tab1">
+    <Tabs.Root value={tabValue} onValueChange={(value) => router.replace('/account/' + value)} orientation="vertical" className={`${styles.tabs}`}>
+      <Tabs.List className={styles['tabs-list']} aria-label="tabs-account">
+        <Tabs.Trigger className={`${styles['tabs-trigger']}`} value="profil">
           Profil
         </Tabs.Trigger>
 
         <hr />
 
-        <Tabs.Trigger className={`${styles['tabs-trigger']}`} value="tab2">
+        <Tabs.Trigger className={`${styles['tabs-trigger']}`} value="addresses">
           Adresses
+        </Tabs.Trigger>
+
+        <hr />
+
+        <Tabs.Trigger className={`${styles['tabs-trigger']}`} value="orders">
+          Commandes
         </Tabs.Trigger>
 
         <hr />
@@ -43,7 +54,7 @@ export default function TabsAccount({ user, destinationsPerGroup, addresses: ini
         <Logout>Déconnexion</Logout>
       </Tabs.List>
 
-      <Tabs.Content className={styles['tabs-content']} value="tab1">
+      <Tabs.Content className={styles['tabs-content']} value="profil">
         <h1>Vos Informations</h1>
 
         <hr />
@@ -75,12 +86,12 @@ export default function TabsAccount({ user, destinationsPerGroup, addresses: ini
             </div>
           </div>
         )}
-        <Button onClick={() => setTabValue('tab2')} variant="cta-secondary" fit>
+        <Button onClick={() => setTabValue('addresses')} variant="cta-secondary" fit>
           {defaultAddress ? "Changer l'adresse par défaut" : 'Ajouter une adresse par défaut'}
         </Button>
       </Tabs.Content>
 
-      <Tabs.Content className={styles['tabs-content']} value="tab2">
+      <Tabs.Content className={styles['tabs-content']} value="addresses">
         <h1>Vos Adresses</h1>
 
         <hr />
@@ -105,6 +116,35 @@ export default function TabsAccount({ user, destinationsPerGroup, addresses: ini
             />
           </Collapsible.Content>
         </Collapsible.Root>
+      </Tabs.Content>
+
+      <Tabs.Content className={styles['tabs-content']} value="orders">
+        <h1>Vos Commandes ({orders.length})</h1>
+
+        <table className={styles['orders-table']}>
+          <thead>
+            <tr>
+              <th>ID Commande</th>
+              <th>ID Transaction</th>
+              <th>Status de paiement</th>
+              <th>Date</th>
+              <th>Mode de paiement</th>
+              <th>Montant</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order, index) => (
+              <tr key={index}>
+                <td>{order.id}</td>
+                <td>{order.transactionId}</td>
+                <td style={{ color: order.status === 'PAID' ? 'green' : order.status === 'PENDING' ? 'orange' : 'red' }}>{order.status}</td>
+                <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+                <td>{order.paymentMethod}</td>
+                <td>{getFormattedPrice(order.totalAmountCent)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </Tabs.Content>
     </Tabs.Root>
   )

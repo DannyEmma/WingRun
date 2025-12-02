@@ -4,16 +4,16 @@ import PurchaseSection from '@/components/features/article/PurchaseSection/Purch
 import styles from './PurchaseContainer.module.css'
 import SizePicker from '@/components/features/article/SizePicker/SizePicker'
 import { useState } from 'react'
-import { ProductCart } from '@/lib/types'
+import { ProductCart, Size } from '@/lib/types'
 
 interface PurchaseContainer {
-  sizes: string[]
-  sizesStock: any[]
+  sizes: Size[]
+  sizesStock: string[]
   sneaker: ProductCart
 }
 
 export default function PurchaseContainer({ sizes, sizesStock, sneaker }: PurchaseContainer) {
-  const [selectedSize, setSelectedSize] = useState('')
+  const [selectedSize, setSelectedSize] = useState<Size | null>(null)
 
   return (
     <>

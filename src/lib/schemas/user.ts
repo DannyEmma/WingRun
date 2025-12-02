@@ -6,7 +6,7 @@ export const UserSchema = z.object({
   name: z.string(),
   email: z.string(),
   emailVerified: z.boolean(),
-  image: z.string().optional(),
+  image: z.string().nullable(),
   createdAt: z.date(),
   updatedAt: z.date(),
 })

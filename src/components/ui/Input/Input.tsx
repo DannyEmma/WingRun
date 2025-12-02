@@ -1,10 +1,12 @@
+'use client'
+
 import styles from './Input.module.css'
 import ErrorBanner from '@/components/shared/ErrorBanner/ErrorBanner'
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string
   label: string
-  errorCode: string | undefined
+  errorCode?: string | undefined
 }
 
 export default function Input({ label, id, errorCode, ...props }: InputProps) {

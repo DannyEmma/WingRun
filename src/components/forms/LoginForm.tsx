@@ -12,6 +12,7 @@ import { toast } from 'sonner'
 import { redirect } from 'next/navigation'
 import { useUserStore } from '@/lib/stores/user.store'
 import Input from '@/components/ui/Input/Input'
+import UserService from '@/lib/services/user'
 
 export default function LoginForm() {
   const [errorCode, setErrorCode] = useState<string | null>(null)

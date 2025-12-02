@@ -1,0 +1,6 @@
+.shopping-button-title {
+  color: var(--coffee-100);
+}
+.cart-icon path {
+  stroke: var(--coffee-100);
+}

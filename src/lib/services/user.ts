@@ -1,19 +1,26 @@
 import prisma from '@/lib/prisma'
-import { Address, CreateAddress, User } from '@/lib/types'
+import { Address, CreateAddress, UserWithAddresses } from '@/lib/types'
 
 const UserService = {
-  getUser: async (userId: string): Promise<User | null | undefined> => {
+  getUser: async (userId: string): Promise<UserWithAddresses | null> => {
     let user
 
     try {
-      user = (await prisma.user.findUnique({
+      user = await prisma.user.findUnique({
         where: { id: userId },
-      })) as User
+        include: {
+          addresses: {
+            include: {
+              destination: true,
+            },
+          },
+        },
+      })
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
 
-    return user
+    return user ?? null // ?? use to don't have undefined
   },
   getAddresses: async (userId: string): Promise<Address[] | []> => {
     let addresses: Address[] = []
@@ -31,7 +38,7 @@ const UserService = {
         },
       })) as Address[]
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
 
     return addresses

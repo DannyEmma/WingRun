@@ -1,17 +1,17 @@
 import prisma from '@/lib/prisma'
+import { Size } from '@/lib/types'
 import { Audience } from '@prisma/client'
 
 const SizeService = {
   getSizesByAudience: async (audiences: Audience[]) => {
-    let sizes: string[] = []
+    let sizes: Size[] = []
 
     //-- Use because kids sizes is same --
     if (audiences.includes(Audience.BOY) || audiences.includes(Audience.GIRL)) audiences = ['KIDS']
 
     try {
       if (audiences.length) {
-        const result = await prisma.size.findMany({ select: { size: true }, where: { audience: { in: audiences } } })
-        sizes = result.map((r) => r.size)
+        sizes = await prisma.size.findMany({ where: { audience: { in: audiences } } })
       }
     } catch (error) {
       return { data: sizes, error }

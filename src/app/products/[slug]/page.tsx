@@ -23,7 +23,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const audience = product.audience
   const sizesStock = (await ProductService.getSizesStock(productId)).data
   const sizes = audience ? (await SizeService.getSizesByAudience([audience])).data : []
-  const fullname = getFullname({ line: product.line, model: product.model, edition: product.edition, colorway: product.colorway })
+  const fullname = getFullname(product)
   const formattedPrice = getFormattedPrice(product.price)
 
   //-- Breadcrumb --

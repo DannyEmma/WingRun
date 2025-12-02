@@ -1,19 +1,49 @@
 import Link from 'next/link'
 import styles from './SneakerItem.module.css'
 import Image from 'next/image'
-import { audienceToCategory } from '@/utils/audience'
-import { Audience } from '@prisma/client'
 import { ProductWithBrand } from '@/lib/types/product'
 import { BASE_URL_PRODUCT_IMAGE } from '@/lib/constants'
+import { getFullname } from '@/utils/product'
+import { CartItem } from '@/lib/types'
 
 interface SneakerItemProps {
-  variant?: 'standard' | 'search'
-  sneaker: ProductWithBrand
+  variant?: 'standard' | 'search' | 'payment'
+  data: ProductWithBrand | CartItem
   highlight?: (text: string) => React.JSX.Element | string
   searchQuery?: string
 }
 
-export default function SneakerItem({ variant = 'standard', sneaker, highlight }: SneakerItemProps) {
+function isCartItem(data: ProductWithBrand | CartItem): data is CartItem {
+  return 'quantity' in data
+}
+
+export default function SneakerItem({ variant = 'standard', data, highlight }: SneakerItemProps) {
+  //---------- VARIANT: "payment" ----------//
+  if (isCartItem(data)) {
+    const price = data.product.price / 100
+    const displayPrice = price.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })
+    const imageSrc = BASE_URL_PRODUCT_IMAGE + '/' + data.product.image
+
+    return (
+      <div className={`${styles['sneaker-item']} ${styles[variant + '-variant']}`}>
+        <div className={styles['left-part']}>
+          <div className={styles['image-container']} style={{ backgroundImage: `url(${imageSrc})` }}>
+            <div className={styles['quantity-indicator']}>{data.quantity}</div>
+          </div>
+          <div className={styles.description}>
+            <p className={styles.name}>{getFullname(data.product)} </p>
+            {/* <p className={styles.size}>{data.product.colorFilter.name}</p> */}
+            <p className={styles.size}>{data.size}</p>
+          </div>
+        </div>
+        <div className={styles['right-part']}>
+          <p className={styles.price}>{displayPrice}</p>
+        </div>
+      </div>
+    )
+  }
+
+  const sneaker = data
   const price = sneaker.price / 100
   const displayPrice = price.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })
 
@@ -37,7 +67,6 @@ export default function SneakerItem({ variant = 'standard', sneaker, highlight }
 
   //---------- VARIANT: "search" ----------//
   if (variant === 'search') {
-    // const category = audienceToCategory[sneaker.audience as Audience]
     const path = `/products/${slug.replaceAll(' ', '-')}`
 
     return (

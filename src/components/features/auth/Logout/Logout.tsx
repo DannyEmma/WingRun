@@ -7,12 +7,14 @@ import { redirect } from 'next/navigation'
 
 export default function Logout({ children }: { children: React.ReactNode }) {
   const setSession = useUserStore((state) => state.setSession)
+  const setUser = useUserStore((state) => state.setUser)
 
   const handleLogout = async () => {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
           setSession(null)
+          setUser(null)
           redirect('/login')
         },
       },
