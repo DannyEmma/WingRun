@@ -1,11 +1,9 @@
 import styles from './AccountPage.module.css'
-import DestinationService from '@/lib/services/destination'
 import TabsAccount from '@/components/features/account/TabsAccount/TabsAccount'
-import UserService from '@/lib/services/user'
 import { auth } from '@/lib/auth'
 import { headers } from 'next/headers'
-import OrderService from '@/lib/services/order'
 import { notFound } from 'next/navigation'
+import { service } from '@/lib/services'
 
 type Tab = 'profil' | 'addresses' | 'orders'
 
@@ -30,11 +28,11 @@ export default async function AccountPage({ params }: AccountPageProps) {
   let user, defaultAddress, addresses, destinationsPerGroup, orders
 
   if (session) {
-    user = await UserService.getUser(session.userId)
-    addresses = await UserService.getAddresses(session.userId)
-    destinationsPerGroup = await DestinationService.getDestinationsPerGroup()
-    defaultAddress = addresses.filter((address) => address.isDefault)[0]
-    orders = (await OrderService.getOrders(user?.id ?? '')).data
+    user = (await service.user.getUser(session.userId)).data
+    addresses = (await service.user.getAddresses(session.userId)).data
+    destinationsPerGroup = (await service.destination.getDestinationsPerGroup()).data
+    defaultAddress = addresses?.filter((address) => address.isDefault)[0]
+    orders = (await service.order.getOrders(user?.id ?? '')).data
   }
 
   return (

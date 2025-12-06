@@ -3,16 +3,17 @@
 import styles from './SearchBar.module.css'
 import { useEffect, useRef, useState } from 'react'
 import SneakerItem from '@/components/features/sneaker/SneakerItem/SneakerItem'
-import Button from '@/components/ui/Button/Button'
 import SearchBarFilter from '@/components/features/search/SearchBarFilter/SearchBarFilter'
-import { getSearchProductsAction } from '@/lib/actions/search'
-import { categoryToAudience } from '@/utils/category'
 import { useRouter } from 'next/navigation'
 import { PRODUCTS_PER_SEARCH } from '@/lib/constants'
+import CTA from '@/components/ui/CTA/CTA'
+import { Audience } from '@/../prisma/generated/enums'
+import { util } from '@/lib/utils'
+import { action } from '@/lib/actions'
 
 interface SearchBarProps {
   close: () => void
-  brands: string[]
+  brands: string[] | null
 }
 
 export default function SearchBar({ close, brands }: SearchBarProps) {
@@ -20,7 +21,7 @@ export default function SearchBar({ close, brands }: SearchBarProps) {
   const searchBarRef = useRef<HTMLDivElement>(null)
   const [activeAudience, setActiveAudience] = useState('hommes')
   const [searchQuery, setSearchQuery] = useState('')
-  const [searchProducts, setSearchProducts] = useState<{ products: any[]; count: number }>({ products: [], count: 0 })
+  const [searchProducts, setSearchProducts] = useState<{ products: any[]; count: number } | null>({ products: [], count: 0 })
   const [isOpen, setIsOpen] = useState(false)
   const timeoutIdRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -33,7 +34,7 @@ export default function SearchBar({ close, brands }: SearchBarProps) {
   //---------- Get Data ----------//
   useEffect(() => {
     ;(async () => {
-      const searchProducts = (await getSearchProductsAction(categoryToAudience[activeAudience], searchQuery)).data
+      const { data: searchProducts, error } = await action.search.getSearchProductsAction(util.audience.labelToAudience(activeAudience), searchQuery)
       setSearchProducts(searchProducts)
     })()
   }, [activeAudience])
@@ -59,14 +60,17 @@ export default function SearchBar({ close, brands }: SearchBarProps) {
 
     //-- Debounce --
     timeoutIdRef.current = setTimeout(async () => {
-      const searchProducts = (await getSearchProductsAction(categoryToAudience[activeAudience], searchQuery)).data
+      const { data: searchProducts, error } = await action.search.getSearchProductsAction(util.audience.labelToAudience(activeAudience), searchQuery)
       setSearchProducts(searchProducts)
       setSearchQuery(searchQuery)
     }, 400)
   }
 
   const handleClickBrand = (brand: string) => {
-    router.push(`/search/results?q=${brand}&brands=${brand}&category=${activeAudience}`)
+    const audience: Audience = util.audience.labelToAudience(activeAudience)
+    const audienceParam = audience === Audience.KIDS ? 'kids=BOY,GIRL' : `adults=${audience}`
+
+    router.push(`/collections?${audienceParam}&brands=${brand}`)
     handleClose()
   }
 
@@ -111,17 +115,18 @@ export default function SearchBar({ close, brands }: SearchBarProps) {
             <h2 className={styles['left-section-title']}>Nos Marques</h2>
 
             <ul className={styles['brands-list']}>
-              {brands.map((brand, index) => {
-                const displayBrand = brand.replaceAll('_', ' ').toLowerCase()
+              {brands &&
+                brands.map((brand, index) => {
+                  const displayBrand = brand.replaceAll('_', ' ').toLowerCase()
 
-                return (
-                  <li key={index} className={styles['brand-item']}>
-                    <button type="button" onClick={() => handleClickBrand(brand)}>
-                      {displayBrand}
-                    </button>
-                  </li>
-                )
-              })}
+                  return (
+                    <li key={index} className={styles['brand-item']}>
+                      <button type="button" onClick={() => handleClickBrand(brand)}>
+                        {displayBrand}
+                      </button>
+                    </li>
+                  )
+                })}
             </ul>
           </div>
 
@@ -130,11 +135,11 @@ export default function SearchBar({ close, brands }: SearchBarProps) {
 
             <h2 className={styles['right-section-title']}>Correspondances trouvées</h2>
 
-            {searchProducts.products.length ? (
+            {searchProducts ? (
               <div className={styles['sneakers-grid']}>
                 {searchProducts.products.map((sneaker, index) => (
                   <div key={index} onClick={handleClose} className={styles['sneaker-container']}>
-                    <SneakerItem variant="search" sneaker={sneaker} highlight={highlight} />
+                    <SneakerItem variant="search" data={sneaker} highlight={highlight} />
                   </div>
                 ))}
               </div>
@@ -142,11 +147,11 @@ export default function SearchBar({ close, brands }: SearchBarProps) {
               <p className={styles['no-result']}>Aucun résultat.</p>
             )}
 
-            {searchProducts.count > PRODUCTS_PER_SEARCH && (
+            {searchProducts && searchProducts.count > PRODUCTS_PER_SEARCH && (
               <div className={styles['see-more-result-button-container']}>
-                <Button onClick={handleClickSeeMoreResults} variant="cta-primary" fit>
+                <CTA onClick={handleClickSeeMoreResults} variant="primary" fit>
                   Voir l'ensemble des {searchProducts.count} produits
-                </Button>
+                </CTA>
               </div>
             )}
           </div>

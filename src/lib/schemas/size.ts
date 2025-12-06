@@ -1,4 +1,4 @@
-import { Audience } from '@prisma/client'
+import { Audience } from '@/../prisma/generated/enums'
 import z from 'zod'
 
 export const SizeSchema = z.object({

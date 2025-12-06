@@ -2,15 +2,11 @@ import styles from './CategoryPage.module.css'
 import Breadcrumb from '@/components/ui/Breadcrumb/Breadcrumb'
 import SneakerItem from '@/components/features/sneaker/SneakerItem/SneakerItem'
 import FilterBar from '@/components/features/category/FilterBar/FilterBar'
-import ProductService from '@/lib/services/product'
-import { Adult, BreadcrumbItem, Kid } from '@/lib/types'
+import { BreadcrumbItem } from '@/lib/types'
 import PaginationRounded from '@/components/features/category/PaginationRounded/PaginationRounded'
 import { PRODUCTS_PER_PAGE } from '@/lib/constants'
-import ColorFilterService from '@/lib/services/colorFilter'
-import SizeService from '@/lib/services/size'
-import BrandService from '@/lib/services/brand'
-import { Audience } from '@prisma/client'
-import { displayAudience } from '@/utils/audience'
+import { Audience } from '@/../prisma/generated/client'
+import { service } from '@/lib/services'
 
 export default async function CategoryPage({ searchParams }: { searchParams: Record<string, string> }) {
   const {
@@ -26,17 +22,16 @@ export default async function CategoryPage({ searchParams }: { searchParams: Rec
 
   const audiencesParam = adultsParam ? adultsParam : kidsParam
   const audiences: Audience[] = audiencesParam.split(',').filter((value): value is Audience => value !== '' && Object.values(Audience).includes(value as Audience))
-  // const audiences: Adult[] | Kid[] = audiencesParam.split(',').filter((value) => value !== '' && Object.values(Audience).includes(value as Audience))
 
-  const colorsFilter = (await ColorFilterService.getColorsFilter()).data
-  const pricesRange = (await ProductService.getPriceRangeByAudience(audiences)).data
-  const sizesList = (await SizeService.getSizesByAudience(audiences)).data
-  const brandList = (await BrandService.getAllBrand()).data
+  const { data: colorsFilter, error: colorsFilterError } = await service.color.getColorsFilter()
+  const { data: pricesRange, error: pricesRangeError } = await service.product.getPriceRangeByAudience(audiences)
+  const { data: sizesList, error: sizesListError } = await service.size.getSizesByAudience(audiences)
+  const { data: brandList, error: brandListError } = await service.brand.getAllBrand()
 
   const filters = { brands: brandsParams?.split(','), sizes: sizesParams?.split(','), colors: colorsParams?.split(','), priceRange: priceRangeParams?.split(',') }
 
   //-- List of products to display on the current page --
-  const result = await ProductService.getProductsPerPageByAudience({
+  const { data, error } = await service.product.getProductsPerPageByAudience({
     skip: (parseInt(currentPage) - 1) * PRODUCTS_PER_PAGE,
     take: PRODUCTS_PER_PAGE,
     audiences,
@@ -44,14 +39,11 @@ export default async function CategoryPage({ searchParams }: { searchParams: Rec
     sort: sortParams,
   })
 
-  const productPerPage = result.data
-  const pages = result.pagination?.totalPages ?? 0
-  const totalProducts = result.pagination?.totalProducts ?? 0
+  const productPerPage = data?.products
+  const pages = data?.pagination?.totalPages ?? 0
+  const totalProducts = data?.pagination?.totalProducts ?? 0
 
-  const breadcrumbItems: BreadcrumbItem[] = [
-    { label: 'WingRun', url: '/' },
-    // { label: displayAudience(audiences), url: null },
-  ]
+  const breadcrumbItems: BreadcrumbItem[] = [{ label: 'WingRun', url: '/' }]
 
   return (
     <main className={styles['category-page']}>
@@ -65,7 +57,9 @@ export default async function CategoryPage({ searchParams }: { searchParams: Rec
       </div>
 
       {/* //---------- FILTER BAR ----------// */}
-      <FilterBar brandList={brandList} colorsFilter={colorsFilter} pricesRange={pricesRange} sizesList={sizesList} />
+      {brandList && colorsFilter && pricesRange && sizesList && (
+        <FilterBar brandList={brandList} colorsFilter={colorsFilter} pricesRange={pricesRange} sizesList={sizesList?.map((s) => s.size)} />
+      )}
 
       {/* //----------  SNEAKERS GRID ----------// */}
       <div className={styles['sneakers-grid']}>{productPerPage && productPerPage.map((product, index) => <SneakerItem key={index} data={product} />)}</div>

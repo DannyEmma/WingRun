@@ -1,20 +1,15 @@
-'use client'
-
-import Button from '@/components/ui/Button/Button'
+import CTA from '@/components/ui/CTA/CTA'
 import styles from './ActionsContainerPaymentSuccessful.module.css'
-import { useRouter } from 'next/navigation'
 
 export default function ActionsContainerPaymentSuccessful() {
-  const router = useRouter()
-
   return (
     <div className={styles['actions-container']}>
-      <Button variant="cta-primary" onClick={() => router.push('/account/orders')}>
+      <CTA variant="primary" href="/account/orders">
         Voir ma commande
-      </Button>
-      <Button variant="cta-secondary" onClick={() => router.push('/')}>
+      </CTA>
+      <CTA variant="secondary" href="/">
         Retour à la boutique
-      </Button>
+      </CTA>
     </div>
   )
 }

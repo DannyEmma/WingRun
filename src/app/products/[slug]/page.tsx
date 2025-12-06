@@ -1,33 +1,31 @@
 import styles from './ProductPage.module.css'
 import Breadcrumb from '@/components/ui/Breadcrumb/Breadcrumb'
 import PreviewSneakers from '@/components/features/sneaker/PreviewSneakers/PreviewSneakers'
-import ProductService from '@/lib/services/product'
 import { BreadcrumbItem } from '@/lib/types'
-import SizeService from '@/lib/services/size'
 import PurchaseContainer from '@/components/features/article/PurchaseContainer/PurchaseContainer'
-import { getFormattedPrice, getFullname, getIdFromSlug } from '@/utils/product'
 import { notFound } from 'next/navigation'
-import { audienceToLabel } from '@/utils/audience'
+import { service } from '@/lib/services'
+import { util } from '@/lib/utils'
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
 
   //-- Product --
-  const productId = getIdFromSlug(slug)
-  const product = (await ProductService.getProductById(productId)).data
+  const productId = util.product.getIdFromSlug(slug)
+  const product = (await service.product.getProductById(productId)).data
 
   //-- ERROR PAGE 404 --
   if (!product) notFound()
 
   //-- Some data --
   const audience = product.audience
-  const sizesStock = (await ProductService.getSizesStock(productId)).data
-  const sizes = audience ? (await SizeService.getSizesByAudience([audience])).data : []
-  const fullname = getFullname(product)
-  const formattedPrice = getFormattedPrice(product.price)
+  const { data: sizesStock, error: sizesStockError } = await service.product.getSizesStock(productId)
+  const { data: sizes, error: sizesError } = audience && (await service.size.getSizesByAudience([audience]))
+  const fullname = util.product.getFullname(product)
+  const formattedPrice = util.product.getFormattedPrice(product.price)
 
   //-- Breadcrumb --
-  const audienceLabel = audienceToLabel(audience)
+  const audienceLabel = util.audience.audienceToLabel(audience)
   let breadcrumbItems: BreadcrumbItem[] = [
     { label: 'WingRun', url: '/' },
     { label: audienceLabel, url: '/collections' + audienceLabel.toLowerCase() },

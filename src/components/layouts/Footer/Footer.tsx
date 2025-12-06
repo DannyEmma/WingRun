@@ -1,28 +1,27 @@
 import Link from 'next/link'
 import styles from './Footer.module.css'
+import { ProductWithBrand } from '@/lib/types/_internals/product'
+import { service } from '@/lib/services'
+import { util } from '@/lib/utils'
 
-export default function Footer() {
+export default async function Footer() {
+  const [bestSellers, newArrivals] = await Promise.all([
+    service.product.getProductsByTag('BEST_SELLER', 5).then((res) => res.data),
+    service.product.getProductsByTag('NEW_ARRIVAL', 5).then((res) => res.data),
+  ])
+
   return (
     <footer className={styles.footer}>
       <div className={styles['main-container']}>
         <div className={styles['list-articles-container']}>
           <p className={styles['title']}>Meilleurs ventes</p>
           <ul>
-            <li>
-              <Link href="/">The Basement x Air Max 90 “Grappe 2025"</Link>
-            </li>
-            <li>
-              <Link href="/">The Basement x Air Max 90 “Grappe 2025"</Link>
-            </li>
-            <li>
-              <Link href="/">The Basement x Air Max 90 “Grappe 2025"</Link>
-            </li>
-            <li>
-              <Link href="/">The Basement x Air Max 90 “Grappe 2025"</Link>
-            </li>
-            <li>
-              <Link href="/">The Basement x Air Max 90 “Grappe 2025"</Link>
-            </li>
+            {bestSellers &&
+              bestSellers.map((product: ProductWithBrand, index) => (
+                <li key={index}>
+                  <Link href="/">{util.product.getFullname(product)}</Link>
+                </li>
+              ))}
           </ul>
         </div>
 
@@ -30,21 +29,12 @@ export default function Footer() {
           <p className={styles['title']}>Nouveautés</p>
 
           <ul>
-            <li>
-              <Link href="/">Jordan 8 Retro 'Aqua' 2025</Link>
-            </li>
-            <li>
-              <Link href="/">Jordan 8 Retro 'Aqua' 2025</Link>
-            </li>
-            <li>
-              <Link href="/">Jordan 8 Retro 'Aqua' 2025</Link>
-            </li>
-            <li>
-              <Link href="/">Jordan 8 Retro 'Aqua' 2025</Link>
-            </li>
-            <li>
-              <Link href="/">Jordan 8 Retro 'Aqua' 2025</Link>
-            </li>
+            {newArrivals &&
+              newArrivals.map((product: ProductWithBrand, index) => (
+                <li key={index}>
+                  <Link href="/">{util.product.getFullname(product)}</Link>
+                </li>
+              ))}
           </ul>
         </div>
 

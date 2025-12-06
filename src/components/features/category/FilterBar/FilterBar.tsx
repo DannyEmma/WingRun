@@ -2,12 +2,13 @@
 
 import styles from './FilterBar.module.css'
 import PriceRange from '@/components/features/category/PriceRange/PriceRange'
-import Button from '@/components/ui/Button/Button'
+import ActionLink from '@/components/ui/ActionLink/ActionLink'
 import DropDownMenu from '@/components/ui/DropDownMenu/DropDownMenu'
 import { Filter, Sort } from '@/lib/types'
-import { Audience, ColorFilter } from '@prisma/client'
+import { Audience } from '@/../prisma/generated/enums'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { ColorFilter } from '@/lib/types/_internals/color-filter'
 
 type FiltersData = {
   brands: Filter[]
@@ -281,9 +282,7 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
           <div className={styles['active-filters']}>
             {activeFilters.map(renderActiveFilterItem)}
 
-            <Button variant="link" onClick={removeAllUrlFilter}>
-              Effacer tout
-            </Button>
+            <ActionLink onClick={removeAllUrlFilter}>Effacer tout</ActionLink>
           </div>
         )}
       </div>

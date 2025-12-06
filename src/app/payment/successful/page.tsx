@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation'
 import styles from './PaymentSuccessfulPage.module.css'
 import ActionsContainerPaymentSuccessful from '@/components/features/shopping/ActionsContainerPaymentSuccessful/ActionsContainerPaymentSuccessful'
 import { stripe } from '@/lib/stripe'
-import { getFormattedPrice } from '@/utils/product'
 import ResetCart from '@/components/providers/ResetCart/ResetCart'
+import { util } from '@/lib/utils'
 
 interface PaymentSuccessfulPageProps {
   searchParams: any
@@ -25,7 +25,7 @@ export default async function PaymentSuccessfulPage({ searchParams }: PaymentSuc
   }
 
   const summaryData = {
-    montant: getFormattedPrice(checkoutSession.amount_total ?? 0),
+    montant: util.product.getFormattedPrice(checkoutSession.amount_total ?? 0),
     'transaction ID': checkoutSession.payment_intent as string,
     'methode de paiment': ' **** 4242',
     date: new Date(1764585053 * 1000).toLocaleDateString(),

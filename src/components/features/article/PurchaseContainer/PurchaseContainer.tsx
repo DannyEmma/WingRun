@@ -7,8 +7,8 @@ import { useState } from 'react'
 import { ProductCart, Size } from '@/lib/types'
 
 interface PurchaseContainer {
-  sizes: Size[]
-  sizesStock: string[]
+  sizes: Size[] | null
+  sizesStock: string[] | null
   sneaker: ProductCart
 }
 

@@ -5,10 +5,10 @@ import Link from 'next/link'
 import authClient from '@/lib/auth-client'
 import { useState } from 'react'
 import { toast } from 'sonner'
-import Button from '@/components/ui/Button/Button'
 import ErrorBanner from '@/components/shared/ErrorBanner/ErrorBanner'
 import Loader from '@/components/shared/Loader/Loader'
 import Input from '@/components/ui/Input/Input'
+import CTA from '@/components/ui/CTA/CTA'
 
 export default function RegistrationForm() {
   const [registrationPending, setRegistrationPending] = useState(false)
@@ -63,9 +63,9 @@ export default function RegistrationForm() {
         <Input id="password" label="mot de passe" type="password" name="password" required />
 
         <div className={styles['button-container']}>
-          <Button variant="cta-primary" type="submit">
+          <CTA type="submit" variant="primary">
             S'inscrire {registrationPending && <Loader />}
-          </Button>
+          </CTA>
         </div>
 
         <div className={styles['caption-container']}>

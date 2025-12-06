@@ -1,0 +1,24 @@
+.link {
+  font-family: var(--font-oswald);
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  background: none;
+  text-transform: uppercase;
+  font-size: var(--font-14);
+  color: var(--coffee-900);
+}
+.link::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 0%;
+  background: var(--coffee-900);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 200ms;
+}
+.link:hover::after {
+  width: 100%;
+}

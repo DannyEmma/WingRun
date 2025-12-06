@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import styles from './Hero.module.css'
-import Button from '@/components/ui/Button/Button'
+import Button from '@/components/ui/ActionLink/ActionLink'
+import CTA from '@/components/ui/CTA/CTA'
 
 export default function Hero() {
   return (
@@ -10,14 +11,18 @@ export default function Hero() {
       <div className={styles['hero-content']}>
         <div className={styles['title-container']}>
           <p className={styles['brand']}>Jordan</p>
+
           <p className={styles['fullname']}>
             Air jordan 10 <br />
             "steel"
           </p>
         </div>
-        <Button variant="cta-secondary" fit>
-          Découvrir la paire
-        </Button>
+
+        <div className={styles['cta-container']}>
+          <CTA variant="secondary" href="/products/air-jordan-10-steel-20">
+            Découvrir la paire
+          </CTA>
+        </div>
       </div>
     </div>
   )

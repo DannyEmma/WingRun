@@ -4,7 +4,7 @@ import styles from './Form.module.css'
 import Link from 'next/link'
 import authClient from '@/lib/auth-client'
 import { useState } from 'react'
-import Button from '@/components/ui/Button/Button'
+import ActionLink from '@/components/ui/ActionLink/ActionLink'
 import ErrorBanner from '@/components/shared/ErrorBanner/ErrorBanner'
 import { toast } from 'sonner'
 import Loader from '../shared/Loader/Loader'
@@ -58,12 +58,12 @@ export default function ForgotPassword() {
         </div>
 
         <div className={styles['button-container']}>
-          <Button type="submit">Envoyer {requestPasswordPending && <Loader />}</Button>
+          <ActionLink type="submit">Envoyer {requestPasswordPending && <Loader />}</ActionLink>
         </div>
 
         <div className={styles['caption-container']}>
           <Link href={'/login'} className={styles.link}>
-            <Button variant="link">Retour</Button>
+            <ActionLink>Retour</ActionLink>
           </Link>
         </div>
       </form>

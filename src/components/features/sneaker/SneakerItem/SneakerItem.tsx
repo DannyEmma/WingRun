@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import styles from './SneakerItem.module.css'
 import Image from 'next/image'
-import { ProductWithBrand } from '@/lib/types/product'
+import { ProductWithBrand } from '@/lib/types/_internals/product'
 import { BASE_URL_PRODUCT_IMAGE } from '@/lib/constants'
-import { getFullname } from '@/utils/product'
 import { CartItem } from '@/lib/types'
+import { util } from '@/lib/utils'
 
 interface SneakerItemProps {
   variant?: 'standard' | 'search' | 'payment'
@@ -31,9 +31,9 @@ export default function SneakerItem({ variant = 'standard', data, highlight }: S
             <div className={styles['quantity-indicator']}>{data.quantity}</div>
           </div>
           <div className={styles.description}>
-            <p className={styles.name}>{getFullname(data.product)} </p>
+            <p className={styles.name}>{util.product.getFullname(data.product)} </p>
             {/* <p className={styles.size}>{data.product.colorFilter.name}</p> */}
-            <p className={styles.size}>{data.size}</p>
+            <p className={styles.size}>{data.size.size}</p>
           </div>
         </div>
         <div className={styles['right-part']}>

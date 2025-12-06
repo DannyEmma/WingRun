@@ -1,15 +1,12 @@
 'use client'
 
 import styles from './ListAddresses.module.css'
-import { Address } from '@/lib/types'
+import { Address, DestinationsPerGroup } from '@/lib/types'
 import { Collapsible } from 'radix-ui'
-import Button from '@/components/ui/Button/Button'
-import { deleteAddressAction } from '@/lib/actions/user'
 import { Dispatch, SetStateAction, useState } from 'react'
 import AddressForm from '@/components/forms/AddressForm'
-import { Destination, DestinationGroup } from '@prisma/client'
-
-type DestinationsPerGroup = [DestinationGroup, Destination[]][]
+import CTA from '@/components/ui/CTA/CTA'
+import { action } from '@/lib/actions'
 
 interface ListAddressesProps {
   addresses: Address[]
@@ -32,8 +29,8 @@ export default function ListAddresses({ addresses, destinationsPerGroup, userId,
 
   const handleDelete = async (address: Address) => {
     if (confirm('Voulez vous vraiment supprimer cette addresse ?')) {
-      const updatedAddresses = await deleteAddressAction(userId, address.id)
-      setAddresses(updatedAddresses)
+      const { data: updatedAddresses, error } = await action.user.deleteAddressAction(userId, address.id)
+      updatedAddresses && setAddresses(updatedAddresses)
     }
   }
 
@@ -59,11 +56,12 @@ export default function ListAddresses({ addresses, destinationsPerGroup, userId,
                   <Collapsible.Root open={opensForms[index]} onOpenChange={() => handleOpenChange(index)}>
                     {opensForms[index] || (
                       <Collapsible.Trigger asChild>
-                        <Button variant="cta-secondary" fit>
+                        <CTA variant="secondary" fit>
                           Edit
-                        </Button>
+                        </CTA>
                       </Collapsible.Trigger>
                     )}
+
                     <Collapsible.Content>
                       <AddressForm
                         operation="update"
@@ -76,17 +74,17 @@ export default function ListAddresses({ addresses, destinationsPerGroup, userId,
                       />
                     </Collapsible.Content>
                   </Collapsible.Root>
+
                   {opensForms[index] || (
-                    <Button
-                      type="button"
+                    <CTA
                       onClick={() => handleDelete(a)}
-                      variant="cta-secondary"
+                      variant="secondary"
                       fit
                       disabled={a.isDefault}
                       title={a.isDefault ? 'Vous ne pouvez pas supprimer votre addresse par défaut.' : ''}
                     >
                       Delete
-                    </Button>
+                    </CTA>
                   )}
                 </div>
               </li>

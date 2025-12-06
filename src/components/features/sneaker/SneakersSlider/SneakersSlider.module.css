@@ -1,3 +1,6 @@
+.sneakers-slider {
+  margin: 0 -48px;
+}
 .header {
   display: flex;
   justify-content: space-between;

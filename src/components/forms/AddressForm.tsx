@@ -3,8 +3,7 @@
 import styles from './Form.module.css'
 import { Address, CreateAddress, DestinationsPerGroup } from '@/lib/types'
 import Input from '@/components/ui/Input/Input'
-import Button from '@/components/ui/Button/Button'
-import { createAddressAction, updateAddressAction } from '@/lib/actions/user'
+import Button from '@/components/ui/ActionLink/ActionLink'
 import { AddressSchema, CreateAddressSchema } from '@/lib/schemas'
 import { useUserStore } from '@/lib/stores/user.store'
 import { Dispatch, SetStateAction, useState } from 'react'
@@ -12,6 +11,9 @@ import { toast } from 'sonner'
 import Image from 'next/image'
 import { $ZodIssue } from 'zod/v4/core'
 import DestinationSelector from '@/components/forms/DestinationSelector/DestinationSelector'
+import { action } from '@/lib/actions'
+import CTA from '@/components/ui/CTA/CTA'
+import ActionLink from '@/components/ui/ActionLink/ActionLink'
 
 interface AddressFormProps {
   disabledDefaultAddress: boolean
@@ -72,10 +74,10 @@ export default function AddressForm(props: AddressFormCreateProps | AddressFormU
           let addressesUpdated = null
 
           //-- Create address --
-          if (props.operation === 'create') addressesUpdated = await createAddressAction(session.userId, address as CreateAddress)
+          if (props.operation === 'create') addressesUpdated = (await action.user.createAddressAction(session.userId, address as CreateAddress)).data
 
           //-- Update address --
-          if (props.operation === 'update') addressesUpdated = await updateAddressAction(session.userId, address as Address)
+          if (props.operation === 'update') addressesUpdated = (await action.user.updateAddressAction(session.userId, address as Address)).data
 
           if (addressesUpdated) {
             //-- Use to refresh the list of addresses on the front --
@@ -145,7 +147,7 @@ export default function AddressForm(props: AddressFormCreateProps | AddressFormU
           type="text"
           label="Adresse complémentaire"
           name="address_2"
-          defaultValue={props.operation === 'update' ? props.currentAddress?.address_2 : ''}
+          defaultValue={props.operation === 'update' ? (props.currentAddress.address_2 ?? '') : ''}
           errorCode={errorsCodes?.address_2 && errorsCodes?.address_2[0].message}
         />
 
@@ -191,13 +193,11 @@ export default function AddressForm(props: AddressFormCreateProps | AddressFormU
         )}
 
         <div className={styles['actions-container']}>
-          <Button type="submit" variant="cta-secondary">
+          <CTA type="submit" variant="secondary">
             {buttonTitle}
-          </Button>
+          </CTA>
 
-          <Button type="button" variant="link" onClick={props.handleOpenChange}>
-            Annuler
-          </Button>
+          <ActionLink onClick={props.handleOpenChange}>Annuler</ActionLink>
         </div>
       </form>
     </>

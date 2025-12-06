@@ -10,7 +10,7 @@ import SessionInitializer from '@/components/providers/SessionInitializer/Sessio
 import Header from '@/components/layouts/Header/Header'
 import Footer from '@/components/layouts/Footer/Footer'
 import ResetScrollTop from '@/components/layouts/ResetScrollTop/ResetScrollTop'
-import BrandService from '@/lib/services/brand'
+import { service } from '@/lib/services'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -40,7 +40,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     })
   )?.session
 
-  const brands = (await BrandService.getAllBrand()).data
+  const { data: brands, error } = await service.brand.getAllBrand()
 
   return (
     <html lang="fr" className={`${roboto.className} ${oswald.variable} `}>

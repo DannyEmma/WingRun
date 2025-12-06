@@ -47,3 +47,7 @@
   line-height: 64px;
   text-align: center;
 }
+.cta-container a {
+  border-color: var(--coffee-100);
+  color: var(--coffee-100);
+}

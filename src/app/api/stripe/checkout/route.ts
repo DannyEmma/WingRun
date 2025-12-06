@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
-import { CartItem, UserWithAddresses } from '@/lib/types'
-import { getFullname } from '@/utils/product'
+import { CartItem } from '@/lib/types'
 import { BASE_URL_PRODUCT_IMAGE } from '@/lib/constants'
 import { auth } from '@/lib/auth'
 import { headers } from 'next/headers'
-import UserService from '@/lib/services/user'
+import { service } from '@/lib/services'
+import { util } from '@/lib/utils'
 
 interface CheckoutRequestBody {
   cart: CartItem[]
@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     const session = await auth.api.getSession({ headers: await headers() })
     if (!session) return
 
-    const user: UserWithAddresses | null = await UserService.getUser(session.user.id)
+    const { data: user, error } = await service.user.getUser(session.user.id)
     if (!user) return
 
     const userDefaultAdress = user.addresses.find((adress) => adress.isDefault)
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
         price_data: {
           currency: 'eur',
           product_data: {
-            name: getFullname(cartItem.product),
+            name: util.product.getFullname(cartItem.product),
             images: [`${process.env.NEXT_PUBLIC_BASE_URL}${BASE_URL_PRODUCT_IMAGE}/${cartItem.product.image}`],
           },
           unit_amount: cartItem.product.price,

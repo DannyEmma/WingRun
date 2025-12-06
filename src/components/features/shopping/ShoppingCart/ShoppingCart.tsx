@@ -2,14 +2,15 @@
 
 import React, { useEffect, useRef } from 'react'
 import styles from './ShoppingCart.module.css'
-import Button from '@/components/ui/Button/Button'
 import Image from 'next/image'
 import { BASE_URL_PRODUCT_IMAGE } from '@/lib/constants'
 import { CartItem } from '@/lib/types'
 import { useShoppingCartStore } from '@/lib/stores/shopping-cart.store'
 import { useRouter } from 'next/navigation'
-import { getFormattedPrice, getFullname } from '@/utils/product'
 import CheckoutButton from '@/components/stripe/CheckoutButton/CheckoutButton'
+import ActionLink from '@/components/ui/ActionLink/ActionLink'
+import CTA from '@/components/ui/CTA/CTA'
+import { util } from '@/lib/utils'
 
 export default function ShoppingCart() {
   const router = useRouter()
@@ -25,8 +26,8 @@ export default function ShoppingCart() {
 
   //----------  METHODS----------//
   const renderItem = (cartItem: CartItem, index: number) => {
-    const fullname = getFullname(cartItem.product)
-    const formattedPrice = getFormattedPrice(cartItem.product.price)
+    const fullname = util.product.getFullname(cartItem.product)
+    const formattedPrice = util.product.getFormattedPrice(cartItem.product.price)
 
     return (
       <React.Fragment key={index}>
@@ -52,9 +53,7 @@ export default function ShoppingCart() {
                   +
                 </button>
               </div>
-              <Button onClick={() => handleRemoveCartItem(cartItem.id)} variant="link">
-                Supprimer
-              </Button>
+              <ActionLink onClick={() => handleRemoveCartItem(cartItem.id)}>Supprimer</ActionLink>
             </div>
           </div>
         </div>
@@ -134,16 +133,16 @@ export default function ShoppingCart() {
 
                   <p>Votre panier est vide</p>
 
-                  <Button
+                  <CTA
                     onClick={() => {
                       router.push('/')
                       setCartOpen(false)
                     }}
-                    variant="cta-primary"
+                    variant="primary"
                     fit
                   >
                     Décourvrir la boutique
-                  </Button>
+                  </CTA>
                 </div>
               )}
             </div>
@@ -152,7 +151,7 @@ export default function ShoppingCart() {
               <div className={styles['footer']}>
                 <div className={styles['price-info-container']}>
                   <p className={styles['price-info-title']}>Montant total TTC</p>
-                  <p className={styles['price']}>{getFormattedPrice(totalAmount())}</p>
+                  <p className={styles['price']}>{util.product.getFormattedPrice(totalAmount())}</p>
                 </div>
                 <CheckoutButton />
               </div>

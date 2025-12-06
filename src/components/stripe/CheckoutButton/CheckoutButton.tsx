@@ -2,10 +2,10 @@
 
 import { useShoppingCartStore } from '@/lib/stores/shopping-cart.store'
 import styles from './CheckoutButton.module.css'
-import Button from '@/components/ui/Button/Button'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { CartItem } from '@/lib/types'
+import CTA from '@/components/ui/CTA/CTA'
 
 export default function CheckoutButton() {
   const [loading, setLoading] = useState(false)
@@ -32,15 +32,14 @@ export default function CheckoutButton() {
         router.push(chekoutSession.url)
       }
     } catch (error) {
-      //   console.error('Erreur:', error)
-      //   alert('Erreur lors de la création de la session')
+      // if (error instanceof Error) console.log(error.message)
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <Button variant="cta-primary" onClick={handleCheckout}>
+    <CTA variant="primary" onClick={handleCheckout}>
       {loading ? (
         'Chargement...'
       ) : (
@@ -56,6 +55,6 @@ export default function CheckoutButton() {
           <p className={styles['shopping-button-title']}>Passer à la caisse</p>
         </>
       )}
-    </Button>
+    </CTA>
   )
 }

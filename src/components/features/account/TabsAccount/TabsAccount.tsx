@@ -4,19 +4,19 @@ import styles from './TabsAccount.module.css'
 import { useState } from 'react'
 import { Tabs, Collapsible } from 'radix-ui'
 import Logout from '@/components/features/auth/Logout/Logout'
-import Button from '@/components/ui/Button/Button'
 import ListAddresses from '@/components/features/account/ListAddresses/ListAddresses'
 import AdresseForm from '@/components/forms/AddressForm'
-import { Address, DestinationsPerGroup, User } from '@/lib/types'
+import { Address, DestinationsPerGroup, Order, User } from '@/lib/types'
 import { useRouter } from 'next/navigation'
-import { getFormattedPrice } from '@/utils/product'
+import CTA from '@/components/ui/CTA/CTA'
+import { util } from '@/lib/utils'
 
 interface TabsAccountProps {
   user: User
   destinationsPerGroup: DestinationsPerGroup
   addresses: Address[] | null | undefined
   defaultAddress: Address | null | undefined
-  orders: any[]
+  orders: Order[] | null | undefined
   tab: string
 }
 
@@ -86,9 +86,9 @@ export default function TabsAccount({ user, destinationsPerGroup, addresses: ini
             </div>
           </div>
         )}
-        <Button onClick={() => setTabValue('addresses')} variant="cta-secondary" fit>
+        <CTA onClick={() => setTabValue('addresses')} variant="secondary" fit>
           {defaultAddress ? "Changer l'adresse par défaut" : 'Ajouter une adresse par défaut'}
-        </Button>
+        </CTA>
       </Tabs.Content>
 
       <Tabs.Content className={styles['tabs-content']} value="addresses">
@@ -102,9 +102,9 @@ export default function TabsAccount({ user, destinationsPerGroup, addresses: ini
 
         <Collapsible.Root className={styles['add-address-container']} open={openAddForm} onOpenChange={handleOpenChange}>
           <Collapsible.Trigger asChild>
-            <Button variant="cta-secondary" fit>
+            <CTA variant="secondary" fit>
               Ajouter une adresse
-            </Button>
+            </CTA>
           </Collapsible.Trigger>
           <Collapsible.Content className={styles.content}>
             <AdresseForm
@@ -119,7 +119,7 @@ export default function TabsAccount({ user, destinationsPerGroup, addresses: ini
       </Tabs.Content>
 
       <Tabs.Content className={styles['tabs-content']} value="orders">
-        <h1>Vos Commandes ({orders.length})</h1>
+        <h1>Vos Commandes ({orders?.length ?? 0})</h1>
 
         <table className={styles['orders-table']}>
           <thead>
@@ -133,16 +133,17 @@ export default function TabsAccount({ user, destinationsPerGroup, addresses: ini
             </tr>
           </thead>
           <tbody>
-            {orders.map((order, index) => (
-              <tr key={index}>
-                <td>{order.id}</td>
-                <td>{order.transactionId}</td>
-                <td style={{ color: order.status === 'PAID' ? 'green' : order.status === 'PENDING' ? 'orange' : 'red' }}>{order.status}</td>
-                <td>{new Date(order.createdAt).toLocaleDateString()}</td>
-                <td>{order.paymentMethod}</td>
-                <td>{getFormattedPrice(order.totalAmountCent)}</td>
-              </tr>
-            ))}
+            {orders &&
+              orders.map((order, index) => (
+                <tr key={index}>
+                  <td>{order.id}</td>
+                  <td>{order.transactionId}</td>
+                  <td style={{ color: order.status === 'PAID' ? 'green' : order.status === 'PENDING' ? 'orange' : 'red' }}>{order.status}</td>
+                  <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+                  <td>{order.paymentMethod}</td>
+                  <td>{util.product.getFormattedPrice(order.totalAmountCent)}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </Tabs.Content>

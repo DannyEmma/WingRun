@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import styles from './ErrorBanner.module.css'
-import { displayErrorMessage } from '@/utils/errors'
+import { util } from '@/lib/utils'
 
 export default function ErrorBanner({ code }: { code: string | null | undefined }) {
   const [show, setShow] = useState(false)
@@ -8,7 +8,7 @@ export default function ErrorBanner({ code }: { code: string | null | undefined 
 
   useEffect(() => {
     if (code) {
-      setMessage(displayErrorMessage(code))
+      setMessage(util.error.displayErrorMessage(code))
       setShow(true)
     } else {
       setMessage('')

@@ -4,7 +4,7 @@ import styles from './Form.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import authClient from '@/lib/auth-client'
-import Button from '@/components/ui/Button/Button'
+import ActionLink from '@/components/ui/ActionLink/ActionLink'
 import ErrorBanner from '@/components/shared/ErrorBanner/ErrorBanner'
 import { useState } from 'react'
 import Loader from '@/components/shared/Loader/Loader'
@@ -12,7 +12,6 @@ import { toast } from 'sonner'
 import { redirect } from 'next/navigation'
 import { useUserStore } from '@/lib/stores/user.store'
 import Input from '@/components/ui/Input/Input'
-import UserService from '@/lib/services/user'
 
 export default function LoginForm() {
   const [errorCode, setErrorCode] = useState<string | null>(null)
@@ -79,9 +78,7 @@ export default function LoginForm() {
       </div>
 
       <div className={styles['button-container']}>
-        <Button variant="cta-primary" type="submit">
-          Se connecter {loginPending && <Loader />}
-        </Button>
+        <ActionLink type="submit">Se connecter {loginPending && <Loader />}</ActionLink>
       </div>
 
       <div className={styles['caption-container']}>

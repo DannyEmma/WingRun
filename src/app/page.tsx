@@ -2,18 +2,17 @@ import styles from './HomePage.module.css'
 import EmailVerificationToast from '@/components/providers/EmailVerificationToast/EmailVerificationToast'
 import SneakersSlider from '@/components/features/sneaker/SneakersSlider/SneakersSlider'
 import Hero from '@/components/features/home/Hero/Hero'
-import { ProductTag } from '@prisma/client'
-import ProductService from '@/lib/services/product'
-import { ProductWithBrand } from '@/lib/types/product'
 import BrandPanel from '@/components/features/home/BrandPanel/BrandPanel'
+import { MAX_SLIDER_PRODUCTS } from '@/lib/constants'
+import { service } from '@/lib/services'
 
 export default async function HomePage() {
-  const sneakers: Record<ProductTag, ProductWithBrand[]> = { BEST_SELLER: [], OUR_PICK: [], NEW_ARRIVAL: [], POPULAR: [] }
-
-  sneakers.BEST_SELLER = (await ProductService.getSliderProductsWithBrandByTag('BEST_SELLER')).data
-  sneakers.OUR_PICK = (await ProductService.getSliderProductsWithBrandByTag('OUR_PICK')).data
-  sneakers.NEW_ARRIVAL = (await ProductService.getSliderProductsWithBrandByTag('NEW_ARRIVAL')).data
-  sneakers.POPULAR = (await ProductService.getSliderProductsWithBrandByTag('POPULAR')).data
+  const [bestSellers, ourPicks, newArrivals, populars] = await Promise.all([
+    service.product.getProductsByTag('BEST_SELLER', MAX_SLIDER_PRODUCTS).then((res) => res.data),
+    service.product.getProductsByTag('OUR_PICK', MAX_SLIDER_PRODUCTS).then((res) => res.data),
+    service.product.getProductsByTag('NEW_ARRIVAL', MAX_SLIDER_PRODUCTS).then((res) => res.data),
+    service.product.getProductsByTag('POPULAR', MAX_SLIDER_PRODUCTS).then((res) => res.data),
+  ])
 
   return (
     <>
@@ -21,11 +20,11 @@ export default async function HomePage() {
       <Hero />
       <main className={styles['main']}>
         <div className={styles['sneakers-slider-container']}>
-          <SneakersSlider title="Meilleurs ventes" sneakers={sneakers.BEST_SELLER} />
-          <SneakersSlider title="Notre sélection" sneakers={sneakers.OUR_PICK} />
-          <SneakersSlider title="Nouveautés" sneakers={sneakers.NEW_ARRIVAL} />
+          <SneakersSlider title="Meilleurs ventes" sneakers={bestSellers} />
+          <SneakersSlider title="Notre sélection" sneakers={ourPicks} />
+          <SneakersSlider title="Nouveautés" sneakers={newArrivals} />
           <BrandPanel />
-          <SneakersSlider title="Populaires" sneakers={sneakers.POPULAR} />
+          <SneakersSlider title="Populaires" sneakers={populars} />
         </div>
       </main>
     </>
