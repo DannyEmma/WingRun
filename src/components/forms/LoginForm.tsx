@@ -4,7 +4,6 @@ import styles from './Form.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import authClient from '@/lib/auth-client'
-import ActionLink from '@/components/ui/ActionLink/ActionLink'
 import ErrorBanner from '@/components/shared/ErrorBanner/ErrorBanner'
 import { useState } from 'react'
 import Loader from '@/components/shared/Loader/Loader'
@@ -12,6 +11,7 @@ import { toast } from 'sonner'
 import { redirect } from 'next/navigation'
 import { useUserStore } from '@/lib/stores/user.store'
 import Input from '@/components/ui/Input/Input'
+import CTA from '@/components/ui/CTA/CTA'
 
 export default function LoginForm() {
   const [errorCode, setErrorCode] = useState<string | null>(null)
@@ -65,7 +65,7 @@ export default function LoginForm() {
       <ErrorBanner code={errorCode} />
 
       <h1 className={styles.title}>
-        Bienvenue chez WingRun <Image className={styles['wing-run-icon']} src="/icons/wing-run-icon.svg" alt="WingRun icon" height={25} width={25} />
+        Bienvenue chez WingRun <Image className={styles['wing-run-icon']} src="/images/ui/icons/wing-run-icon.svg" alt="WingRun icon" height={25} width={25} />
       </h1>
 
       <Input id="email" label="adresse e-mail" type="email" name="email" required />
@@ -78,7 +78,9 @@ export default function LoginForm() {
       </div>
 
       <div className={styles['button-container']}>
-        <ActionLink type="submit">Se connecter {loginPending && <Loader />}</ActionLink>
+        <CTA type="submit" variant="primary">
+          Se connecter {loginPending && <Loader />}
+        </CTA>
       </div>
 
       <div className={styles['caption-container']}>

@@ -23,4 +23,18 @@ export class ProductUtil {
 
     return formattedPrice
   }
+
+  getPageUrl(sneaker: ProductWithBrand): string {
+    //-- Create the slug of the product --
+    let slug = ''
+    if (sneaker.line) slug += sneaker.line + '-'
+    if (sneaker.model) slug += sneaker.model + '-'
+    if (sneaker.edition) slug += sneaker.edition + '-'
+    if (sneaker.colorway) slug += sneaker.colorway + '-'
+    slug += sneaker.id
+
+    //-- Return the page url to display the product
+
+    return '/products/' + slug.replaceAll(' ', '-').toLowerCase()
+  }
 }

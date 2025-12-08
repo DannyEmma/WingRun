@@ -4,9 +4,9 @@ import SneakerItem from '@/components/features/sneaker/SneakerItem/SneakerItem'
 import FilterBar from '@/components/features/category/FilterBar/FilterBar'
 import { BreadcrumbItem } from '@/lib/types'
 import PaginationRounded from '@/components/features/category/PaginationRounded/PaginationRounded'
-import { PRODUCTS_PER_PAGE } from '@/lib/constants'
 import { Audience } from '@/../prisma/generated/client'
 import { service } from '@/lib/services'
+import { util } from '@/lib/utils'
 
 export default async function CategoryPage({ searchParams }: { searchParams: Record<string, string> }) {
   const {
@@ -18,6 +18,7 @@ export default async function CategoryPage({ searchParams }: { searchParams: Rec
     sort: sortParams = 'asc',
     adults: adultsParam = '',
     kids: kidsParam = '',
+    tag = null,
   } = await searchParams
 
   const audiencesParam = adultsParam ? adultsParam : kidsParam
@@ -29,21 +30,28 @@ export default async function CategoryPage({ searchParams }: { searchParams: Rec
   const { data: brandList, error: brandListError } = await service.brand.getAllBrand()
 
   const filters = { brands: brandsParams?.split(','), sizes: sizesParams?.split(','), colors: colorsParams?.split(','), priceRange: priceRangeParams?.split(',') }
+  const tagParam = tag && util.tag.isTag(tag) ? tag : null
 
   //-- List of products to display on the current page --
   const { data, error } = await service.product.getProductsPerPageByAudience({
-    skip: (parseInt(currentPage) - 1) * PRODUCTS_PER_PAGE,
-    take: PRODUCTS_PER_PAGE,
+    page: Number(currentPage),
     audiences,
     filters,
     sort: sortParams,
+    tag: tagParam,
   })
 
   const productPerPage = data?.products
   const pages = data?.pagination?.totalPages ?? 0
   const totalProducts = data?.pagination?.totalProducts ?? 0
 
-  const breadcrumbItems: BreadcrumbItem[] = [{ label: 'WingRun', url: '/' }]
+  const breadcrumbItems: BreadcrumbItem[] = [
+    { label: 'WingRun', url: '/' },
+    {
+      label: (tagParam && util.tag.tagToLabel(tagParam)) || (audiences.length ? util.audience.audiencesToLabel(audiences) : 'La boutique'),
+      url: null,
+    },
+  ]
 
   return (
     <main className={styles['category-page']}>

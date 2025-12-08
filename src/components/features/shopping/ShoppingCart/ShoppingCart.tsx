@@ -33,7 +33,7 @@ export default function ShoppingCart() {
       <React.Fragment key={index}>
         <div className={styles['item']}>
           <div className={styles['item-image-container']}>
-            <Image src={BASE_URL_PRODUCT_IMAGE + '/' + cartItem.product.image} alt="Sneaker Image" fill />
+            <Image src={BASE_URL_PRODUCT_IMAGE + cartItem.product.image} alt="Sneaker Image" fill />
           </div>
 
           <div className={styles['details-container']}>

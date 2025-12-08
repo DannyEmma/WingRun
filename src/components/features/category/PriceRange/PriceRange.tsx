@@ -14,12 +14,9 @@ export default function PriceRange({ range }: PriceRangeProps) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  // const rangeRef = useRef(range)
   const [min, max] = range
 
   const [priceRange, setPriceRange] = useState(range)
-  console.log('range', range)
-  console.log('priceRange', priceRange)
 
   const handleCommit = () => {
     //-- Prepare the new URL --

@@ -9,13 +9,20 @@ import { Navigation } from 'swiper/modules'
 import SneakerItem from '@/components/features/sneaker/SneakerItem/SneakerItem'
 import ActionLink from '@/components/ui/ActionLink/ActionLink'
 import { ProductWithBrand } from '@/lib/types/_internals/product'
+import { ProductTag } from '../../../../../prisma/generated/enums'
 
-export default function SneakersSlider({ title, sneakers }: { title: string; sneakers: ProductWithBrand[] | null }) {
+interface SneakersSliderProps {
+  title: string
+  sneakers: ProductWithBrand[] | null
+  tag: ProductTag
+}
+
+export default function SneakersSlider({ title, sneakers, tag }: SneakersSliderProps) {
   return (
     <div className={styles['sneakers-slider']}>
       <div className={styles.header}>
         <h2 className={styles.title}>{title}</h2>
-        <ActionLink>Voir tout</ActionLink>
+        <ActionLink href={`/collections/?tag=${tag}`}>Voir tout</ActionLink>
       </div>
 
       <Swiper className={styles['swiper']} spaceBetween={32} slidesPerView={5.5} slidesPerGroup={5} modules={[Navigation]} navigation>

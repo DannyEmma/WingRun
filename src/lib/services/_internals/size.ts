@@ -10,9 +10,7 @@ export class SizeService {
     if (audiences.includes(Audience.BOY) || audiences.includes(Audience.GIRL)) audiences = ['KIDS']
 
     try {
-      if (audiences.length) {
-        response.data = await prisma.size.findMany({ where: { audience: { in: audiences } } })
-      }
+      response.data = await prisma.size.findMany({ where: { ...(audiences.length && { audience: { in: audiences } }) } })
     } catch (error) {
       if (error instanceof Error) response.error = error.message
     }

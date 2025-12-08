@@ -121,6 +121,8 @@ export default function TabsAccount({ user, destinationsPerGroup, addresses: ini
       <Tabs.Content className={styles['tabs-content']} value="orders">
         <h1>Vos Commandes ({orders?.length ?? 0})</h1>
 
+        <hr />
+
         <table className={styles['orders-table']}>
           <thead>
             <tr>

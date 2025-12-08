@@ -17,11 +17,9 @@ export default function Header({ theme, brands }: HeaderProps) {
   const session = useUserStore((state) => state.session)
   const pathname = usePathname()
   const [currentTheme, setCurrentTheme] = useState(pathname === '/' ? 'transparent' : theme)
-  const [openSearchBar, setOpenSearchBar] = useState(false)
 
   //---------- EVENTS HANDLERS ----------//
   const handleScroll = () => (window.scrollY > 0 ? setCurrentTheme('dark') : setCurrentTheme('transparent'))
-  const handleCloseSearchBar = () => setOpenSearchBar(false)
 
   //---------- USE EFFECT ----------//
   //-- Use to change theme depending pathname or scroll event --
@@ -129,15 +127,7 @@ export default function Header({ theme, brands }: HeaderProps) {
         {/* //---------- ICONS ----------// */}
         <ul className={styles['icons']}>
           <li>
-            <button className={styles['search-button']} type="button" onClick={() => setOpenSearchBar((prev) => !prev)}>
-              <svg className={styles['search-icon']} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M7.91029 13.8426C8.68934 13.8426 9.46076 13.6892 10.1805 13.3911C10.9003 13.0929 11.5542 12.656 12.1051 12.1051C12.656 11.5542 13.0929 10.9002 13.3911 10.1805C13.6892 9.46075 13.8426 8.68933 13.8426 7.91029C13.8426 7.13124 13.6892 6.35982 13.3911 5.64008C13.0929 4.92033 12.656 4.26636 12.1051 3.71549C11.5542 3.16462 10.9003 2.72765 10.1805 2.42952C9.46076 2.13139 8.68934 1.97794 7.91029 1.97794C6.33694 1.97794 4.82802 2.60296 3.71549 3.71549C2.60296 4.82802 1.97795 6.33693 1.97795 7.91029C1.97795 9.48364 2.60296 10.9926 3.71549 12.1051C4.82802 13.2176 6.33694 13.8426 7.91029 13.8426ZM14.159 12.761L17.6987 16.3006C17.793 16.3919 17.8683 16.501 17.92 16.6217C17.9717 16.7424 17.9989 16.8721 18 17.0034C18.001 17.1347 17.9759 17.2648 17.9261 17.3863C17.8763 17.5078 17.8028 17.6181 17.7099 17.7109C17.617 17.8037 17.5066 17.877 17.385 17.9266C17.2635 17.9763 17.1333 18.0012 17.002 18C16.8707 17.9987 16.741 17.9714 16.6204 17.9195C16.4998 17.8676 16.3908 17.7922 16.2996 17.6977L12.76 14.158C11.1706 15.3918 9.17071 15.9735 7.16752 15.7847C5.16432 15.5959 3.30838 14.6507 1.9775 13.1417C0.646626 11.6326 -0.0591376 9.67313 0.00388472 7.66204C0.0669071 5.65096 0.893978 3.73948 2.31673 2.31673C3.73948 0.893977 5.65096 0.066907 7.66205 0.00388471C9.67314 -0.0591376 11.6327 0.646625 13.1417 1.9775C14.6507 3.30838 15.5959 5.16432 15.7847 7.16751C15.9735 9.17071 15.3918 11.1706 14.158 12.76L14.159 12.761Z"
-                  fill="#514E49"
-                />
-              </svg>
-            </button>
-            {openSearchBar && <SearchBar close={handleCloseSearchBar} brands={brands} />}
+            <SearchBar brands={brands} />
           </li>
           <li>
             <Link href={session ? '/account/profil' : '/login'} title="Compte utilisateur">
@@ -150,17 +140,6 @@ export default function Header({ theme, brands }: HeaderProps) {
             </Link>
           </li>
           <li>
-            {/* <Link href="/" title="Panier">
-              <svg className={styles['cart-icon']} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M5.28305 5H4.14659C2.93858 5 2.3355 5 1.90712 5.265C1.52985 5.498 1.23993 5.865 1.08846 6.304C0.916554 6.803 1.01505 7.444 1.21391 8.724V8.726L2.08089 14.326C2.22864 15.276 2.30205 15.751 2.52228 16.108C2.71742 16.422 2.98968 16.67 3.30934 16.825C3.67175 17 4.11964 17 5.0145 17H12.9855C13.8804 17 14.3273 17 14.6907 16.825C15.0103 16.67 15.2835 16.422 15.4777 16.108C15.698 15.751 15.7714 15.276 15.9182 14.326L16.7861 8.726V8.722C16.9849 7.442 17.0834 6.802 16.9115 6.304C16.7603 5.8654 16.4709 5.49775 16.0938 5.265C15.6654 5 15.0614 5 13.8534 5H12.717M5.28305 5H12.717M5.28305 5C5.28305 3.93913 5.67465 2.92172 6.37172 2.17157C7.06878 1.42143 8.0142 1 9 1C9.9858 1 10.9312 1.42143 11.6283 2.17157C12.3253 2.92172 12.717 3.93913 12.717 5"
-                  stroke="#514E49"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Link> */}
             <ShoppingCart />
           </li>
         </ul>

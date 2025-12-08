@@ -81,6 +81,8 @@
 
 .orders-table {
   border-collapse: collapse;
+  margin-top: 32px;
+  width: 100%;
 }
 .orders-table thead {
   background: var(--coffee-900);

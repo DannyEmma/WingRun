@@ -25,16 +25,18 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const formattedPrice = util.product.getFormattedPrice(product.price)
 
   //-- Breadcrumb --
-  const audienceLabel = util.audience.audienceToLabel(audience)
+  const audienceLabel = util.audience.audiencesToLabel([audience])
+
   let breadcrumbItems: BreadcrumbItem[] = [
     { label: 'WingRun', url: '/' },
-    { label: audienceLabel, url: '/collections' + audienceLabel.toLowerCase() },
+    { label: audienceLabel, url: `/collections?${util.audience.audiencesToUrlParams([audience])}` },
     { label: fullname, url: null },
   ]
 
   return (
     <main className={styles['article-page']}>
       <Breadcrumb items={breadcrumbItems} />
+
       <div className={styles['article-container']}>
         {/* //---------- PREVIEW CONTAINER ----------// */}
         <div className={styles['preview-container']}>{product?.visuals && <PreviewSneakers images={product.visuals} />}</div>

@@ -4,14 +4,14 @@ import SneakerItem from '@/components/features/sneaker/SneakerItem/SneakerItem'
 import FilterBar from '@/components/features/category/FilterBar/FilterBar'
 import { BreadcrumbItem } from '@/lib/types'
 import PaginationRounded from '@/components/features/category/PaginationRounded/PaginationRounded'
-import { PRODUCTS_PER_PAGE } from '@/lib/constants'
 import { service } from '@/lib/services'
-import { util } from '@/lib/utils'
+import { Audience } from '../../../../prisma/generated/enums'
 
 export default async function SearchResultsPage({ searchParams }: { searchParams: Record<string, string> }) {
   const {
     q: query,
-    category: categoryParam = 'hommes',
+    adults: adutlsParam,
+    kids: kidsParam,
     page: currentPage = '1',
     brands: brandsParams,
     sizes: sizesParams,
@@ -20,25 +20,24 @@ export default async function SearchResultsPage({ searchParams }: { searchParams
     sort: sortParams = 'asc',
   } = await searchParams
 
-  const audience = util.audience.labelToAudience(categoryParam)
+  const audiences: Audience[] = (adutlsParam?.split(',').filter((v) => v !== ',') as Audience[]) || (kidsParam?.split(',').filter((v) => v !== ',') as Audience[]) || []
 
   const [colorsFilter, pricesRange, sizesList, brandList] = await Promise.all([
     service.color.getColorsFilter().then((res) => res.data),
-    service.product.getPriceRangeByAudience([audience]).then((res) => res.data),
-    service.size.getSizesByAudience([audience]).then((res) => res.data),
+    service.product.getPriceRangeByAudience(audiences).then((res) => res.data),
+    service.size.getSizesByAudience(audiences).then((res) => res.data),
     service.brand.getAllBrand().then((res) => res.data),
   ])
 
   const filters = { brands: brandsParams?.split(','), sizes: sizesParams?.split(','), colors: colorsParams?.split(','), priceRange: priceRangeParams?.split(',') }
 
   const { data, error } = await service.product.getProductsPerPageBySearchQuery({
+    page: Number(currentPage),
     searchQuery: query
       .split(' ')
       .filter((v) => v !== '')
       .join(' | '),
-    audience,
-    skip: (parseInt(currentPage) - 1) * PRODUCTS_PER_PAGE,
-    take: PRODUCTS_PER_PAGE,
+    audiences,
     filters,
     sort: sortParams,
   })
@@ -46,11 +45,9 @@ export default async function SearchResultsPage({ searchParams }: { searchParams
   const productPerPage = data?.products
 
   const pages = data?.pagination.totalPages ?? 0
-  // const totalProducts = data?.count
 
   const breadcrumbItems: BreadcrumbItem[] = [
     { label: 'WingRun', url: '/' },
-    { label: categoryParam, url: '/collections/' + categoryParam },
     { label: `Résultats pour "${query}"`, url: null },
   ]
 

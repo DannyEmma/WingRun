@@ -17,14 +17,16 @@ export default async function HomePage() {
   return (
     <>
       <EmailVerificationToast />
+
       <Hero />
+
       <main className={styles['main']}>
         <div className={styles['sneakers-slider-container']}>
-          <SneakersSlider title="Meilleurs ventes" sneakers={bestSellers} />
-          <SneakersSlider title="Notre sélection" sneakers={ourPicks} />
-          <SneakersSlider title="Nouveautés" sneakers={newArrivals} />
+          <SneakersSlider title="Meilleurs ventes" sneakers={bestSellers} tag="BEST_SELLER" />
+          <SneakersSlider title="Notre sélection" sneakers={ourPicks} tag="OUR_PICK" />
+          <SneakersSlider title="Nouveautés" sneakers={newArrivals} tag="NEW_ARRIVAL" />
           <BrandPanel />
-          <SneakersSlider title="Populaires" sneakers={populars} />
+          <SneakersSlider title="Populaires" sneakers={populars} tag="POPULAR" />
         </div>
       </main>
     </>

@@ -21,13 +21,11 @@ export class ProductService {
     let response: ServiceResponse<[number, number]> = { data: null, error: null }
 
     try {
-      if (audiences.length) {
-        const result = await prisma.product.aggregate({ _min: { price: true }, _max: { price: true }, where: { audience: { in: audiences } } })
-        const min = result._min.price ? result._min.price / 100 : NaN
-        const max = result._max.price ? result._max.price / 100 : NaN
+      const result = await prisma.product.aggregate({ _min: { price: true }, _max: { price: true }, where: { ...(audiences.length && { audience: { in: audiences } }) } })
+      const min = result._min.price ? result._min.price / 100 : NaN
+      const max = result._max.price ? result._max.price / 100 : NaN
 
-        response.data = [min, max]
-      }
+      response.data = [min, max]
     } catch (error) {
       if (error instanceof Error) response.error = error.message
     }
@@ -86,53 +84,53 @@ export class ProductService {
   }
 
   async getProductsPerPageByAudience({
-    skip,
-    take,
+    page,
     audiences,
     filters,
     sort,
+    tag,
   }: {
-    skip: number
-    take: number
+    page: number
     audiences: Audience[]
     filters: Record<string, any[] | null>
     sort: string
+    tag: ProductTag | null | undefined
   }): Promise<ServiceResponse<{ products: ProductWithBrand[] | null; pagination: Record<string, number> }>> {
     let response: ServiceResponse<{ products: ProductWithBrand[] | null; pagination: Record<string, number> }> = { data: null, error: null }
     let productsPerPage = null
     let totalProducts = 0
 
     try {
-      if (audiences.length) {
-        productsPerPage = await prisma.product.findMany({
-          skip,
-          take,
+      productsPerPage = await prisma.product.findMany({
+        skip: (page - 1) * PRODUCTS_PER_PAGE,
+        take: PRODUCTS_PER_PAGE,
+        where: {
+          ...(tag && { tags: { has: tag } }),
+          ...(audiences.length && { audience: { in: audiences } }),
+          ...(filters.brands?.length && { brand: { name: { in: filters.brands } } }),
+          ...(filters.colors?.length && { colorFilter: { color: { in: filters.colors } } }),
+          ...(filters.sizes?.length && { sizes: { some: { size: { size: { in: filters.sizes } }, stock: { not: 0 } } } }),
+          ...(filters.priceRange?.length && { price: { gte: filters.priceRange[0] * 100, lte: filters.priceRange[1] * 100 } }),
+        },
+        orderBy: {
+          price: sort as 'asc' | 'desc',
+        },
+        include: { brand: true },
+      })
+
+      totalProducts = (
+        await prisma.product.aggregate({
           where: {
-            audience: { in: audiences },
+            ...(tag && { tags: { has: tag } }),
+            ...(audiences.length && { audience: { in: audiences } }),
             ...(filters.brands?.length && { brand: { name: { in: filters.brands } } }),
             ...(filters.colors?.length && { colorFilter: { color: { in: filters.colors } } }),
             ...(filters.sizes?.length && { sizes: { some: { size: { size: { in: filters.sizes } }, stock: { not: 0 } } } }),
             ...(filters.priceRange?.length && { price: { gte: filters.priceRange[0] * 100, lte: filters.priceRange[1] * 100 } }),
           },
-          orderBy: {
-            price: sort as 'asc' | 'desc',
-          },
-          include: { brand: true },
+          _count: { _all: true },
         })
-
-        totalProducts = (
-          await prisma.product.aggregate({
-            where: {
-              audience: { in: audiences },
-              ...(filters.brands?.length && { brand: { name: { in: filters.brands } } }),
-              ...(filters.colors?.length && { colorFilter: { color: { in: filters.colors } } }),
-              ...(filters.sizes?.length && { sizes: { some: { size: { size: { in: filters.sizes } }, stock: { not: 0 } } } }),
-              ...(filters.priceRange?.length && { price: { gte: filters.priceRange[0] * 100, lte: filters.priceRange[1] * 100 } }),
-            },
-            _count: { _all: true },
-          })
-        )._count._all
-      }
+      )._count._all
     } catch (error) {
       if (error instanceof Error) response.error = error.message
     }
@@ -144,13 +142,13 @@ export class ProductService {
     return response
   }
 
-  async getSearchProducts(audience: Audience, searchQuery: string): Promise<ServiceResponse<{ products: ProductWithBrand[]; count: number }>> {
+  async getSearchProducts(audiences: Audience[], searchQuery: string): Promise<ServiceResponse<{ products: ProductWithBrand[]; count: number }>> {
     let response: ServiceResponse<{ products: ProductWithBrand[]; count: number }> = { data: null, error: null }
 
     try {
       const promise1 = prisma.product.findMany({
         where: {
-          audience,
+          audience: { in: audiences },
           OR: [
             { line: { search: searchQuery } },
             { model: { search: searchQuery } },
@@ -176,7 +174,7 @@ export class ProductService {
           _all: true,
         },
         where: {
-          audience,
+          audience: { in: audiences },
           OR: [
             { line: { search: searchQuery } },
             { model: { search: searchQuery } },
@@ -206,17 +204,15 @@ export class ProductService {
   }
 
   async getProductsPerPageBySearchQuery({
-    audience,
+    page,
+    audiences,
     searchQuery,
-    skip,
-    take,
     filters,
     sort,
   }: {
+    page: number
     searchQuery: string
-    skip: number
-    take: number
-    audience: Audience
+    audiences: Audience[]
     filters: Record<string, any[] | null>
     sort: string
   }): Promise<ServiceResponse<{ products: ProductWithBrand[]; count: number; pagination: { totalPages: number } }>> {
@@ -226,7 +222,7 @@ export class ProductService {
       //-- Products to one page --
       const promise1 = prisma.product.findMany({
         where: {
-          audience,
+          ...(audiences.length && { audience: { in: audiences } }),
           OR: [
             { line: { search: searchQuery } },
             { model: { search: searchQuery } },
@@ -241,8 +237,8 @@ export class ProductService {
           ...(filters.sizes?.length && { sizes: { some: { size: { size: { in: filters.sizes } }, stock: { not: 0 } } } }),
           ...(filters.priceRange?.length && { price: { gte: filters.priceRange[0] * 100, lte: filters.priceRange[1] * 100 } }),
         },
-        take,
-        skip,
+        take: PRODUCTS_PER_PAGE,
+        skip: (page - 1) * PRODUCTS_PER_PAGE,
         orderBy: [
           {
             _relevance: {
@@ -259,7 +255,7 @@ export class ProductService {
       //-- Total products count --
       const promise2 = prisma.product.count({
         where: {
-          audience,
+          ...(audiences.length && { audience: { in: audiences } }),
           OR: [
             { line: { search: searchQuery } },
             { model: { search: searchQuery } },

@@ -3,12 +3,10 @@
 import styles from './Form.module.css'
 import { Address, CreateAddress, DestinationsPerGroup } from '@/lib/types'
 import Input from '@/components/ui/Input/Input'
-import Button from '@/components/ui/ActionLink/ActionLink'
 import { AddressSchema, CreateAddressSchema } from '@/lib/schemas'
 import { useUserStore } from '@/lib/stores/user.store'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { toast } from 'sonner'
-import Image from 'next/image'
 import { $ZodIssue } from 'zod/v4/core'
 import DestinationSelector from '@/components/forms/DestinationSelector/DestinationSelector'
 import { action } from '@/lib/actions'
@@ -99,7 +97,9 @@ export default function AddressForm(props: AddressFormCreateProps | AddressFormU
         <div className={styles['secondary-title-container']}>
           <h2 className={styles['secondary-title']}>{formTitle} </h2>
           <button type="button" onClick={() => props.handleOpenChange()}>
-            <Image src="/icons/cross.svg" width={12} height={12} alt="Cross icon" />
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0.666992 0.666687L12.667 12.6667M12.667 0.666687L0.666992 12.6667" stroke="#514E49" strokeWidth="1.33333" strokeLinecap="round" />
+            </svg>
           </button>
         </div>
         <hr />
