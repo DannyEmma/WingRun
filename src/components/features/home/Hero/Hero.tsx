@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import styles from './Hero.module.css'
-import Button from '@/components/ui/ActionLink/ActionLink'
 import CTA from '@/components/ui/CTA/CTA'
 
 export default function Hero() {

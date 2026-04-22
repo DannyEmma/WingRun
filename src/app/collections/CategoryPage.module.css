@@ -5,15 +5,6 @@
   margin-right: -48px;
   margin-bottom: 24px;
 }
-/* .title-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-image: url('/images/hero/category.webp');
-  padding: 64px calc(48px + 24px);
-  margin-left: -48px;
-  margin-right: -48px;
-} */
 .title-content {
   display: flex;
   align-items: baseline;
@@ -37,4 +28,27 @@
   grid-template-columns: repeat(4, 1fr);
   row-gap: 64px;
   column-gap: 64px;
+}
+
+@media (max-width: 1279px) {
+  .sneakers-grid {
+    row-gap: 32px;
+    column-gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .title-container {
+    margin-left: -16px;
+    margin-right: -16px;
+    padding: 32px calc(16px + 24px);
+  }
+  .title {
+    font-size: 28px;
+  }
+  .sneakers-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 16px;
+    column-gap: 16px;
+  }
 }

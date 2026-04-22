@@ -1,0 +1,14 @@
+.overlay {
+  background: white;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 200ms;
+}
+.overlay.show {
+  opacity: 0.5;
+}

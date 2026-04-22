@@ -3,6 +3,11 @@
   flex-direction: column;
   gap: 128px;
 }
-/* .main {
-  padding: 0;
-} */
+
+/* //---------- RESPONSIVE ----------// */
+@media (max-width: 768px) {
+  .sneakers-slider-container {
+    gap: 64px;
+    margin-top: -60px;
+  }
+}

@@ -35,7 +35,6 @@
   opacity: 1;
   pointer-events: visible;
 }
-
 .menu-content li > * {
   width: 100%;
   text-align: left;

@@ -25,9 +25,25 @@ export default function SneakersSlider({ title, sneakers, tag }: SneakersSliderP
         <ActionLink href={`/collections/?tag=${tag}`}>Voir tout</ActionLink>
       </div>
 
-      <Swiper className={styles['swiper']} spaceBetween={32} slidesPerView={5.5} slidesPerGroup={5} modules={[Navigation]} navigation>
+      <Swiper
+        className={styles['swiper']}
+        spaceBetween={32}
+        slidesPerView={5.5}
+        slidesPerGroup={5}
+        modules={[Navigation]}
+        navigation
+        breakpoints={{
+          1280: {
+            slidesPerView: 5.5,
+          },
+          0: {
+            slidesPerView: 2.5,
+            slidesPerGroup: 2,
+          },
+        }}
+      >
         {sneakers?.map((sneaker, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide className={styles['swiper-slide']} key={index}>
             <SneakerItem data={sneaker} />
           </SwiperSlide>
         ))}

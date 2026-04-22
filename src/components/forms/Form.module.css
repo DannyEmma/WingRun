@@ -1,5 +1,6 @@
 .form {
-  width: 525px;
+  width: 100%;
+  max-width: 525px;
   margin: 0 auto;
   margin-top: 192px;
 }
@@ -28,7 +29,8 @@
   margin-top: 48px;
 }
 
-.forgot-password {
+.forgot-password-link {
+  display: block;
   font-size: var(--font-12);
   font-weight: 400;
   text-align: right;
@@ -40,6 +42,9 @@
   font-weight: 400;
   text-align: center;
   color: var(--coffee-700);
+}
+.create-account-link {
+  display: inline-block;
 }
 .link {
   font-size: var(--font-12);
@@ -59,9 +64,8 @@
 }
 
 .address-form {
-  width: 600px;
-  /* margin-bottom: 128px; */
-  /* margin-bottom: 128px; */
+  width: 100%;
+  max-width: 600px;
 }
 .address-form hr {
   margin-bottom: 32px;
@@ -70,13 +74,6 @@
   display: flex;
   gap: 4px;
 }
-
-/* .country-label {
-  font-weight: 500;
-  font-size: var(--font-12);
-  text-transform: uppercase;
-  margin-bottom: 8px;
-} */
 
 .actions-container {
   display: flex;
@@ -110,4 +107,17 @@
 }
 .delivery-form .input {
   flex: 1;
+}
+
+/* //---------- RESPONSIVE ----------// */
+@media (max-width: 768px) {
+  .form {
+    margin-top: 96px;
+  }
+  .title {
+    margin-bottom: 32px;
+  }
+  .registration-form .button-container {
+    margin-top: 32px;
+  }
 }

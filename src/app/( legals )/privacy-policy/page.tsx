@@ -2,7 +2,7 @@ import styles from '@/app/( legals )/Legals.module.css'
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className={styles['page']}>
+    <main className={styles['page']}>
       <h1 className={styles['title']}>
         Politique de confidentialité <br />
         <small className={styles['sub-title']}>⚠️ Ce document est fourni à titre fictif dans le cadre d’un projet personnel et ne constitue pas un document légal réel. ⚠️</small>
@@ -164,11 +164,6 @@ export default function PrivacyPolicyPage() {
           Nous nous réservons le droit de modifier cette politique à tout moment. Les utilisateurs seront informés via le site ou par email si nécessaire.
         </p>
       </section>
-    </div>
+    </main>
   )
 }
-
-//   <section className={styles['section']}>
-//     <h2 className={styles['secondary-title']}>éditeur du site</h2>
-
-//     <ul className={styles['list']}>

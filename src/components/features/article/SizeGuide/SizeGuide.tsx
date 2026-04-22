@@ -5,13 +5,10 @@ import { useState } from 'react'
 import { Tabs } from 'radix-ui'
 import { Dialog } from 'radix-ui'
 
-type Category = 'homme' | 'femme' | 'enfant'
-
 export default function SizeGuide({ trigger }: { trigger: React.JSX.Element }) {
-  const [category, setCategory] = useState<Category>('homme')
-  const tabsToCategory: Record<string, Category> = { tab1: 'homme', tab2: 'femme', tab3: 'enfant' }
+  const [currentTab, setCurrentTab] = useState('homme')
 
-  const handleTabsChange = (currentTab: string) => setCategory(tabsToCategory[currentTab])
+  const handleTabsChange = (currentTab: string) => setCurrentTab(currentTab)
 
   return (
     <div className={styles['size-guide']}>
@@ -20,21 +17,21 @@ export default function SizeGuide({ trigger }: { trigger: React.JSX.Element }) {
         <Dialog.Portal>
           <Dialog.Overlay className={styles['modal-overlay']} />
           <Dialog.Content className={styles['modal-content']}>
-            <Dialog.Title className={styles['modal-title']}>Guide des tailles sneakers pour {category}</Dialog.Title>
+            <Dialog.Title className={styles['modal-title']}>Guide des tailles sneakers pour {currentTab}</Dialog.Title>
 
-            <Tabs.Root onValueChange={handleTabsChange} className={styles['tabs-root']} defaultValue="tab1" orientation="vertical">
+            <Tabs.Root onValueChange={handleTabsChange} className={styles['tabs-root']} value={currentTab}>
               <Tabs.List className={styles['tabs-list']}>
-                <Tabs.Trigger className={styles['tabs-trigger']} value="tab1">
+                <Tabs.Trigger className={styles['tabs-trigger']} value="homme">
                   Homme
                 </Tabs.Trigger>
-                <Tabs.Trigger className={styles['tabs-trigger']} value="tab2">
+                <Tabs.Trigger className={styles['tabs-trigger']} value="femme">
                   Femme
                 </Tabs.Trigger>
-                <Tabs.Trigger className={styles['tabs-trigger']} value="tab3">
+                <Tabs.Trigger className={styles['tabs-trigger']} value="enfant">
                   Enfant
                 </Tabs.Trigger>
               </Tabs.List>
-              <Tabs.Content className={styles['tabs-content']} value="tab1">
+              <Tabs.Content className={styles['tabs-content']} value="homme">
                 <table className={styles.table}>
                   <thead>
                     <tr>
@@ -162,7 +159,7 @@ export default function SizeGuide({ trigger }: { trigger: React.JSX.Element }) {
                   </tbody>
                 </table>
               </Tabs.Content>
-              <Tabs.Content className={styles['tabs-content']} value="tab2">
+              <Tabs.Content className={styles['tabs-content']} value="femme">
                 <table className={styles.table}>
                   <thead>
                     <tr>
@@ -278,7 +275,7 @@ export default function SizeGuide({ trigger }: { trigger: React.JSX.Element }) {
                   </tbody>
                 </table>
               </Tabs.Content>
-              <Tabs.Content className={styles['tabs-content']} value="tab3">
+              <Tabs.Content className={styles['tabs-content']} value="enfant">
                 <table className={styles.table}>
                   <thead>
                     <tr>

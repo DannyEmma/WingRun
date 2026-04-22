@@ -3,10 +3,12 @@
 import styles from './Header.module.css'
 import Link from 'next/link'
 import { useUserStore } from '@/lib/stores/user.store'
-import { useEffect, useState } from 'react'
-import { usePathname } from 'next/navigation'
+import { useEffect, useState, useTransition } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import SearchBar from '@/components/features/search/SearchBar/SearchBar'
 import ShoppingCart from '@/components/features/shopping/ShoppingCart/ShoppingCart'
+import HamburgerMenu from '@/components/layouts/HamburgerMenu/HamburgerMenu'
+import { usePageLoadingStore } from '@/lib/stores/page-loading.store'
 
 interface HeaderProps {
   theme: 'light' | 'dark' | 'transparent'
@@ -15,8 +17,17 @@ interface HeaderProps {
 
 export default function Header({ theme, brands }: HeaderProps) {
   const session = useUserStore((state) => state.session)
+  const router = useRouter()
   const pathname = usePathname()
   const [currentTheme, setCurrentTheme] = useState(pathname === '/' ? 'transparent' : theme)
+
+  const setLoading = usePageLoadingStore((state) => state.setLoading)
+  const [isPending, startTransition] = useTransition()
+
+  //-- Use to show page loader --
+  useEffect(() => {
+    setLoading(isPending)
+  }, [isPending])
 
   //---------- EVENTS HANDLERS ----------//
   const handleScroll = () => (window.scrollY > 0 ? setCurrentTheme('dark') : setCurrentTheme('transparent'))
@@ -39,8 +50,36 @@ export default function Header({ theme, brands }: HeaderProps) {
 
   return (
     <header className={`${styles['header']} ${styles[currentTheme]}`}>
+      {/* //---------- HAMBURGER MENU ----------// */}
+      <HamburgerMenu />
+      {/* //---------- LINKS ----------// */}
+      <nav className={styles['nav-links']}>
+        <ul className={styles['links']}>
+          <li>
+            <Link href="collections?tag=NEW_ARRIVAL" onClick={() => startTransition(() => router.push('collections?tag=NEW_ARRIVAL'))}>
+              nouveautés
+            </Link>
+          </li>
+          <li>
+            <Link href="/collections?adults=MEN" onClick={() => startTransition(() => router.push('/collections?adults=MEN'))}>
+              hommes
+            </Link>
+          </li>
+          <li>
+            <Link href="/collections?adults=WOMEN" onClick={() => startTransition(() => router.push('/collections?adults=WOMEN'))}>
+              femmes
+            </Link>
+          </li>
+          <li>
+            <Link href="/collections?kids=BOY,GIRL" onClick={() => startTransition(() => router.push('/collections?kids=BOY,GIRL'))}>
+              enfants
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
       {/* //---------- LOGO ----------// */}
-      <Link href="/">
+      <Link href="/" onClick={() => startTransition(() => router.push('/'))}>
         <svg className={`${styles['logo']}`} width="285" height="68" viewBox="0 0 285 68" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="32" cy="36" r="32" fill="#514E49" />
           <path d="M44.7521 37.1065L45.0929 35.4025" stroke="#F4EFE9" strokeWidth="2" strokeLinecap="round" />
@@ -107,24 +146,8 @@ export default function Header({ theme, brands }: HeaderProps) {
         </svg>
       </Link>
 
-      {/* //---------- LINKS ----------// */}
-      <nav>
-        <ul className={styles['links']}>
-          <li>
-            <Link href="/collections/nouveautes">nouveautés</Link>
-          </li>
-          <li>
-            <Link href="/collections?adults=MEN">hommes</Link>
-          </li>
-          <li>
-            <Link href="/collections?adults=WOMEN">femmes</Link>
-          </li>
-          <li>
-            <Link href="/collections?kids=BOY,GIRL">enfants</Link>
-          </li>
-        </ul>
-
-        {/* //---------- ICONS ----------// */}
+      {/* //---------- ICONS ----------// */}
+      <nav className={styles['nav-icons']}>
         <ul className={styles['icons']}>
           <li>
             <SearchBar brands={brands} />

@@ -1,12 +1,13 @@
 .hero {
   position: relative;
-  top: -56px;
+  top: -60px;
   height: 100vh;
   width: 100%;
   overflow: hidden;
   display: flex;
   justify-content: flex-end;
   margin-bottom: 64px;
+  font-size: 16px;
 }
 .hero img {
   height: 100%;
@@ -15,39 +16,55 @@
 .hero-content {
   position: absolute;
   left: 48px;
-  bottom: 128px;
+  bottom: 64px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 32px;
+  gap: 2em;
 }
 .title-container {
-  height: 140px;
+  height: 8.75em;
   text-transform: capitalize;
   font-family: var(--font-oswald);
-  background: rgba(255, 255, 255, 0.3);
-  padding: 0 64px;
+  padding: 0 4em;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 0.75em;
+  background: rgba(245, 245, 245, 0.1);
 }
 .brand {
   text-transform: uppercase;
   font-weight: bold;
   color: var(--coffee-400);
-  font-size: 36px;
-  line-height: 36px;
+  font-size: 2.25em;
+  line-height: 1em;
 }
 .fullname {
   font-weight: 600;
-  font-size: 64px;
+  font-size: 4em;
   color: var(--coffee-100);
-  line-height: 64px;
+  line-height: 1em;
   text-align: center;
 }
 .cta-container a {
   border-color: var(--coffee-100);
   color: var(--coffee-100);
+}
+
+/* //---------- RESPONSIVE ----------// */
+@media (max-width: 768px) {
+  .hero {
+    font-size: 9px;
+  }
+  .hero img {
+    transform: translateX(45px);
+  }
+  .hero-content {
+    bottom: initial;
+    left: initial;
+    top: 20%;
+    right: 16px;
+  }
 }

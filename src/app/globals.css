@@ -73,3 +73,19 @@
 main {
   padding: 0 48px;
 }
+
+/* //---------- Use to Swiper mobile at the PreviewSneaker Component ----------// */
+
+.swiper-pagination-bullets {
+  position: relative;
+}
+.swiper-pagination-bullet-active {
+  background: var(--coffee-500) !important;
+}
+
+/* //---------- RESPONSIVE ----------// */
+@media (max-width: 768px) {
+  main {
+    padding: 0 16px;
+  }
+}

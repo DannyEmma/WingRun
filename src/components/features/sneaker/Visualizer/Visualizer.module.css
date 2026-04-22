@@ -53,3 +53,22 @@
   width: 20px;
   height: 20px;
 }
+
+@media (max-width: 768px) {
+  .visualizer div[class~='swiper-button-prev'],
+  .visualizer div[class~='swiper-button-next'] {
+    width: 12px;
+  }
+  .visualizer div[class~='swiper-button-prev']:hover,
+  .visualizer div[class~='swiper-button-next']:hover {
+    transform: none;
+  }
+  .close-button:hover {
+    transform: none;
+  }
+}
+@media (orientation: landscape) {
+  .visualizer {
+    overflow-y: auto;
+  }
+}

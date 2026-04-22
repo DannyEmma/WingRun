@@ -16,11 +16,16 @@
   background: white;
   border: 1px solid;
   padding: 16px;
-  position: absolute;
-  bottom: 54px;
-  width: 500px;
+
+  width: var(--radix-select-trigger-width);
   text-align: center;
   border-radius: 4px;
+}
+.select-content[data-side='top'] {
+  margin-bottom: 5px;
+}
+.select-content[data-side='bottom'] {
+  margin-top: 5px;
 }
 .select-group {
   margin-bottom: 24px;

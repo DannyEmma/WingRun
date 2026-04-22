@@ -17,6 +17,7 @@ export default function DestinationSelector({ defaultDestination, destinationsPe
         </p>
 
         <Select.Root defaultValue={defaultDestination} name="destination" required>
+          {/* <Select.Root defaultValue={defaultDestination} open={true} name="destination" required> */}
           <Select.Trigger className={styles['select-trigger']} aria-label="Country">
             <Select.Value placeholder="Séléctionner" />
             <Select.Icon>
@@ -25,7 +26,7 @@ export default function DestinationSelector({ defaultDestination, destinationsPe
           </Select.Trigger>
 
           <Select.Portal>
-            <Select.Content position="popper" className={styles['select-content']}>
+            <Select.Content position="popper" side="top" className={styles['select-content']}>
               <Select.ScrollUpButton>
                 <ChevronUpIcon />
               </Select.ScrollUpButton>

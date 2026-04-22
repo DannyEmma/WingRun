@@ -1,8 +1,10 @@
 .filter-bar {
   display: flex;
   justify-content: space-between;
-
-  margin-bottom: 48px;
+}
+.filters-container {
+  display: flex;
+  align-items: center;
 }
 .filters {
   display: flex;
@@ -17,6 +19,7 @@
   display: flex;
   gap: 12px;
   margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 .active-filter {
   display: flex;
@@ -40,6 +43,7 @@
   display: flex;
   gap: 8px;
   text-transform: capitalize;
+  cursor: pointer;
 }
 .checkbox-item-filter {
   -webkit-appearance: none;
@@ -50,6 +54,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .checkbox-item-filter:checked.dark-checkmark::before {
@@ -78,15 +83,33 @@
   gap: 8px;
   cursor: pointer;
 }
-/* .colorway-indicator {
-  width: 12px;
-  height: 12px;
-  border: 1px solid var(--coffee-900);
-  border-radius: 50%;
-} */
 
 .article-number {
   font-size: 14px;
   text-transform: uppercase;
-  /* color: var(--coffee-800); */
+}
+
+/* //---------- MOBILE VERSION ----------// */
+.filter-panel-container {
+  display: none;
+  height: 31px;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .filter-bar {
+    margin-bottom: 16px;
+  }
+  .filters {
+    display: none;
+  }
+  .filter-panel-container {
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .sort-container {
+    flex-direction: column;
+  }
 }

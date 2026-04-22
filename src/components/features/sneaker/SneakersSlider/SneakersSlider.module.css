@@ -9,7 +9,7 @@
 }
 .title {
   font-family: var(--font-oswald);
-  font-size: 24px;
+  font-size: 20px;
   background: var(--coffee-900);
   color: var(--coffee-200);
   text-transform: uppercase;
@@ -64,4 +64,23 @@
 
 .swiper div[class~='swiper-button-disabled'] {
   opacity: 0;
+}
+
+/* //---------- RESPONSIVE ----------// */
+@media (max-width: 768px) {
+  .sneakers-slider {
+    margin: 0 -16px;
+  }
+  .swiper {
+    padding: 0 16px;
+  }
+  .header {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .swiper-slide {
+    margin-right: 16px !important;
+  }
 }

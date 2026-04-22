@@ -2,7 +2,7 @@ import styles from '@/app/( legals )/Legals.module.css'
 
 export default function LegalNoticesPage() {
   return (
-    <div className={styles['page']}>
+    <main className={styles['page']}>
       <h1 className={styles['title']}>
         Mentions légales <br />
         <small className={styles['sub-title']}>⚠️ Ce document est fourni à titre fictif dans le cadre d’un projet personnel et ne constitue pas un document légal réel. ⚠️</small>
@@ -92,6 +92,6 @@ export default function LegalNoticesPage() {
           Tout litige en relation avec l’utilisation du site est soumis au droit français. En cas de litige, les tribunaux français seront seuls compétents.
         </p>
       </section>
-    </div>
+    </main>
   )
 }

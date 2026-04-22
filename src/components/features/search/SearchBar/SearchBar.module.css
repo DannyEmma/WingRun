@@ -3,16 +3,18 @@
 }
 .search-bar {
   position: fixed;
-  top: -100%;
+  top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  right: 0;
+  bottom: 0;
+  transform: translateY(-100%);
+  overflow-y: auto;
   background: white;
-  transition: top 300ms;
+  transition: transform 300ms;
   z-index: 100;
 }
 .open {
-  top: 0;
+  transform: translateY(0);
 }
 .container {
   width: 70%;
@@ -53,7 +55,6 @@
 }
 .left-section {
   width: 30%;
-  height: 800px;
 }
 .brands-list {
   display: flex;
@@ -95,4 +96,38 @@
   display: flex;
   justify-content: center;
   padding-top: 48px;
+  margin-bottom: 48px;
+}
+
+/* //---------- RESPONSIVE ----------// */
+@media (max-width: 768px) {
+  .search-bar {
+    padding: 0 16px;
+  }
+  .container {
+    width: 100%;
+  }
+  .left-section,
+  .right-section {
+    width: 100%;
+  }
+  .menu {
+    flex-direction: column;
+    gap: 48px;
+    /* height: calc(100vh - 145px);
+    overflow-y: auto; */
+  }
+  .brands-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 12px;
+  }
+  .sneaker-container {
+    width: 100%;
+  }
+  .sneakers-grid {
+    gap: 0px;
+    /* overflow-y: auto;
+    height: calc(100vh - 464px); */
+  }
 }

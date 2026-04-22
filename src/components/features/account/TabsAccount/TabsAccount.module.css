@@ -15,7 +15,6 @@
 }
 .tabs-list {
   width: 300px;
-  /* border: 1px solid blue; */
 }
 .tabs-list button:last-of-type {
   margin-top: 32px;
@@ -33,16 +32,39 @@
 .tabs-content {
   flex: 1;
 }
-
-/* .tabs-content button {
-  margin: 32px 0;
-} */
-
-.tabs [role='tablist'] {
+.tabs-list {
   display: flex;
+  position: relative;
 }
-.tabs [data-orientation='vertical'] {
+.tabs-list[data-orientation='vertical'] {
   flex-direction: column;
+}
+.tabs[data-orientation='horizontal'] {
+  flex-direction: column;
+  gap: 128px;
+}
+.tabs-list[data-orientation='horizontal'] {
+  width: 70%;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--gray-300);
+}
+.tabs[data-orientation='horizontal'] .tabs-trigger {
+  width: 100%;
+  padding: 16px 0;
+  text-align: center;
+}
+.tabs[data-orientation='horizontal'] .tabs-trigger[data-state='active'] {
+  border-bottom: 2px solid black;
+}
+.tabs[data-orientation='horizontal'] .tabs-list hr {
+  display: none;
+}
+.tabs[data-orientation='horizontal'] .tabs-list button:last-of-type {
+  position: absolute;
+  margin: 0;
+  top: 78px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .infos {
@@ -80,6 +102,7 @@
 }
 
 .orders-table {
+  table-layout: fixed;
   border-collapse: collapse;
   margin-top: 32px;
   width: 100%;
@@ -91,8 +114,62 @@
   color: var(--coffee-100);
   padding: 12px 32px;
 }
+.orders-table tr {
+  border-bottom: 1px solid var(--gray-300);
+}
+.orders-table tr:last-child {
+  border: none;
+}
 .orders-table td {
+  word-break: break-word;
   text-align: center;
   padding: 12px 0;
-  border-bottom: 1px solid var(--gray-300);
+}
+
+/* Order table - mobile version */
+.orders-table-mobile {
+  display: none;
+  margin-top: 32px;
+  padding-left: 12px;
+}
+.orders-table-mobile .mobile-row:last-child {
+  border: none;
+}
+.mobile-row {
+  border-bottom: 1px dashed var(--gray-300);
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+}
+.mobile-row-container {
+  margin-bottom: 16px;
+}
+.mobile-label {
+  letter-spacing: 1px;
+  font-family: var(--font-oswald);
+  font-weight: bold;
+  color: var(--gray-600);
+  margin-bottom: 8px;
+}
+.mobile-value {
+  word-break: break-word;
+}
+
+/* //----------- RESPONSIVE ----------// */
+@media (max-width: 768px) {
+  .tabs h1 {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+  .orders-table {
+    display: none;
+  }
+  .orders-table-mobile {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .tabs-list[data-orientation='horizontal'] {
+    width: 100%;
+  }
 }

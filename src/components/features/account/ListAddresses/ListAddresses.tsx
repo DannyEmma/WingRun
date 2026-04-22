@@ -3,7 +3,7 @@
 import styles from './ListAddresses.module.css'
 import { Address, DestinationsPerGroup } from '@/lib/types'
 import { Collapsible } from 'radix-ui'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import AddressForm from '@/components/forms/AddressForm'
 import CTA from '@/components/ui/CTA/CTA'
 import { action } from '@/lib/actions'
@@ -17,6 +17,11 @@ interface ListAddressesProps {
 
 export default function ListAddresses({ addresses, destinationsPerGroup, userId, setAddresses }: ListAddressesProps) {
   const [opensForms, setOpensForms] = useState<boolean[]>(Array(addresses.length).fill(false))
+
+  //-- Réinitialize the openForms[] state if an adress has been create, or delete --
+  useEffect(() => {
+    setOpensForms(Array(addresses.length).fill(false))
+  }, [addresses])
 
   //---------- EVENTS HANDLERS ----------
   const handleOpenChange = (index: number) => {
@@ -42,7 +47,7 @@ export default function ListAddresses({ addresses, destinationsPerGroup, userId,
             const titleSuffix = a.isDefault ? 'par défaut' : (index + 1).toString()
 
             return (
-              <li key={index} data-is-open-form={opensForms[index] ? 'true' : 'false'}>
+              <li key={index} data-is-open-form={opensForms[index] ? 'true' : 'false'} className={styles['row']}>
                 <div className={styles['address-container']}>
                   <h2 className={styles.title}>{a.isDefault ? 'Adresse ' + titleSuffix : 'Adresse ' + titleSuffix}</h2>
                   <p>{a.firstname + ' ' + a.lastname}</p>
@@ -53,7 +58,7 @@ export default function ListAddresses({ addresses, destinationsPerGroup, userId,
                 </div>
 
                 <div className={styles['actions-container']}>
-                  <Collapsible.Root open={opensForms[index]} onOpenChange={() => handleOpenChange(index)}>
+                  <Collapsible.Root className={styles['collapsible-root']} open={opensForms[index]} onOpenChange={() => handleOpenChange(index)}>
                     {opensForms[index] || (
                       <Collapsible.Trigger asChild>
                         <CTA variant="secondary" fit>
@@ -62,7 +67,7 @@ export default function ListAddresses({ addresses, destinationsPerGroup, userId,
                       </Collapsible.Trigger>
                     )}
 
-                    <Collapsible.Content>
+                    <Collapsible.Content className={styles['collapsible-content']}>
                       <AddressForm
                         operation="update"
                         destinationsPerGroup={destinationsPerGroup}

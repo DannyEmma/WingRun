@@ -1,16 +1,18 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './PriceRange.module.css'
 import { Slider } from 'radix-ui'
-import { Filter } from '@/lib/types'
+
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { Filter } from '@/lib/types'
 
 interface PriceRangeProps {
   range: number[]
+  activeFilters: Filter[]
 }
 
-export default function PriceRange({ range }: PriceRangeProps) {
+export default function PriceRange({ range, activeFilters }: PriceRangeProps) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -28,13 +30,14 @@ export default function PriceRange({ range }: PriceRangeProps) {
   }
 
   //---------- USE EFFECT ----------//
+
   useEffect(() => {
     setPriceRange(range)
   }, [range])
 
   return (
     <div className={styles['price-range']}>
-      <p className={styles['range']}>{`${priceRange[0]}€ - ${priceRange[1]}€ `}</p>
+      <p className={styles['range']}>{activeFilters.filter((filter) => filter.type === 'priceRange')[0].displayName}</p>
 
       <Slider.Root
         className={styles['slider-root']}
@@ -46,6 +49,19 @@ export default function PriceRange({ range }: PriceRangeProps) {
         onValueCommit={handleCommit}
         minStepsBetweenThumbs={10}
       >
+        {/* <Slider.Root
+        className={styles['slider-root']}
+        min={min}
+        max={max}
+        value={activeFilters
+          .filter((filter) => filter.type === 'priceRange')[0]
+          .value.split(',')
+          .map(Number)}
+        step={1}
+        onValueChange={setPriceRange}
+        onValueCommit={handleCommit}
+        minStepsBetweenThumbs={10}
+      > */}
         <Slider.Track className={styles['slider-track']}>
           <Slider.Range className={styles['slider-range']} />
         </Slider.Track>

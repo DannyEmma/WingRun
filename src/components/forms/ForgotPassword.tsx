@@ -8,6 +8,8 @@ import ActionLink from '@/components/ui/ActionLink/ActionLink'
 import ErrorBanner from '@/components/shared/ErrorBanner/ErrorBanner'
 import { toast } from 'sonner'
 import Loader from '../shared/Loader/Loader'
+import Input from '@/components/ui/Input/Input'
+import CTA from '@/components/ui/CTA/CTA'
 
 export default function ForgotPassword() {
   const [errorCode, setErrorCode] = useState<string | null>(null)
@@ -44,21 +46,18 @@ export default function ForgotPassword() {
   }
 
   return (
-    <>
-      <ErrorBanner code={errorCode} />
-
+    <main>
       <form onSubmit={handleSubmit} className={`${styles.form}`}>
+        <ErrorBanner code={errorCode} />
+
         <h1 className={styles.title}>Récupérer l’accès à votre compte</h1>
 
-        <div className={styles['input-container']}>
-          <label htmlFor="email">
-            adresse e-mail <sup>*</sup>
-          </label>
-          <input id="email" type="email" name="email" required />
-        </div>
+        <Input id="email" label="adresse e-mail" type="email" name="email" required />
 
         <div className={styles['button-container']}>
-          <ActionLink type="submit">Envoyer {requestPasswordPending && <Loader />}</ActionLink>
+          <CTA variant="primary" type="submit">
+            Envoyer {requestPasswordPending && <Loader />}
+          </CTA>
         </div>
 
         <div className={styles['caption-container']}>
@@ -67,6 +66,6 @@ export default function ForgotPassword() {
           </Link>
         </div>
       </form>
-    </>
+    </main>
   )
 }

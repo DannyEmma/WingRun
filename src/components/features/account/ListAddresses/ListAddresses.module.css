@@ -9,12 +9,13 @@
   margin-top: 32px;
   margin-bottom: 96px;
 }
-.list-addresses ul[data-has-form-open='true'] {
+/* .list-addresses ul[data-has-form-open='true'] {
   gap: 128px;
-}
+} */
 .list-addresses li {
   display: flex;
   justify-content: space-between;
+  gap: 32px;
 }
 
 .address-container {
@@ -43,4 +44,26 @@
   justify-content: flex-end;
   align-items: flex-end;
   gap: 24px;
+}
+.collapsible-root {
+  width: 100%;
+}
+.collapsible-content {
+  width: 100%;
+}
+
+/* //---------- RESPONSIVE ---------// */
+@media (max-width: 768px) {
+  .row {
+    gap: 32px;
+  }
+  .row[data-is-open-form='true'] {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .list-addresses li {
+    gap: 16px;
+  }
 }

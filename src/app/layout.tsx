@@ -3,7 +3,6 @@ import styles from './Toast.module.css'
 import { Roboto, Oswald } from 'next/font/google'
 import type { Metadata } from 'next'
 import { headers } from 'next/headers'
-import Image from 'next/image'
 import { Toaster } from 'sonner'
 import { auth } from '@/lib/auth'
 import SessionInitializer from '@/components/providers/SessionInitializer/SessionInitializer'
@@ -11,6 +10,7 @@ import Header from '@/components/layouts/Header/Header'
 import Footer from '@/components/layouts/Footer/Footer'
 import ResetScrollTop from '@/components/layouts/ResetScrollTop/ResetScrollTop'
 import { service } from '@/lib/services'
+import OverlayLoader from '@/components/layouts/OverlayLoader/OverlayLoader'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -49,6 +49,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="fr" className={`${roboto.className} ${oswald.variable} `}>
       <body>
+        {/* -- This component detect and display loader if need -- */}
+        <OverlayLoader />
+
         {/* -- Use to keep user session when the page is reload  */}
         <SessionInitializer session={session} />
 
@@ -74,7 +77,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                 <defs>
                   <linearGradient id="paint0_linear_313_1514" x1="10" y1="0" x2="10" y2="20" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#47C896" />
-                    <stop offset="1" stop-color="#47BCC4" />
+                    <stop offset="1" stopColor="#47BCC4" />
                   </linearGradient>
                 </defs>
               </svg>

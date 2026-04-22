@@ -43,6 +43,7 @@ export default function SneakerItem({ variant = 'standard', data, highlight }: S
   }
 
   const sneaker = data
+
   const price = sneaker.price / 100
   const displayPrice = price.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })
 
@@ -87,6 +88,7 @@ export default function SneakerItem({ variant = 'standard', data, highlight }: S
   return (
     <Link href={pageUrl}>
       <div className={`${styles['sneaker-item']}`}>
+        {sneaker.tags?.includes('BEST_SELLER') && <div className={styles['badge']}>Meilleur vente</div>}
         <div className={styles['image-container']}>
           <Image src={imageSrc} alt="Sneaker item" fill />
         </div>

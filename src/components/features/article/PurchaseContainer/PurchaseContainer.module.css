@@ -18,3 +18,9 @@
   display: flex;
   gap: 24px;
 }
+
+@media (max-width: 1279px) {
+  .separator {
+    margin: 32px 0;
+  }
+}

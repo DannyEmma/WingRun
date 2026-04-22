@@ -2,7 +2,7 @@ import styles from '@/app/( legals )/Legals.module.css'
 
 export default function TermsOfSalePage() {
   return (
-    <div className={styles['page']}>
+    <main className={styles['page']}>
       <h1 className={styles['title']}>
         Conditions Générales de Vente <br />
         <small className={styles['sub-title']}>⚠️ Ce document est fourni à titre fictif dans le cadre d’un projet personnel et ne constitue pas un document légal réel. ⚠️</small>
@@ -141,6 +141,6 @@ export default function TermsOfSalePage() {
           <li>📞 [Numéro de téléphone, si tu en as un]</li>
         </ul>
       </section>
-    </div>
+    </main>
   )
 }

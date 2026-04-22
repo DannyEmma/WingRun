@@ -1,3 +1,9 @@
+.price-range {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .range {
   text-align: center;
   font-weight: bold;
