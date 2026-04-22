@@ -1,35 +1,42 @@
-import styles from './CategoryPage.module.css'
-import Breadcrumb from '@/components/ui/Breadcrumb/Breadcrumb'
-import SneakerItem from '@/components/features/sneaker/SneakerItem/SneakerItem'
-import FilterBar from '@/components/features/category/FilterBar/FilterBar'
-import { BreadcrumbItem } from '@/lib/types'
-import PaginationRounded from '@/components/features/category/PaginationRounded/PaginationRounded'
-import { Audience } from '@/../prisma/generated/client'
-import { service } from '@/lib/services'
-import { util } from '@/lib/utils'
+import styles from "./CategoryPage.module.css"
+import Breadcrumb from "@/components/ui/Breadcrumb/Breadcrumb"
+import SneakerItem from "@/components/features/sneaker/SneakerItem/SneakerItem"
+import FilterBar from "@/components/features/category/FilterBar/FilterBar"
+import { BreadcrumbItem } from "@/lib/types"
+import PaginationRounded from "@/components/features/category/PaginationRounded/PaginationRounded"
+import { Audience } from "@/../prisma/generated/client"
+import { service } from "@/lib/services"
+import { util } from "@/lib/utils"
 
-export default async function CategoryPage({ searchParams }: { searchParams: Record<string, string> }) {
+export default async function CategoryPage({ searchParams }: { searchParams: Promise<Record<string, string>> }) {
   const {
-    page: currentPage = '1',
+    page: currentPage = "1",
     brands: brandsParams,
     sizes: sizesParams,
     colors: colorsParams,
     priceRange: priceRangeParams,
-    sort: sortParams = 'asc',
-    adults: adultsParam = '',
-    kids: kidsParam = '',
+    sort: sortParams = "asc",
+    adults: adultsParam = "",
+    kids: kidsParam = "",
     tag = null,
   } = await searchParams
 
   const audiencesParam = adultsParam ? adultsParam : kidsParam
-  const audiences: Audience[] = audiencesParam.split(',').filter((value): value is Audience => value !== '' && Object.values(Audience).includes(value as Audience))
+  const audiences: Audience[] = audiencesParam
+    .split(",")
+    .filter((value): value is Audience => value !== "" && Object.values(Audience).includes(value as Audience))
 
   const { data: colorsFilter, error: colorsFilterError } = await service.color.getColorsFilter()
   const { data: pricesRange, error: pricesRangeError } = await service.product.getPriceRangeByAudience(audiences)
   const { data: sizesList, error: sizesListError } = await service.size.getSizesByAudience(audiences)
   const { data: brandList, error: brandListError } = await service.brand.getAllBrand()
 
-  const filters = { brands: brandsParams?.split(','), sizes: sizesParams?.split(','), colors: colorsParams?.split(','), priceRange: priceRangeParams?.split(',') }
+  const filters = {
+    brands: brandsParams?.split(","),
+    sizes: sizesParams?.split(","),
+    colors: colorsParams?.split(","),
+    priceRange: priceRangeParams?.split(","),
+  }
   const tagParam = tag && util.tag.isTag(tag) ? tag : null
 
   //-- List of products to display on the current page --
@@ -46,19 +53,19 @@ export default async function CategoryPage({ searchParams }: { searchParams: Rec
   const totalProducts = data?.pagination?.totalProducts ?? 0
 
   const breadcrumbItems: BreadcrumbItem[] = [
-    { label: 'WingRun', url: '/' },
+    { label: "WingRun", url: "/" },
     {
-      label: (tagParam && util.tag.tagToLabel(tagParam)) || (audiences.length ? util.audience.audiencesToLabel(audiences) : 'La boutique'),
+      label: (tagParam && util.tag.tagToLabel(tagParam)) || (audiences.length ? util.audience.audiencesToLabel(audiences) : "La boutique"),
       url: null,
     },
   ]
 
   return (
-    <main className={styles['category-page']}>
+    <main className={styles["category-page"]}>
       <Breadcrumb items={breadcrumbItems} />
 
-      <div className={styles['title-container']}>
-        <h1 className={styles['title']}>
+      <div className={styles["title-container"]}>
+        <h1 className={styles["title"]}>
           Sneakers <small>({totalProducts})</small>
         </h1>
         {/* <p className={styles['description']}>Découvrez la collection de sneakers {displayAudience()} chez WingRun.</p> */}
@@ -70,7 +77,7 @@ export default async function CategoryPage({ searchParams }: { searchParams: Rec
       )}
 
       {/* //----------  SNEAKERS GRID ----------// */}
-      <div className={styles['sneakers-grid']}>{productPerPage && productPerPage.map((product, index) => <SneakerItem key={index} data={product} />)}</div>
+      <div className={styles["sneakers-grid"]}>{productPerPage && productPerPage.map((product, index) => <SneakerItem key={index} data={product} />)}</div>
 
       {pages > 1 && <PaginationRounded pages={pages} />}
     </main>
