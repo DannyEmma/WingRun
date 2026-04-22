@@ -4,6 +4,7 @@ generator client {
     previewFeatures        = ["fullTextSearch"]
     generatedFileExtension = "ts"
     importFileExtension    = "ts"
+    engineType = "library"
 }
 
 datasource db {
