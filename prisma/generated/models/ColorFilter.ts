@@ -8,7 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
-import type * as runtime from "@prisma/client/runtime/client"
+import type * as runtime from "@prisma/client/runtime/library"
 import type * as $Enums from "../enums.ts"
 import type * as Prisma from "../internal/prismaNamespace.ts"
 
@@ -178,7 +178,7 @@ export type ColorFilterGroupByOutputType = {
   _max: ColorFilterMaxAggregateOutputType | null
 }
 
-export type GetColorFilterGroupByPayload<T extends ColorFilterGroupByArgs> = Prisma.PrismaPromise<
+type GetColorFilterGroupByPayload<T extends ColorFilterGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ColorFilterGroupByOutputType, T['by']> &
       {
@@ -1070,11 +1070,6 @@ export type ColorFilterFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` ColorFilters.
    */
   skip?: number
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-   * 
-   * Filter by unique combinations of ColorFilters.
-   */
   distinct?: Prisma.ColorFilterScalarFieldEnum | Prisma.ColorFilterScalarFieldEnum[]
 }
 

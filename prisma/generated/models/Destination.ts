@@ -8,7 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
-import type * as runtime from "@prisma/client/runtime/client"
+import type * as runtime from "@prisma/client/runtime/library"
 import type * as $Enums from "../enums.ts"
 import type * as Prisma from "../internal/prismaNamespace.ts"
 
@@ -192,7 +192,7 @@ export type DestinationGroupByOutputType = {
   _max: DestinationMaxAggregateOutputType | null
 }
 
-export type GetDestinationGroupByPayload<T extends DestinationGroupByArgs> = Prisma.PrismaPromise<
+type GetDestinationGroupByPayload<T extends DestinationGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<DestinationGroupByOutputType, T['by']> &
       {
@@ -1138,11 +1138,6 @@ export type DestinationFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` Destinations.
    */
   skip?: number
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-   * 
-   * Filter by unique combinations of Destinations.
-   */
   distinct?: Prisma.DestinationScalarFieldEnum | Prisma.DestinationScalarFieldEnum[]
 }
 

@@ -8,7 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
-import type * as runtime from "@prisma/client/runtime/client"
+import type * as runtime from "@prisma/client/runtime/library"
 import type * as $Enums from "../enums.ts"
 import type * as Prisma from "../internal/prismaNamespace.ts"
 
@@ -197,7 +197,7 @@ export type ProductSizeGroupByOutputType = {
   _max: ProductSizeMaxAggregateOutputType | null
 }
 
-export type GetProductSizeGroupByPayload<T extends ProductSizeGroupByArgs> = Prisma.PrismaPromise<
+type GetProductSizeGroupByPayload<T extends ProductSizeGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductSizeGroupByOutputType, T['by']> &
       {
@@ -1256,11 +1256,6 @@ export type ProductSizeFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` ProductSizes.
    */
   skip?: number
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-   * 
-   * Filter by unique combinations of ProductSizes.
-   */
   distinct?: Prisma.ProductSizeScalarFieldEnum | Prisma.ProductSizeScalarFieldEnum[]
 }
 
