@@ -1,10 +1,7 @@
 generator client {
-    provider               = "prisma-client"
+    provider               = "prisma-client-js"
     output                 = "./generated"
-    previewFeatures        = ["fullTextSearch"]
-    generatedFileExtension = "ts"
-    importFileExtension    = "ts"
-    engineType = "library"
+    previewFeatures        = ["fullTextSearchPostgres"]
 }
 
 datasource db {
