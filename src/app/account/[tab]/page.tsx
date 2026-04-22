@@ -1,18 +1,18 @@
-import styles from './AccountPage.module.css'
-import TabsAccount from '@/components/features/account/TabsAccount/TabsAccount'
-import { auth } from '@/lib/auth'
-import { headers } from 'next/headers'
-import { notFound } from 'next/navigation'
-import { service } from '@/lib/services'
+import styles from "./AccountPage.module.css"
+import TabsAccount from "@/components/features/account/TabsAccount/TabsAccount"
+import { auth } from "@/lib/auth"
+import { headers } from "next/headers"
+import { notFound } from "next/navigation"
+import { service } from "@/lib/services"
 
-type Tab = 'profil' | 'addresses' | 'orders'
+type Tab = "profil" | "addresses" | "orders"
 
 function isTab(tab: string): tab is Tab {
-  return ['profil', 'addresses', 'orders'].includes(tab)
+  return ["profil", "addresses", "orders"].includes(tab)
 }
 
 interface AccountPageProps {
-  params: Promise<any>
+  params: Promise<Record<string, string>>
 }
 
 export default async function AccountPage({ params }: AccountPageProps) {
@@ -32,11 +32,11 @@ export default async function AccountPage({ params }: AccountPageProps) {
     addresses = (await service.user.getAddresses(session.userId)).data
     destinationsPerGroup = (await service.destination.getDestinationsPerGroup()).data
     defaultAddress = addresses?.filter((address) => address.isDefault)[0]
-    orders = (await service.order.getOrders(user?.id ?? '')).data
+    orders = (await service.order.getOrders(user?.id ?? "")).data
   }
 
   return (
-    <main className={styles['account-page-container']}>
+    <main className={styles["account-page-container"]}>
       {user && destinationsPerGroup && (
         <TabsAccount user={user} defaultAddress={defaultAddress} addresses={addresses} destinationsPerGroup={destinationsPerGroup} orders={orders} tab={tab} />
       )}

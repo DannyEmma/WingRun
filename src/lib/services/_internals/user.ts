@@ -1,9 +1,9 @@
-import prisma from '@/lib/prisma'
-import { Address, CreateAddress, ServiceResponse, UserWithAddresses } from '@/lib/types'
+import prisma from "@/lib/prisma"
+import { Address, CreateAddress, ServiceResponse, UserWithAddresses } from "@/lib/types"
 
 export class UserService {
   async getUser(userId: string): Promise<ServiceResponse<UserWithAddresses>> {
-    let response: ServiceResponse<UserWithAddresses> = { data: null, error: null }
+    const response: ServiceResponse<UserWithAddresses> = { data: null, error: null }
 
     try {
       response.data = await prisma.user.findUnique({
@@ -24,7 +24,7 @@ export class UserService {
   }
 
   async getAddresses(userId: string): Promise<ServiceResponse<Address[]>> {
-    let response: ServiceResponse<Address[]> = { data: null, error: null }
+    const response: ServiceResponse<Address[]> = { data: null, error: null }
 
     try {
       response.data = await prisma.address.findMany({
@@ -35,7 +35,7 @@ export class UserService {
           destination: true,
         },
         orderBy: {
-          isDefault: 'desc',
+          isDefault: "desc",
         },
       })
     } catch (error) {
@@ -46,7 +46,7 @@ export class UserService {
   }
 
   async createAddress(userId: string, createAddress: CreateAddress): Promise<ServiceResponse<Address[]>> {
-    let response: ServiceResponse<Address[]> = { data: null, error: null }
+    const response: ServiceResponse<Address[]> = { data: null, error: null }
 
     try {
       //-- Is the first address of the user ? --
@@ -86,7 +86,7 @@ export class UserService {
   }
 
   async updateAddress(userId: string, address: Address): Promise<ServiceResponse<Address[]>> {
-    let response: ServiceResponse<Address[]> = { data: null, error: null }
+    const response: ServiceResponse<Address[]> = { data: null, error: null }
 
     const { destination, ...safeAddress } = address
 
@@ -134,7 +134,7 @@ export class UserService {
   }
 
   async deleteAddress(userId: string, addressId: number): Promise<ServiceResponse<Address[]>> {
-    let response: ServiceResponse<Address[]> = { data: null, error: null }
+    const response: ServiceResponse<Address[]> = { data: null, error: null }
 
     try {
       await prisma.address.delete({

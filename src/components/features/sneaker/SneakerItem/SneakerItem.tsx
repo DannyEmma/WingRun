@@ -1,41 +1,41 @@
-import Link from 'next/link'
-import styles from './SneakerItem.module.css'
-import Image from 'next/image'
-import { ProductWithBrand } from '@/lib/types/_internals/product'
-import { BASE_URL_PRODUCT_IMAGE } from '@/lib/constants'
-import { CartItem } from '@/lib/types'
-import { util } from '@/lib/utils'
+import Link from "next/link"
+import styles from "./SneakerItem.module.css"
+import Image from "next/image"
+import { ProductWithBrand } from "@/lib/types/_internals/product"
+import { BASE_URL_PRODUCT_IMAGE } from "@/lib/constants"
+import { CartItem } from "@/lib/types"
+import { util } from "@/lib/utils"
 
 interface SneakerItemProps {
-  variant?: 'standard' | 'search' | 'payment'
+  variant?: "standard" | "search" | "payment"
   data: ProductWithBrand | CartItem
   highlight?: (text: string) => React.JSX.Element | string
   searchQuery?: string
 }
 
 function isCartItem(data: ProductWithBrand | CartItem): data is CartItem {
-  return 'quantity' in data
+  return "quantity" in data
 }
 
-export default function SneakerItem({ variant = 'standard', data, highlight }: SneakerItemProps) {
+export default function SneakerItem({ variant = "standard", data, highlight }: SneakerItemProps) {
   //---------- VARIANT: "payment" ----------//
   if (isCartItem(data)) {
     const price = data.product.price / 100
-    const displayPrice = price.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })
+    const displayPrice = price.toLocaleString("fr-FR", { style: "currency", currency: "EUR" })
     const imageSrc = BASE_URL_PRODUCT_IMAGE + data.product.image
 
     return (
-      <div className={`${styles['sneaker-item']} ${styles[variant + '-variant']}`}>
-        <div className={styles['left-part']}>
-          <div className={styles['image-container']} style={{ backgroundImage: `url(${imageSrc})` }}>
-            <div className={styles['quantity-indicator']}>{data.quantity}</div>
+      <div className={`${styles["sneaker-item"]} ${styles[variant + "-variant"]}`}>
+        <div className={styles["left-part"]}>
+          <div className={styles["image-container"]} style={{ backgroundImage: `url(${imageSrc})` }}>
+            <div className={styles["quantity-indicator"]}>{data.quantity}</div>
           </div>
           <div className={styles.description}>
             <p className={styles.name}>{util.product.getFullname(data.product)} </p>
             <p className={styles.size}>{data.size.size}</p>
           </div>
         </div>
-        <div className={styles['right-part']}>
+        <div className={styles["right-part"]}>
           <p className={styles.price}>{displayPrice}</p>
         </div>
       </div>
@@ -45,27 +45,27 @@ export default function SneakerItem({ variant = 'standard', data, highlight }: S
   const sneaker = data
 
   const price = sneaker.price / 100
-  const displayPrice = price.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })
+  const displayPrice = price.toLocaleString("fr-FR", { style: "currency", currency: "EUR" })
 
-  let displayName = []
+  const displayName = []
 
-  if (variant === 'search' && sneaker.brand.name !== 'JORDAN') displayName.push(highlight!(sneaker.brand.name.toLowerCase()))
+  if (variant === "search" && sneaker.brand.name !== "JORDAN") displayName.push(highlight!(sneaker.brand.name.toLowerCase()))
 
-  if (sneaker.line) displayName.push(variant === 'search' ? highlight!(sneaker.line) : sneaker.line + ' ')
-  if (sneaker.model) displayName.push(variant === 'search' ? highlight!(sneaker.model) : sneaker.model + ' ')
-  if (sneaker.edition) displayName.push(variant === 'search' ? highlight!(sneaker.edition) : sneaker.edition + ' ')
+  if (sneaker.line) displayName.push(variant === "search" ? highlight!(sneaker.line) : sneaker.line + " ")
+  if (sneaker.model) displayName.push(variant === "search" ? highlight!(sneaker.model) : sneaker.model + " ")
+  if (sneaker.edition) displayName.push(variant === "search" ? highlight!(sneaker.edition) : sneaker.edition + " ")
 
-  let displayColorway: React.JSX.Element | string = variant === 'search' ? highlight!(sneaker.colorway) : sneaker.colorway
+  const displayColorway: React.JSX.Element | string = variant === "search" ? highlight!(sneaker.colorway) : sneaker.colorway
 
   const pageUrl = util.product.getPageUrl(sneaker)
   const imageSrc = BASE_URL_PRODUCT_IMAGE + sneaker.image
 
   //---------- VARIANT: "search" ----------//
-  if (variant === 'search') {
+  if (variant === "search") {
     return (
       <Link href={pageUrl}>
-        <div className={`${styles['sneaker-item']} ${styles[variant + '-variant']}`}>
-          <div className={styles['image-container']}>
+        <div className={`${styles["sneaker-item"]} ${styles[variant + "-variant"]}`}>
+          <div className={styles["image-container"]}>
             <Image src={imageSrc} alt="Sneaker item" fill />
           </div>
           <div className={styles.description}>
@@ -87,13 +87,13 @@ export default function SneakerItem({ variant = 'standard', data, highlight }: S
   //---------- VARIANT: "standard" ----------//
   return (
     <Link href={pageUrl}>
-      <div className={`${styles['sneaker-item']}`}>
-        {sneaker.tags?.includes('BEST_SELLER') && <div className={styles['badge']}>Meilleur vente</div>}
-        <div className={styles['image-container']}>
+      <div className={`${styles["sneaker-item"]}`}>
+        {sneaker.tags?.includes("BEST_SELLER") && <div className={styles["badge"]}>Meilleur vente</div>}
+        <div className={styles["image-container"]}>
           <Image src={imageSrc} alt="Sneaker item" fill />
         </div>
         <div className={styles.description}>
-          <p className={styles.brand}>{sneaker.brand.name.replaceAll('_', ' ')}</p>
+          <p className={styles.brand}>{sneaker.brand.name.replaceAll("_", " ")}</p>
 
           <p className={styles.name}>
             {displayName}

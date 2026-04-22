@@ -1,10 +1,10 @@
-import prisma from '@/lib/prisma'
-import { ServiceResponse } from '@/lib/types'
-import { ColorFilter } from '@/lib/types/_internals/color-filter'
+import prisma from "@/lib/prisma"
+import { ServiceResponse } from "@/lib/types"
+import { ColorFilter } from "@/lib/types/_internals/color-filter"
 
 export class ColorFilterService {
   async getColorsFilter(): Promise<ServiceResponse<ColorFilter[]>> {
-    let response: ServiceResponse<ColorFilter[]> = { data: null, error: null }
+    const response: ServiceResponse<ColorFilter[]> = { data: null, error: null }
 
     try {
       const result = await prisma.colorFilter.findMany()

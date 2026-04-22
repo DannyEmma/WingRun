@@ -3,7 +3,7 @@ export default async function apiClient<T>(endpoint: string, method: "GET" | "PO
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL
   let result = null
 
-  let fetchInit = {
+  const fetchInit = {
     method,
     headers: {
       "Content-Type": "application/json",

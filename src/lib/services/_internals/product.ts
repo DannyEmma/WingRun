@@ -1,12 +1,12 @@
-import { PRODUCTS_PER_PAGE, PRODUCTS_PER_SEARCH } from '@/lib/constants'
-import prisma from '@/lib/prisma'
-import { ServiceResponse } from '@/lib/types'
-import { ProductWithBrand, ProductWithBrandAndColorFilter } from '@/lib/types/_internals/product'
-import { Audience, ProductTag } from '@/../prisma/generated/enums'
+import { PRODUCTS_PER_PAGE, PRODUCTS_PER_SEARCH } from "@/lib/constants"
+import prisma from "@/lib/prisma"
+import { ServiceResponse } from "@/lib/types"
+import { ProductWithBrand, ProductWithBrandAndColorFilter } from "@/lib/types/_internals/product"
+import { Audience, ProductTag } from "@/../prisma/generated/enums"
 
 export class ProductService {
   async getProductById(id: number): Promise<ServiceResponse<ProductWithBrandAndColorFilter>> {
-    let response: ServiceResponse<ProductWithBrandAndColorFilter> = { data: null, error: null }
+    const response: ServiceResponse<ProductWithBrandAndColorFilter> = { data: null, error: null }
 
     try {
       response.data = await prisma.product.findUnique({ where: { id }, include: { brand: true, colorFilter: true } })
@@ -18,10 +18,14 @@ export class ProductService {
   }
 
   async getPriceRangeByAudience(audiences: Audience[]): Promise<ServiceResponse<[number, number]>> {
-    let response: ServiceResponse<[number, number]> = { data: null, error: null }
+    const response: ServiceResponse<[number, number]> = { data: null, error: null }
 
     try {
-      const result = await prisma.product.aggregate({ _min: { price: true }, _max: { price: true }, where: { ...(audiences.length && { audience: { in: audiences } }) } })
+      const result = await prisma.product.aggregate({
+        _min: { price: true },
+        _max: { price: true },
+        where: { ...(audiences.length && { audience: { in: audiences } }) },
+      })
       const min = result._min.price ? result._min.price / 100 : NaN
       const max = result._max.price ? result._max.price / 100 : NaN
 
@@ -33,7 +37,7 @@ export class ProductService {
   }
 
   async getProductsByTag(tag: ProductTag, limit: number): Promise<ServiceResponse<ProductWithBrand[]>> {
-    let response: ServiceResponse<ProductWithBrand[]> = { data: null, error: null }
+    const response: ServiceResponse<ProductWithBrand[]> = { data: null, error: null }
 
     try {
       response.data = await prisma.product.findMany({
@@ -55,7 +59,7 @@ export class ProductService {
   }
 
   async getSizesStock(productId: number): Promise<ServiceResponse<string[]>> {
-    let response: ServiceResponse<string[]> = { data: null, error: null }
+    const response: ServiceResponse<string[]> = { data: null, error: null }
 
     try {
       const result = await prisma.productSize.findMany({
@@ -96,7 +100,7 @@ export class ProductService {
     sort: string
     tag: ProductTag | null | undefined
   }): Promise<ServiceResponse<{ products: ProductWithBrand[] | null; pagination: Record<string, number> }>> {
-    let response: ServiceResponse<{ products: ProductWithBrand[] | null; pagination: Record<string, number> }> = { data: null, error: null }
+    const response: ServiceResponse<{ products: ProductWithBrand[] | null; pagination: Record<string, number> }> = { data: null, error: null }
     let productsPerPage = null
     let totalProducts = 0
 
@@ -113,7 +117,7 @@ export class ProductService {
           ...(filters.priceRange?.length && { price: { gte: filters.priceRange[0] * 100, lte: filters.priceRange[1] * 100 } }),
         },
         orderBy: {
-          price: sort as 'asc' | 'desc',
+          price: sort as "asc" | "desc",
         },
         include: { brand: true },
       })
@@ -143,7 +147,7 @@ export class ProductService {
   }
 
   async getSearchProducts(audiences: Audience[], searchQuery: string): Promise<ServiceResponse<{ products: ProductWithBrand[]; count: number }>> {
-    let response: ServiceResponse<{ products: ProductWithBrand[]; count: number }> = { data: null, error: null }
+    const response: ServiceResponse<{ products: ProductWithBrand[]; count: number }> = { data: null, error: null }
 
     try {
       const promise1 = prisma.product.findMany({
@@ -161,9 +165,9 @@ export class ProductService {
         take: PRODUCTS_PER_SEARCH,
         orderBy: {
           _relevance: {
-            fields: ['line', 'model', 'colorway', 'edition', 'year'],
+            fields: ["line", "model", "colorway", "edition", "year"],
             search: searchQuery,
-            sort: 'desc',
+            sort: "desc",
           },
         },
         include: { brand: true },
@@ -186,9 +190,9 @@ export class ProductService {
         },
         orderBy: {
           _relevance: {
-            fields: ['line', 'model', 'colorway', 'edition', 'year'],
+            fields: ["line", "model", "colorway", "edition", "year"],
             search: searchQuery,
-            sort: 'desc',
+            sort: "desc",
           },
         },
       })
@@ -216,7 +220,7 @@ export class ProductService {
     filters: Record<string, any[] | null>
     sort: string
   }): Promise<ServiceResponse<{ products: ProductWithBrand[]; count: number; pagination: { totalPages: number } }>> {
-    let response: ServiceResponse<{ products: ProductWithBrand[]; count: number; pagination: { totalPages: number } }> = { data: null, error: null }
+    const response: ServiceResponse<{ products: ProductWithBrand[]; count: number; pagination: { totalPages: number } }> = { data: null, error: null }
 
     try {
       //-- Products to one page --
@@ -242,12 +246,12 @@ export class ProductService {
         orderBy: [
           {
             _relevance: {
-              fields: ['line', 'model', 'colorway', 'edition', 'year'],
+              fields: ["line", "model", "colorway", "edition", "year"],
               search: searchQuery,
-              sort: 'desc',
+              sort: "desc",
             },
           },
-          { price: sort as 'asc' | 'desc' },
+          { price: sort as "asc" | "desc" },
         ],
         include: { brand: true },
       })

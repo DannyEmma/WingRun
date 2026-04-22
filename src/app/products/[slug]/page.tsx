@@ -1,11 +1,11 @@
-import styles from './ProductPage.module.css'
-import Breadcrumb from '@/components/ui/Breadcrumb/Breadcrumb'
-import PreviewSneakers from '@/components/features/sneaker/PreviewSneakers/PreviewSneakers'
-import { BreadcrumbItem } from '@/lib/types'
-import PurchaseContainer from '@/components/features/article/PurchaseContainer/PurchaseContainer'
-import { notFound } from 'next/navigation'
-import { service } from '@/lib/services'
-import { util } from '@/lib/utils'
+import styles from "./ProductPage.module.css"
+import Breadcrumb from "@/components/ui/Breadcrumb/Breadcrumb"
+import PreviewSneakers from "@/components/features/sneaker/PreviewSneakers/PreviewSneakers"
+import { BreadcrumbItem } from "@/lib/types"
+import PurchaseContainer from "@/components/features/article/PurchaseContainer/PurchaseContainer"
+import { notFound } from "next/navigation"
+import { service } from "@/lib/services"
+import { util } from "@/lib/utils"
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
@@ -27,29 +27,29 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   //-- Breadcrumb --
   const audienceLabel = util.audience.audiencesToLabel([audience])
 
-  let breadcrumbItems: BreadcrumbItem[] = [
-    { label: 'WingRun', url: '/' },
+  const breadcrumbItems: BreadcrumbItem[] = [
+    { label: "WingRun", url: "/" },
     { label: audienceLabel, url: `/collections?${util.audience.audiencesToUrlParams([audience])}` },
     { label: fullname, url: null },
   ]
 
   return (
-    <main className={styles['article-page']}>
+    <main className={styles["article-page"]}>
       <Breadcrumb items={breadcrumbItems} />
 
-      <div className={styles['article-container']}>
+      <div className={styles["article-container"]}>
         {/* //---------- PREVIEW CONTAINER ----------// */}
-        <div className={styles['preview-container']}>{product?.visuals && <PreviewSneakers images={product.visuals} />}</div>
+        <div className={styles["preview-container"]}>{product?.visuals && <PreviewSneakers images={product.visuals} />}</div>
 
         {/* //---------- BUY BOX CONTAINER ----------// */}
-        <div className={styles['buy-box-container']}>
-          <div className={styles['buy-box-header']}>
-            <p className={styles['brand']}>{product?.brand && product.brand.name.replaceAll('_', ' ')}</p>
-            <p className={styles['fullname']}>{fullname}</p>
-            <p className={styles['price']}>{formattedPrice}</p>
+        <div className={styles["buy-box-container"]}>
+          <div className={styles["buy-box-header"]}>
+            <p className={styles["brand"]}>{product?.brand && product.brand.name.replaceAll("_", " ")}</p>
+            <p className={styles["fullname"]}>{fullname}</p>
+            <p className={styles["price"]}>{formattedPrice}</p>
           </div>
 
-          <hr className={styles['separator']} />
+          <hr className={styles["separator"]} />
 
           <PurchaseContainer
             sizes={sizes}
@@ -68,9 +68,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             }}
           />
 
-          <div className={styles['description-container']}>
-            <p className={styles['description-title']}>Description</p>
-            <p className={styles['description']}>{product?.description}</p>
+          <div className={styles["description-container"]}>
+            <p className={styles["description-title"]}>Description</p>
+            <p className={styles["description"]}>{product?.description}</p>
           </div>
         </div>
       </div>

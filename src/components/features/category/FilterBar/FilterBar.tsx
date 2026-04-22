@@ -1,16 +1,16 @@
-'use client'
+"use client"
 
-import styles from './FilterBar.module.css'
-import PriceRange from '@/components/features/category/PriceRange/PriceRange'
-import ActionLink from '@/components/ui/ActionLink/ActionLink'
-import DropDownMenu from '@/components/ui/DropDownMenu/DropDownMenu'
-import { Filter, Sort } from '@/lib/types'
-import { Audience } from '@/../prisma/generated/enums'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState, useTransition } from 'react'
-import { ColorFilter } from '@/lib/types/_internals/color-filter'
-import FilterPanel from '@/components/features/category/FilterPanel/FilterPanel'
-import { usePageLoadingStore } from '@/lib/stores/page-loading.store'
+import styles from "./FilterBar.module.css"
+import PriceRange from "@/components/features/category/PriceRange/PriceRange"
+import ActionLink from "@/components/ui/ActionLink/ActionLink"
+import DropDownMenu from "@/components/ui/DropDownMenu/DropDownMenu"
+import { Filter, Sort } from "@/lib/types"
+import { Audience } from "@/../prisma/generated/enums"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useEffect, useState, useTransition } from "react"
+import { ColorFilter } from "@/lib/types/_internals/color-filter"
+import FilterPanel from "@/components/features/category/FilterPanel/FilterPanel"
+import { usePageLoadingStore } from "@/lib/stores/page-loading.store"
 
 type FiltersData = {
   brands: Filter[]
@@ -29,8 +29,8 @@ interface FilterBarProps {
 }
 
 const sortData: Sort[] = [
-  { value: 'asc', name: 'Prix croissant' },
-  { value: 'desc', name: 'Prix décroissant' },
+  { value: "asc", name: "Prix croissant" },
+  { value: "desc", name: "Prix décroissant" },
 ]
 
 export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandList }: FilterBarProps) {
@@ -44,65 +44,65 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
   //---------- STATE ----------//
   const [filtersData, setFiltersData] = useState<FiltersData>({ brands: [], sizes: [], colors: [], priceRange: [], adults: [], kids: [] })
   const [activeFilters, setActiveFilters] = useState<Filter[]>([])
-  const [activeSort, setActiveSort] = useState<Sort>({ name: 'Prix croissant', value: 'asc' })
+  const [activeSort, setActiveSort] = useState<Sort>({ name: "Prix croissant", value: "asc" })
 
   //---------- METHODS ----------//
   const removeAllUrlFilter = () => {
     const newURL = new URLSearchParams(searchParams.toString())
-    newURL.delete('brands')
-    newURL.delete('sizes')
-    newURL.delete('colors')
-    newURL.delete('priceRange')
-    newURL.delete('adults')
-    newURL.delete('kids')
+    newURL.delete("brands")
+    newURL.delete("sizes")
+    newURL.delete("colors")
+    newURL.delete("priceRange")
+    newURL.delete("adults")
+    newURL.delete("kids")
 
     //-- Update the new url --
-    startTransition(() => router.push(pathname + '?' + newURL.toString()))
+    startTransition(() => router.push(pathname + "?" + newURL.toString()))
   }
 
   const addUrlParamSort = (sort: Sort) => {
     //-- Prepare the new url --
     const newURL = new URLSearchParams(searchParams.toString())
-    newURL.set('sort', sort.value)
+    newURL.set("sort", sort.value)
 
     //-- Update the new url --
-    startTransition(() => router.push(pathname + '?' + newURL.toString()))
+    startTransition(() => router.push(pathname + "?" + newURL.toString()))
   }
 
   //-- Add a get param into the url to know what filters is active --
   const addUrlParamFilter = (filter: Filter) => {
     //-- Get params by filter type --
-    const params = searchParams.get(filter.type)?.split(',') ?? []
+    const params = searchParams.get(filter.type)?.split(",") ?? []
     params.push(filter.value)
 
     //-- Prepare the new url --
     const newURL = new URLSearchParams(searchParams.toString())
-    newURL.set(filter.type, params.join(','))
+    newURL.set(filter.type, params.join(","))
 
     //-- Reset the current page number --
-    newURL.delete('page')
+    newURL.delete("page")
 
     //-- Update the URL --
-    startTransition(() => router.push(pathname + '?' + newURL.toString()))
+    startTransition(() => router.push(pathname + "?" + newURL.toString()))
   }
 
   //-- Remove a get param into the url to know what filters is active --
   const removeUrlParamFilter = (filter: Filter) => {
     //-- Get current params of the filter type --
-    let params = searchParams.get(filter.type)?.split(',') ?? []
+    let params = searchParams.get(filter.type)?.split(",") ?? []
 
     //-- Remove the current filter --
-    params = params.filter((param) => param !== filter.value && param !== '')
+    params = params.filter((param) => param !== filter.value && param !== "")
 
     //-- Prepare the new URL --
     const newURL = new URLSearchParams(searchParams.toString())
-    params.length === 0 ? newURL.delete(filter.type) : newURL.set(filter.type, params.join(','))
+    params.length === 0 ? newURL.delete(filter.type) : newURL.set(filter.type, params.join(","))
 
     //-- Reset the current page number --
-    newURL.delete('page')
+    newURL.delete("page")
 
     //-- Update the URL--
-    startTransition(() => router.push(pathname + '?' + newURL.toString()))
+    startTransition(() => router.push(pathname + "?" + newURL.toString()))
   }
 
   //-- Use to don't have anything in filters param --
@@ -112,55 +112,55 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
 
     //-- Cleaning of params --
     const cleanBrands = newURL
-      .get('brands')
-      ?.split(',')
-      .filter((value) => value !== '' && brandList.includes(value))
+      .get("brands")
+      ?.split(",")
+      .filter((value) => value !== "" && brandList.includes(value))
 
     const cleanSizes = newURL
-      .get('sizes')
-      ?.split(',')
-      .filter((value) => value !== '' && sizesList.includes(value))
+      .get("sizes")
+      ?.split(",")
+      .filter((value) => value !== "" && sizesList.includes(value))
 
     const cleanColors = newURL
-      .get('colors')
-      ?.split(',')
-      .filter((value) => value !== '' && colorsFilter.some((filter) => filter.color === value))
+      .get("colors")
+      ?.split(",")
+      .filter((value) => value !== "" && colorsFilter.some((filter) => filter.color === value))
 
     const cleanPriceRange = newURL
-      .get('priceRange')
-      ?.split(',')
+      .get("priceRange")
+      ?.split(",")
       .filter((value, index) => {
-        if (value !== '' && pricesRange[index]) {
+        if (value !== "" && pricesRange[index]) {
           return (index === 0 && parseInt(value) >= pricesRange[index]) || (index === 1 && parseInt(value) <= pricesRange[index])
         }
       })
 
     const cleanAdults = newURL
-      .get('adults')
-      ?.split(',')
-      .filter((value) => value !== '' && [Audience.MEN.toString(), Audience.WOMEN.toString()].includes(value))
+      .get("adults")
+      ?.split(",")
+      .filter((value) => value !== "" && [Audience.MEN.toString(), Audience.WOMEN.toString()].includes(value))
 
     const cleanKids = newURL
-      .get('kids')
-      ?.split(',')
-      .filter((value) => value !== '' && [Audience.BOY.toString(), Audience.GIRL.toString()].includes(value))
+      .get("kids")
+      ?.split(",")
+      .filter((value) => value !== "" && [Audience.BOY.toString(), Audience.GIRL.toString()].includes(value))
 
     //-- Add clean params --
-    cleanBrands?.length ? newURL.set('brands', cleanBrands?.join(',')) : newURL.delete('brands')
-    cleanSizes?.length ? newURL.set('sizes', cleanSizes?.join(',')) : newURL.delete('sizes')
-    cleanColors?.length ? newURL.set('colors', cleanColors?.join(',')) : newURL.delete('colors')
-    cleanPriceRange?.length ? newURL.set('priceRange', cleanPriceRange?.join(',')) : newURL.delete('priceRange')
-    cleanAdults?.length ? newURL.set('adults', cleanAdults?.join(',')) : newURL.delete('adults')
-    cleanKids?.length ? newURL.set('kids', cleanKids?.join(',')) : newURL.delete('kids')
+    cleanBrands?.length ? newURL.set("brands", cleanBrands?.join(",")) : newURL.delete("brands")
+    cleanSizes?.length ? newURL.set("sizes", cleanSizes?.join(",")) : newURL.delete("sizes")
+    cleanColors?.length ? newURL.set("colors", cleanColors?.join(",")) : newURL.delete("colors")
+    cleanPriceRange?.length ? newURL.set("priceRange", cleanPriceRange?.join(",")) : newURL.delete("priceRange")
+    cleanAdults?.length ? newURL.set("adults", cleanAdults?.join(",")) : newURL.delete("adults")
+    cleanKids?.length ? newURL.set("kids", cleanKids?.join(",")) : newURL.delete("kids")
 
     //-- We don't want adults and kids same time --
-    if (newURL.has('adults') && newURL.has('kids')) {
-      newURL.delete('adults')
-      newURL.delete('kids')
+    if (newURL.has("adults") && newURL.has("kids")) {
+      newURL.delete("adults")
+      newURL.delete("kids")
     }
 
     //-- Update the URL --
-    startTransition(() => router.push(pathname + '?' + newURL.toString()))
+    startTransition(() => router.push(pathname + "?" + newURL.toString()))
 
     return {
       brandsParams: cleanBrands ?? [],
@@ -173,15 +173,16 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
   }
 
   //---------- EVENTS HANDLERS ----------//
-  const handleToggleFilter = (e: React.ChangeEvent<HTMLInputElement>, filter: Filter) => (e.target.checked ? addUrlParamFilter(filter) : removeUrlParamFilter(filter))
+  const handleToggleFilter = (e: React.ChangeEvent<HTMLInputElement>, filter: Filter) =>
+    e.target.checked ? addUrlParamFilter(filter) : removeUrlParamFilter(filter)
 
   const handleSort = (sort: Sort) => addUrlParamSort(sort)
 
   //---------- RENDERED DATA ----------//
   const renderFilterItem = (filter: Filter) => (
-    <label className={styles['item-filter']}>
+    <label className={styles["item-filter"]}>
       <input
-        className={`${styles['checkbox-item-filter']} ${styles['dark-checkmark']}`}
+        className={`${styles["checkbox-item-filter"]} ${styles["dark-checkmark"]}`}
         type="checkbox"
         onChange={(e) => handleToggleFilter(e, filter)}
         checked={activeFilters.some((f) => f.value === filter.value)}
@@ -191,7 +192,7 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
   )
 
   const renderActiveFilterItem = (filter: Filter, index: number) => (
-    <div key={index} className={styles['active-filter']}>
+    <div key={index} className={styles["active-filter"]}>
       <p>{filter.displayName}</p>
 
       <button onClick={() => removeUrlParamFilter(filter)}>
@@ -204,9 +205,9 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
 
   const renderColorFilterItem = (filter: Filter) => (
     <label>
-      <div className={styles['colorway-item']}>
+      <div className={styles["colorway-item"]}>
         <input
-          className={`${styles['checkbox-item-filter']} ${['blanc', 'jaune', 'orange', 'rose', 'beige'].includes(filter.displayName) ? styles['dark-checkmark'] : styles['light-checkmark']}`}
+          className={`${styles["checkbox-item-filter"]} ${["blanc", "jaune", "orange", "rose", "beige"].includes(filter.displayName) ? styles["dark-checkmark"] : styles["light-checkmark"]}`}
           type="checkbox"
           onChange={(e) => handleToggleFilter(e, filter)}
           data-filter={JSON.stringify(filter)}
@@ -243,12 +244,16 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
 
     //-- Init filters data here else UUID cause hydratation problem --
     setFiltersData({
-      brands: brandList.map((brand) => ({ type: 'brands', value: brand, displayName: brand.replace('_', ' ').toLowerCase() })),
-      sizes: sizesList.map((size) => ({ type: 'sizes', value: size, displayName: size })),
-      colors: colorsFilter.map((colorFilter) => ({ type: 'colors', value: colorFilter.color, displayName: colorFilter.name })),
-      priceRange: pricesRange.map((priceRange) => ({ type: 'priceRange', value: priceRange.toString(), displayName: priceRange.toString() })),
-      adults: [Audience.MEN, Audience.WOMEN].map((audience) => ({ type: 'adults', value: audience, displayName: audience === Audience.MEN ? 'Homme' : 'Femme' })),
-      kids: [Audience.BOY, Audience.GIRL].map((audience) => ({ type: 'kids', value: audience, displayName: audience === Audience.BOY ? 'Garçon' : 'Fille' })),
+      brands: brandList.map((brand) => ({ type: "brands", value: brand, displayName: brand.replace("_", " ").toLowerCase() })),
+      sizes: sizesList.map((size) => ({ type: "sizes", value: size, displayName: size })),
+      colors: colorsFilter.map((colorFilter) => ({ type: "colors", value: colorFilter.color, displayName: colorFilter.name })),
+      priceRange: pricesRange.map((priceRange) => ({ type: "priceRange", value: priceRange.toString(), displayName: priceRange.toString() })),
+      adults: [Audience.MEN, Audience.WOMEN].map((audience) => ({
+        type: "adults",
+        value: audience,
+        displayName: audience === Audience.MEN ? "Homme" : "Femme",
+      })),
+      kids: [Audience.BOY, Audience.GIRL].map((audience) => ({ type: "kids", value: audience, displayName: audience === Audience.BOY ? "Garçon" : "Fille" })),
     })
   }, [brandList, sizesList, colorsFilter, pricesRange])
 
@@ -256,23 +261,32 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
   useEffect(() => {
     const { brandsParams, sizesParams, colorsParams, priceRangeParams, adultsParams, kidsParams } = cleanUrlParams()
     //-- Active filters --
-    const brandsActiveFilters: Filter[] = brandsParams.map((brand) => ({ type: 'brands', value: brand, displayName: brand.replace('_', ' ').toLowerCase() }))
-    const sizesActiveFilters: Filter[] = sizesParams.map((size) => ({ type: 'sizes', value: size, displayName: size }))
-    const colorsActiveFilters: Filter[] = colorsParams.map((color) => ({ type: 'colors', value: color, displayName: color }))
-    const priceRangeActiveFilter: Filter[] = [{ type: 'priceRange', value: priceRangeParams.join(','), displayName: `${priceRangeParams[0]}€ - ${priceRangeParams[1]}€` }]
-    const adultsActiveFilters: Filter[] = adultsParams.map((adults) => ({ type: 'adults', value: adults, displayName: adults }))
-    const kidsActiveFilters: Filter[] = kidsParams.map((kids) => ({ type: 'kids', value: kids, displayName: kids }))
+    const brandsActiveFilters: Filter[] = brandsParams.map((brand) => ({ type: "brands", value: brand, displayName: brand.replace("_", " ").toLowerCase() }))
+    const sizesActiveFilters: Filter[] = sizesParams.map((size) => ({ type: "sizes", value: size, displayName: size }))
+    const colorsActiveFilters: Filter[] = colorsParams.map((color) => ({ type: "colors", value: color, displayName: color }))
+    const priceRangeActiveFilter: Filter[] = [
+      { type: "priceRange", value: priceRangeParams.join(","), displayName: `${priceRangeParams[0]}€ - ${priceRangeParams[1]}€` },
+    ]
+    const adultsActiveFilters: Filter[] = adultsParams.map((adults) => ({ type: "adults", value: adults, displayName: adults }))
+    const kidsActiveFilters: Filter[] = kidsParams.map((kids) => ({ type: "kids", value: kids, displayName: kids }))
 
     //-- Active sort --
     const activeSort = (): Sort => {
       //-- Default value --
-      if (!searchParams.get('sort')) return { name: 'Prix croissant', value: 'asc' }
+      if (!searchParams.get("sort")) return { name: "Prix croissant", value: "asc" }
 
-      return searchParams.get('sort') === 'asc' ? { name: 'Prix croissant', value: 'asc' } : { name: 'Prix décroissant', value: 'desc' }
+      return searchParams.get("sort") === "asc" ? { name: "Prix croissant", value: "asc" } : { name: "Prix décroissant", value: "desc" }
     }
 
     //-- Update the active filters --
-    setActiveFilters([...brandsActiveFilters, ...sizesActiveFilters, ...colorsActiveFilters, ...priceRangeActiveFilter, ...adultsActiveFilters, ...kidsActiveFilters])
+    setActiveFilters([
+      ...brandsActiveFilters,
+      ...sizesActiveFilters,
+      ...colorsActiveFilters,
+      ...priceRangeActiveFilter,
+      ...adultsActiveFilters,
+      ...kidsActiveFilters,
+    ])
 
     //-- Update the active sort --
     setActiveSort(activeSort())
@@ -281,10 +295,10 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
   return (
     <>
       {/* //----------  ----------// */}
-      <div className={styles['filter-bar']}>
-        <div className={styles['filters-container']}>
+      <div className={styles["filter-bar"]}>
+        <div className={styles["filters-container"]}>
           {/* //---------- FILTERS - DESKTOP VERSION ----------// */}
-          <div className={styles['filters']}>
+          <div className={styles["filters"]}>
             <DropDownMenu title="Marque" data={filtersData.brands.map(renderFilterItem)} isHovered />
             <DropDownMenu title="Taille" data={filtersData.sizes.map(renderFilterItem)} isHovered />
             <DropDownMenu title="Couleur" data={filtersData.colors.map(renderColorFilterItem)} isHovered />
@@ -292,16 +306,22 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
               title="Prix"
               data={
                 filtersData.priceRange.length
-                  ? [<PriceRange range={[parseInt(filtersData.priceRange[0].value), parseInt(filtersData.priceRange[1].value)]} activeFilters={activeFilters} />]
+                  ? [
+                      <PriceRange
+                        key="price-range"
+                        range={[parseInt(filtersData.priceRange[0].value), parseInt(filtersData.priceRange[1].value)]}
+                        activeFilters={activeFilters}
+                      />,
+                    ]
                   : []
               }
             />
-            {!activeFilters.some((filter) => filter.type === 'kids') && <DropDownMenu title="Adultes" data={filtersData.adults.map(renderFilterItem)} />}
-            {!activeFilters.some((filter) => filter.type === 'adults') && <DropDownMenu title="Enfants" data={filtersData.kids.map(renderFilterItem)} />}
+            {!activeFilters.some((filter) => filter.type === "kids") && <DropDownMenu title="Adultes" data={filtersData.adults.map(renderFilterItem)} />}
+            {!activeFilters.some((filter) => filter.type === "adults") && <DropDownMenu title="Enfants" data={filtersData.kids.map(renderFilterItem)} />}
           </div>
 
           {/* //---------- FILTERS - MOBILE VERSION ----------// */}
-          <div className={styles['filter-panel-container']}>
+          <div className={styles["filter-panel-container"]}>
             <FilterPanel
               activeFilters={activeFilters}
               brandItems={filtersData.brands.map(renderFilterItem)}
@@ -309,7 +329,13 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
               colorItems={filtersData.colors.map(renderColorFilterItem)}
               priceItems={
                 filtersData.priceRange.length
-                  ? [<PriceRange range={[parseInt(filtersData.priceRange[0].value), parseInt(filtersData.priceRange[1].value)]} activeFilters={activeFilters} />]
+                  ? [
+                      <PriceRange
+                        key="price-range"
+                        range={[parseInt(filtersData.priceRange[0].value), parseInt(filtersData.priceRange[1].value)]}
+                        activeFilters={activeFilters}
+                      />,
+                    ]
                   : []
               }
               adultItems={filtersData.adults.map(renderFilterItem)}
@@ -319,15 +345,15 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
         </div>
 
         {/* //---------- SORTS ----------// */}
-        <div className={styles['sort-container']}>
-          <p className={styles['sort-label']}>Trier par :</p>
+        <div className={styles["sort-container"]}>
+          <p className={styles["sort-label"]}>Trier par :</p>
           <DropDownMenu title={activeSort.name} data={sortData.map(renderSortItem)} isHovered />
         </div>
       </div>
 
       {/* //---------- ACTIVE FILTERS ----------// */}
       {activeFilters.length !== 0 && (
-        <div className={styles['active-filters']}>
+        <div className={styles["active-filters"]}>
           {activeFilters.map(renderActiveFilterItem)}
 
           <ActionLink onClick={removeAllUrlFilter}>Effacer tout</ActionLink>

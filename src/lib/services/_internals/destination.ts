@@ -1,10 +1,10 @@
-import prisma from '@/lib/prisma'
-import { Destination, DestinationsPerGroup } from '@/lib/types'
-import { ServiceResponse } from '@/lib/types'
+import prisma from "@/lib/prisma"
+import { Destination, DestinationsPerGroup } from "@/lib/types"
+import { ServiceResponse } from "@/lib/types"
 
 export class DestinationService {
   async getDestinationsPerGroup(): Promise<ServiceResponse<DestinationsPerGroup>> {
-    let response: ServiceResponse<DestinationsPerGroup> = { data: null, error: null }
+    const response: ServiceResponse<DestinationsPerGroup> = { data: null, error: null }
 
     try {
       //-- Get all destinations --
@@ -14,7 +14,7 @@ export class DestinationService {
             equals: true,
           },
         },
-        orderBy: [{ group: 'asc' }],
+        orderBy: [{ group: "asc" }],
       })
 
       //-- Group destinations by "DestinationGroup" --
