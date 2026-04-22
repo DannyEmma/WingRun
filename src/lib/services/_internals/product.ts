@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma"
 import { ServiceResponse } from "@/lib/types"
 import { ProductWithBrand, ProductWithBrandAndColorFilter } from "@/lib/types/_internals/product"
 import { Audience, ProductTag } from "@/../prisma/generated/enums"
+import { log } from "console"
 
 export class ProductService {
   async getProductById(id: number): Promise<ServiceResponse<ProductWithBrandAndColorFilter>> {
@@ -52,7 +53,10 @@ export class ProductService {
         take: limit,
       })
     } catch (error) {
-      if (error instanceof Error) response.error = error.message
+      if (error instanceof Error) {
+        response.error = error.message
+        console.error(error.message)
+      }
     }
 
     return response
