@@ -1,15 +1,14 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { stripe } from '@/lib/stripe'
-import prisma from '@/lib/prisma'
-import { headers } from 'next/headers'
-import { CartItem } from '@/lib/types'
+import { NextRequest, NextResponse } from "next/server"
+import { stripe } from "@/lib/stripe"
+import { prisma } from "@/lib/prisma"
+import { headers } from "next/headers"
 
 export async function POST(request: NextRequest) {
   const body = await request.text()
-  const signature = (await headers()).get('stripe-signature')
+  const signature = (await headers()).get("stripe-signature")
 
   if (!signature) {
-    return NextResponse.json({ error: 'Stripe signature missing' }, { status: 400 })
+    return NextResponse.json({ error: "Stripe signature missing" }, { status: 400 })
   }
 
   let event
@@ -22,7 +21,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Payment successful
-  if (event.type === 'checkout.session.completed') {
+  if (event.type === "checkout.session.completed") {
     const checkoutSession = event.data.object
 
     if (!checkoutSession.metadata) return
@@ -35,10 +34,10 @@ export async function POST(request: NextRequest) {
           connect: { id: userId },
         },
         totalAmountCent: checkoutSession.amount_total ?? 0,
-        status: 'PAID',
+        status: "PAID",
         stripeSessionId: checkoutSession.id,
         stripePaymentId: checkoutSession.payment_intent as string,
-        paymentMethod: '**** 42 42',
+        paymentMethod: "**** 42 42",
         transactionId: checkoutSession.payment_intent as string,
         items: {
           create: JSON.parse(productsData).map((data: any) => ({
