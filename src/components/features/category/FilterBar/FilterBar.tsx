@@ -160,7 +160,9 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
     }
 
     //-- Update the URL --
-    startTransition(() => router.push(pathname + "?" + newURL.toString()))
+    if (newURL.toString() !== searchParams.toString()) {
+      startTransition(() => router.push(pathname + "?" + newURL.toString()))
+    }
 
     return {
       brandsParams: cleanBrands ?? [],
