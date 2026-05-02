@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma"
+import { prisma } from "@/lib/prisma"
 import { ServiceResponse, Size } from "@/lib/types"
 import { Audience } from "@/../prisma/generated/enums"
 

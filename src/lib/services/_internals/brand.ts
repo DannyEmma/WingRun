@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma"
+import { prisma } from "@/lib/prisma"
 import { ServiceResponse } from "@/lib/types"
 
 export class BrandService {

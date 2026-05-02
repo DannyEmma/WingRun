@@ -44,3 +44,5 @@ next-env.d.ts
 
 #bdd backup
 /bdd_backup
+
+/generated/prisma

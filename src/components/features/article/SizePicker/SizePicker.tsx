@@ -1,9 +1,9 @@
-'use client'
+"use client"
 
-import SizeGuide from '@/components/features/article/SizeGuide/SizeGuide'
-import styles from './SizePicker.module.css'
-import ActionLink from '@/components/ui/ActionLink/ActionLink'
-import { Size } from '@/lib/types'
+import SizeGuide from "@/components/features/article/SizeGuide/SizeGuide"
+import styles from "./SizePicker.module.css"
+import ActionLink from "@/components/ui/ActionLink/ActionLink"
+import { Size } from "@/lib/types"
 
 interface SizePickerProps {
   sizes: Size[] | null
@@ -15,19 +15,19 @@ interface SizePickerProps {
 export default function SizePicker({ sizes, sizesStock, selectedSize, setSelectedSize }: SizePickerProps) {
   return (
     <>
-      <div className={styles['sizes-picker']}>
-        <div className={styles['header']}>
-          <p className={styles['title']}>Taille</p>
+      <div className={styles["sizes-picker"]}>
+        <div className={styles["header"]}>
+          <p className={styles["title"]}>Taille</p>
           <SizeGuide trigger={<ActionLink>Guide des tailles</ActionLink>} />
         </div>
 
-        <div className={styles['list']}>
+        <div className={styles["list"]}>
           {sizes &&
             sizes.map((size, index) => (
               <div
                 key={index}
                 onClick={() => sizesStock?.includes(size.size) && setSelectedSize(size)}
-                className={`${styles['size']} ${!sizesStock?.includes(size.size) && styles['disabled']} ${selectedSize && selectedSize.size === size.size ? styles['selected'] : ''}`}
+                className={`${styles["size"]} ${!sizesStock?.includes(size.size) && styles["disabled"]} ${selectedSize && selectedSize.size === size.size ? styles["selected"] : ""}`}
               >
                 {size.size}
               </div>

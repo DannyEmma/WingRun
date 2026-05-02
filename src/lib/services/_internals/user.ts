@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma"
+import { prisma } from "@/lib/prisma"
 import { Address, CreateAddress, ServiceResponse, UserWithAddresses } from "@/lib/types"
 
 export class UserService {

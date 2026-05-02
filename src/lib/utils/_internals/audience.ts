@@ -1,5 +1,5 @@
-import { Adult, Kid } from '@/lib/types'
-import { Audience } from '@/../prisma/generated/enums'
+import { Adult, Kid } from "@/lib/types"
+import { Audience } from "@/../prisma/generated/enums"
 
 export class AudienceUtil {
   //---------- TYPE GUARDS ----------//
@@ -16,28 +16,28 @@ export class AudienceUtil {
   }
 
   audiencesToLabel(audiences: Audience[]): string {
-    let label = ''
+    let label = ""
 
     if (audiences.length === 1) {
       switch (audiences[0]) {
-        case 'MEN':
-          label = 'hommes'
+        case "MEN":
+          label = "hommes"
           break
-        case 'WOMEN':
-          label = 'femmes'
+        case "WOMEN":
+          label = "femmes"
           break
-        case 'BOY':
-          label = 'garçons'
+        case "BOY":
+          label = "garçons"
           break
-        case 'GIRL':
-          label = 'filles'
+        case "GIRL":
+          label = "filles"
           break
       }
     }
 
     if (audiences.length === 2) {
-      if (this.isAdult(audiences[0]) && this.isAdult(audiences[1])) label = 'adultes'
-      if (this.isKid(audiences[0]) && this.isKid(audiences[1])) label = 'enfants'
+      if (this.isAdult(audiences[0]) && this.isAdult(audiences[1])) label = "adultes"
+      if (this.isKid(audiences[0]) && this.isKid(audiences[1])) label = "enfants"
     }
 
     return label
@@ -48,16 +48,16 @@ export class AudienceUtil {
 
     if (audiences.length === 1) {
       if (this.isAdult(audiences[0])) {
-        params = audiences[0] === 'MEN' ? 'adults=MEN' : 'adults=WOMEN'
+        params = audiences[0] === "MEN" ? "adults=MEN" : "adults=WOMEN"
       }
       if (this.isKid(audiences[0])) {
-        params = audiences[0] === 'BOY' ? 'kids=BOY' : 'kids=GIRL'
+        params = audiences[0] === "BOY" ? "kids=BOY" : "kids=GIRL"
       }
     }
 
     if (audiences.length === 2) {
-      if (this.isAdult(audiences[0]) && this.isAdult(audiences[1])) params = 'adults=MEN,WOMEN'
-      if (this.isKid(audiences[0]) && this.isKid(audiences[1])) params = 'kids=BOY,GIRL'
+      if (this.isAdult(audiences[0]) && this.isAdult(audiences[1])) params = "adults=MEN,WOMEN"
+      if (this.isKid(audiences[0]) && this.isKid(audiences[1])) params = "kids=BOY,GIRL"
     }
 
     return params

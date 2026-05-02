@@ -8,9 +8,9 @@
  *
  * 🟢 You can import this file directly.
  */
-import type * as runtime from "@prisma/client/runtime/library"
-import type * as $Enums from "../enums.ts"
-import type * as Prisma from "../internal/prismaNamespace.ts"
+import type * as runtime from "@prisma/client/runtime/client"
+import type * as $Enums from "../enums"
+import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model Address
@@ -238,7 +238,7 @@ export type AddressGroupByOutputType = {
   _max: AddressMaxAggregateOutputType | null
 }
 
-type GetAddressGroupByPayload<T extends AddressGroupByArgs> = Prisma.PrismaPromise<
+export type GetAddressGroupByPayload<T extends AddressGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AddressGroupByOutputType, T['by']> &
       {
@@ -1546,6 +1546,11 @@ export type AddressFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Skip the first `n` Addresses.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Addresses.
+   */
   distinct?: Prisma.AddressScalarFieldEnum | Prisma.AddressScalarFieldEnum[]
 }
 

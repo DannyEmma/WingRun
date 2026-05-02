@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import PurchaseSection from '@/components/features/article/PurchaseSection/PurchaseSection'
-import styles from './PurchaseContainer.module.css'
-import SizePicker from '@/components/features/article/SizePicker/SizePicker'
-import { useState } from 'react'
-import { ProductCart, Size } from '@/lib/types'
+import PurchaseSection from "@/components/features/article/PurchaseSection/PurchaseSection"
+import styles from "./PurchaseContainer.module.css"
+import SizePicker from "@/components/features/article/SizePicker/SizePicker"
+import { useState } from "react"
+import { ProductCart, Size } from "@/lib/types"
 
 interface PurchaseContainer {
   sizes: Size[] | null
@@ -19,7 +19,7 @@ export default function PurchaseContainer({ sizes, sizesStock, sneaker }: Purcha
     <>
       <SizePicker sizes={sizes} sizesStock={sizesStock} selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
 
-      <hr className={styles['separator']} />
+      <hr className={styles["separator"]} />
 
       <PurchaseSection selectedSize={selectedSize} sneaker={sneaker} />
     </>

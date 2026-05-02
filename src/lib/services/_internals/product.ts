@@ -1,5 +1,5 @@
 import { PRODUCTS_PER_PAGE, PRODUCTS_PER_SEARCH } from "@/lib/constants"
-import prisma from "@/lib/prisma"
+import { prisma } from "@/lib/prisma"
 import { ServiceResponse } from "@/lib/types"
 import { ProductWithBrand, ProductWithBrandAndColorFilter } from "@/lib/types/_internals/product"
 import { Audience, ProductTag } from "@/../prisma/generated/enums"
@@ -81,7 +81,6 @@ export class ProductService {
           },
         },
       })
-
       //-- Reformated data to string[] --//
       response.data = result.map((productSize) => productSize.size.size)
     } catch (error) {

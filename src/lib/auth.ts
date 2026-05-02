@@ -1,15 +1,14 @@
-import { betterAuth } from 'better-auth'
-import { prismaAdapter } from 'better-auth/adapters/prisma'
-import prisma from '@/lib/prisma'
-import sendEmail from '@/lib/email' // your email sending function
-import { PASSWORD_MIN_LENGTH } from '@/lib/constants'
-import { toast } from 'sonner'
-import { redirect } from 'next/navigation'
-import { cookies } from 'next/headers'
+import { betterAuth } from "better-auth"
+import { prismaAdapter } from "better-auth/adapters/prisma"
+import { prisma } from "@/lib/prisma"
+import sendEmail from "@/lib/email" // your email sending function
+import { PASSWORD_MIN_LENGTH } from "@/lib/constants"
+
+import { cookies } from "next/headers"
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
-    provider: 'postgresql', // or "mysql", "sqlite", ...etc
+    provider: "postgresql", // or "mysql", "sqlite", ...etc
   }),
   emailAndPassword: {
     enabled: true,
@@ -18,7 +17,7 @@ export const auth = betterAuth({
     sendResetPassword: async ({ user, url, token }, request) => {
       await sendEmail({
         to: user.email,
-        subject: 'Réinitialiser votre mot de passe',
+        subject: "Réinitialiser votre mot de passe",
         text: `
 Bonjour ${user.name},
 
@@ -41,7 +40,7 @@ L’équipe WingRun.`,
       user.name
       await sendEmail({
         to: user.email,
-        subject: 'Confirmation de votre addresse e-mail',
+        subject: "Confirmation de votre addresse e-mail",
         text: `
 Bonjour ${user.name},
 
@@ -60,7 +59,7 @@ L’équipe WingRun`,
       // Your custom logic here, e.g., grant access to premium features
       // console.log(`${user.email} has been successfully verified!`)
       const cookieStore = await cookies()
-      cookieStore.set('verified_email_success', 'true')
+      cookieStore.set("verified_email_success", "true")
     },
   },
 })
