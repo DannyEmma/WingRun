@@ -262,13 +262,14 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
   //-- Synchronisation between params filters and active filters state --
   useEffect(() => {
     const { brandsParams, sizesParams, colorsParams, priceRangeParams, adultsParams, kidsParams } = cleanUrlParams()
+
     //-- Active filters --
     const brandsActiveFilters: Filter[] = brandsParams.map((brand) => ({ type: "brands", value: brand, displayName: brand.replace("_", " ").toLowerCase() }))
     const sizesActiveFilters: Filter[] = sizesParams.map((size) => ({ type: "sizes", value: size, displayName: size }))
     const colorsActiveFilters: Filter[] = colorsParams.map((color) => ({ type: "colors", value: color, displayName: color }))
-    const priceRangeActiveFilter: Filter[] = [
-      { type: "priceRange", value: priceRangeParams.join(","), displayName: `${priceRangeParams[0]}€ - ${priceRangeParams[1]}€` },
-    ]
+    const priceRangeActiveFilter: Filter[] = priceRangeParams.length
+      ? [{ type: "priceRange", value: priceRangeParams.join(","), displayName: `${priceRangeParams[0]}€ - ${priceRangeParams[1]}€` }]
+      : []
     const adultsActiveFilters: Filter[] = adultsParams.map((adults) => ({ type: "adults", value: adults, displayName: adults }))
     const kidsActiveFilters: Filter[] = kidsParams.map((kids) => ({ type: "kids", value: kids, displayName: kids }))
 
@@ -312,7 +313,7 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
                       <PriceRange
                         key="price-range"
                         range={[parseInt(filtersData.priceRange[0].value), parseInt(filtersData.priceRange[1].value)]}
-                        activeFilters={activeFilters}
+                        activeFilter={activeFilters.find((filter) => filter.type === "priceRange")}
                       />,
                     ]
                   : []
@@ -335,7 +336,7 @@ export default function FilterBar({ colorsFilter, pricesRange, sizesList, brandL
                       <PriceRange
                         key="price-range"
                         range={[parseInt(filtersData.priceRange[0].value), parseInt(filtersData.priceRange[1].value)]}
-                        activeFilters={activeFilters}
+                        activeFilter={activeFilters.find((filter) => filter.type === "priceRange")}
                       />,
                     ]
                   : []

@@ -27,6 +27,7 @@ export class ProductService {
         _max: { price: true },
         where: { ...(audiences.length && { audience: { in: audiences } }) },
       })
+
       const min = result._min.price ? result._min.price / 100 : NaN
       const max = result._max.price ? result._max.price / 100 : NaN
 
