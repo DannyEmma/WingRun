@@ -1,15 +1,15 @@
-'use client'
+"use client"
 
-import styles from './TabsAccount.module.css'
-import { useEffect, useState } from 'react'
-import { Tabs, Collapsible } from 'radix-ui'
-import Logout from '@/components/features/auth/Logout/Logout'
-import ListAddresses from '@/components/features/account/ListAddresses/ListAddresses'
-import AdresseForm from '@/components/forms/AddressForm'
-import { Address, DestinationsPerGroup, Order, User } from '@/lib/types'
-import { useRouter } from 'next/navigation'
-import CTA from '@/components/ui/CTA/CTA'
-import { util } from '@/lib/utils'
+import styles from "./TabsAccount.module.css"
+import { useEffect, useState } from "react"
+import { Tabs, Collapsible } from "radix-ui"
+import Logout from "@/components/features/auth/Logout/Logout"
+import ListAddresses from "@/components/features/account/ListAddresses/ListAddresses"
+import AdresseForm from "@/components/forms/AddressForm"
+import { Address, DestinationsPerGroup, Order, User } from "@/lib/types"
+import { useRouter } from "next/navigation"
+import CTA from "@/components/ui/CTA/CTA"
+import { util } from "@/lib/utils"
 
 interface TabsAccountProps {
   user: User
@@ -32,32 +32,37 @@ export default function TabsAccount({ user, destinationsPerGroup, addresses: ini
   const handleOpenChange = () => setOpenAddForm(!openAddForm)
 
   useEffect(() => {
-    setIsMobile(window.matchMedia('(max-width: 768px)').matches)
+    setIsMobile(window.matchMedia("(max-width: 768px)").matches)
 
     const handleResize = () => {
-      setIsMobile(window.matchMedia('(max-width: 768px)').matches)
+      setIsMobile(window.matchMedia("(max-width: 768px)").matches)
     }
-    window.addEventListener('resize', handleResize)
+    window.addEventListener("resize", handleResize)
 
-    return () => window.removeEventListener('resize', handleResize)
+    return () => window.removeEventListener("resize", handleResize)
   }, [])
 
   return (
-    <Tabs.Root value={tabValue} onValueChange={(value) => router.replace('/account/' + value)} orientation={isMobile ? 'horizontal' : 'vertical'} className={`${styles.tabs}`}>
-      <Tabs.List className={styles['tabs-list']} aria-label="tabs-account">
-        <Tabs.Trigger className={`${styles['tabs-trigger']}`} value="profil">
+    <Tabs.Root
+      value={tabValue}
+      onValueChange={(value) => router.replace("/account/" + value)}
+      orientation={isMobile ? "horizontal" : "vertical"}
+      className={`${styles.tabs}`}
+    >
+      <Tabs.List className={styles["tabs-list"]} aria-label="tabs-account">
+        <Tabs.Trigger className={`${styles["tabs-trigger"]}`} value="profil">
           Profil
         </Tabs.Trigger>
 
         <hr />
 
-        <Tabs.Trigger className={`${styles['tabs-trigger']}`} value="addresses">
+        <Tabs.Trigger className={`${styles["tabs-trigger"]}`} value="addresses">
           Adresses
         </Tabs.Trigger>
 
         <hr />
 
-        <Tabs.Trigger className={`${styles['tabs-trigger']}`} value="orders">
+        <Tabs.Trigger className={`${styles["tabs-trigger"]}`} value="orders">
           Commandes
         </Tabs.Trigger>
 
@@ -66,18 +71,18 @@ export default function TabsAccount({ user, destinationsPerGroup, addresses: ini
         <Logout>Déconnexion</Logout>
       </Tabs.List>
 
-      <Tabs.Content className={styles['tabs-content']} value="profil">
+      <Tabs.Content className={styles["tabs-content"]} value="profil">
         <h1>Vos Informations</h1>
 
         <hr />
 
         <div className={styles.infos}>
-          <div className={styles['name-container']}>
+          <div className={styles["name-container"]}>
             <p className={styles.label}>Nom</p>
             <p className={styles.name}>{user.name}</p>
           </div>
 
-          <div className={styles['email-container']}>
+          <div className={styles["email-container"]}>
             <p className={styles.label}>E-mail</p>
             <p className={styles.email}>{user.email}</p>
           </div>
@@ -86,24 +91,26 @@ export default function TabsAccount({ user, destinationsPerGroup, addresses: ini
         <hr />
 
         {defaultAddress && (
-          <div className={styles['address-container']}>
-            <div className={styles['default-container']}>
+          <div className={styles["address-container"]}>
+            <div className={styles["default-container"]}>
               <p className={styles.label}>Adresse par défaut</p>
               <p className={styles.address}>
-                {defaultAddress.firstname + ' ' + defaultAddress.lastname} <br />
-                {defaultAddress.address + ' ' + defaultAddress.address_2} <br />
+                {defaultAddress.firstname + " " + defaultAddress.lastname} <br />
+                {defaultAddress.address + " " + defaultAddress.address_2} <br />
                 {defaultAddress.city} <br />
                 {defaultAddress.destination.name}
               </p>
             </div>
           </div>
         )}
-        <CTA onClick={() => setTabValue('addresses')} variant="secondary" fit>
-          {defaultAddress ? "Changer l'adresse par défaut" : 'Ajouter une adresse par défaut'}
-        </CTA>
+        <div className={styles["add-default-address-button"]}>
+          <CTA onClick={() => setTabValue("addresses")} variant="secondary" fit>
+            {defaultAddress ? "Changer l'adresse par défaut" : "Ajouter une adresse par défaut"}
+          </CTA>
+        </div>
       </Tabs.Content>
 
-      <Tabs.Content className={styles['tabs-content']} value="addresses">
+      <Tabs.Content className={styles["tabs-content"]} value="addresses">
         <h1>Vos Adresses</h1>
 
         <hr />
@@ -112,7 +119,7 @@ export default function TabsAccount({ user, destinationsPerGroup, addresses: ini
           {addresses && <ListAddresses userId={user.id} addresses={addresses} destinationsPerGroup={destinationsPerGroup} setAddresses={setAddresses} />}
         </div>
 
-        <Collapsible.Root className={styles['add-address-container']} open={openAddForm} onOpenChange={handleOpenChange}>
+        <Collapsible.Root className={styles["add-address-container"]} open={openAddForm} onOpenChange={handleOpenChange}>
           <Collapsible.Trigger asChild>
             <CTA variant="secondary" fit>
               Ajouter une adresse
@@ -130,12 +137,12 @@ export default function TabsAccount({ user, destinationsPerGroup, addresses: ini
         </Collapsible.Root>
       </Tabs.Content>
 
-      <Tabs.Content className={styles['tabs-content']} value="orders">
+      <Tabs.Content className={styles["tabs-content"]} value="orders">
         <h1>Vos Commandes ({orders?.length ?? 0})</h1>
 
         <hr />
 
-        <table className={styles['orders-table']}>
+        <table className={styles["orders-table"]}>
           <thead>
             <tr>
               <th>ID Commande</th>
@@ -152,7 +159,7 @@ export default function TabsAccount({ user, destinationsPerGroup, addresses: ini
                 <tr key={index}>
                   <td>{order.id}</td>
                   <td>{order.transactionId}</td>
-                  <td style={{ color: order.status === 'PAID' ? 'green' : order.status === 'PENDING' ? 'orange' : 'red' }}>{order.status}</td>
+                  <td style={{ color: order.status === "PAID" ? "green" : order.status === "PENDING" ? "orange" : "red" }}>{order.status}</td>
                   <td>{new Date(order.createdAt).toLocaleDateString()}</td>
                   <td>{order.paymentMethod}</td>
                   <td>{util.product.getFormattedPrice(order.totalAmountCent)}</td>
@@ -161,40 +168,40 @@ export default function TabsAccount({ user, destinationsPerGroup, addresses: ini
           </tbody>
         </table>
 
-        <div className={styles['orders-table-mobile']}>
+        <div className={styles["orders-table-mobile"]}>
           {orders &&
             orders.map((order, index) => (
-              <div key={index} className={styles['mobile-row']}>
-                <div className={styles['mobile-row-container']}>
-                  <div className={styles['mobile-label']}>ID Commande</div>
-                  <div className={styles['mobile-value']}>{order.id}</div>
+              <div key={index} className={styles["mobile-row"]}>
+                <div className={styles["mobile-row-container"]}>
+                  <div className={styles["mobile-label"]}>ID Commande</div>
+                  <div className={styles["mobile-value"]}>{order.id}</div>
                 </div>
 
-                <div className={styles['mobile-row-container']}>
-                  <div className={styles['mobile-label']}>ID Transaction</div>
-                  <div className={styles['mobile-value']}>{order.transactionId}</div>
+                <div className={styles["mobile-row-container"]}>
+                  <div className={styles["mobile-label"]}>ID Transaction</div>
+                  <div className={styles["mobile-value"]}>{order.transactionId}</div>
                 </div>
 
-                <div className={styles['mobile-row-container']}>
-                  <div className={styles['mobile-label']}>Status de paiement</div>
-                  <div className={styles['mobile-value']} style={{ color: order.status === 'PAID' ? 'green' : order.status === 'PENDING' ? 'orange' : 'red' }}>
+                <div className={styles["mobile-row-container"]}>
+                  <div className={styles["mobile-label"]}>Status de paiement</div>
+                  <div className={styles["mobile-value"]} style={{ color: order.status === "PAID" ? "green" : order.status === "PENDING" ? "orange" : "red" }}>
                     {order.status}
                   </div>
                 </div>
 
-                <div className={styles['mobile-row-container']}>
-                  <div className={styles['mobile-label']}>Date</div>
-                  <div className={styles['mobile-value']}>{new Date(order.createdAt).toLocaleDateString()}</div>
+                <div className={styles["mobile-row-container"]}>
+                  <div className={styles["mobile-label"]}>Date</div>
+                  <div className={styles["mobile-value"]}>{new Date(order.createdAt).toLocaleDateString()}</div>
                 </div>
 
-                <div className={styles['mobile-row-container']}>
-                  <div className={styles['mobile-label']}>Mode de paiement</div>
-                  <div className={styles['mobile-value']}>{order.paymentMethod}</div>
+                <div className={styles["mobile-row-container"]}>
+                  <div className={styles["mobile-label"]}>Mode de paiement</div>
+                  <div className={styles["mobile-value"]}>{order.paymentMethod}</div>
                 </div>
 
-                <div className={styles['mobile-row-container']}>
-                  <div className={styles['mobile-label']}>Montant</div>
-                  <div className={styles['mobile-value']}>{util.product.getFormattedPrice(order.totalAmountCent)}</div>
+                <div className={styles["mobile-row-container"]}>
+                  <div className={styles["mobile-label"]}>Montant</div>
+                  <div className={styles["mobile-value"]}>{util.product.getFormattedPrice(order.totalAmountCent)}</div>
                 </div>
               </div>
             ))}

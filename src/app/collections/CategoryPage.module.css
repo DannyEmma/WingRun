@@ -4,6 +4,8 @@
   margin-left: -48px;
   margin-right: -48px;
   margin-bottom: 24px;
+  background-image: url("/images/banner/collection-banner.svg");
+  background-size: cover;
 }
 .title-content {
   display: flex;
@@ -15,12 +17,15 @@
   font-size: 32px;
   font-weight: 500;
   text-transform: uppercase;
+  color: var(--coffee-100);
 }
 .title small {
   font-size: 14px;
+  color: var(--coffee-100);
 }
 .description {
-  font-weight: 300;
+  font-weight: 400;
+  color: var(--coffee-100);
 }
 
 .sneakers-grid {

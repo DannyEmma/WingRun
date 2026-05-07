@@ -25,6 +25,16 @@
   font-size: 15px;
 }
 
+.primary:hover {
+  background: var(--coffee-800);
+  color: var(--coffee-100);
+}
+.secondary:hover {
+  background: var(--coffee-100);
+  border-color: var(--coffee-800);
+  color: var(--coffee-800);
+}
+
 .primary:disabled,
 .secondary:disabled {
   opacity: 0.4;

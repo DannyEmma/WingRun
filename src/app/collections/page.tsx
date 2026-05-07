@@ -7,6 +7,7 @@ import PaginationRounded from "@/components/features/category/PaginationRounded/
 import { Audience } from "@/../prisma/generated/client"
 import { service } from "@/lib/services"
 import { util } from "@/lib/utils"
+import Image from "next/image"
 
 export default async function CategoryPage({ searchParams }: { searchParams: Promise<Record<string, string>> }) {
   const {
@@ -66,9 +67,12 @@ export default async function CategoryPage({ searchParams }: { searchParams: Pro
 
       <div className={styles["title-container"]}>
         <h1 className={styles["title"]}>
-          Sneakers <small>({totalProducts})</small>
+          {(tagParam && util.tag.tagToLabel(tagParam)) || (audiences.length ? util.audience.audiencesToLabel(audiences) : "La boutique")}{" "}
+          <small>({totalProducts})</small>
         </h1>
-        {/* <p className={styles['description']}>Découvrez la collection de sneakers {displayAudience()} chez WingRun.</p> */}
+        <p className={styles["description"]}>
+          Découvrez la collection de sneakers {audiences.length ? "pour " + util.audience.audiencesToLabel(audiences) : ""} chez WingRun.
+        </p>
       </div>
 
       {/* //---------- FILTER BAR ----------// */}

@@ -59,14 +59,13 @@ export default async function SearchResultsPage({ searchParams }: { searchParams
 
   return (
     <main className={styles["category-page"]}>
+      <Breadcrumb items={breadcrumbItems} />
       {/* //---------- TITLE  ----------// */}
       <div className={styles["title-container"]}>
         <div className={styles["title-content"]}>
           <h1 className={styles["title"]}>{`"${query.replaceAll("_", " ")}"`}</h1>
         </div>
       </div>
-
-      <Breadcrumb items={breadcrumbItems} />
 
       {/* //---------- FILTER BAR ----------// */}
       {brandList && colorsFilter && pricesRange && sizesList && (
