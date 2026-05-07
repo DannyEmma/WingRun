@@ -1,8 +1,8 @@
--- CreateSchema
-CREATE SCHEMA IF NOT EXISTS "public";
+-- CreateEnum
+CREATE TYPE "Audience" AS ENUM ('MEN', 'WOMEN', 'BOY', 'GIRL');
 
 -- CreateEnum
-CREATE TYPE "Audience" AS ENUM ('MEN', 'WOMEN', 'BOY', 'GIRL', 'KIDS');
+CREATE TYPE "CategorySize" AS ENUM ('MEN', 'WOMEN', 'KIDS');
 
 -- CreateEnum
 CREATE TYPE "DestinationGroup" AS ENUM ('METROPOLE', 'DOM');
@@ -107,12 +107,12 @@ CREATE TABLE "Product" (
     "colorway" TEXT NOT NULL,
     "year" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
-    "description" TEXT NOT NULL,
     "image" TEXT NOT NULL,
     "visuals" TEXT[],
     "edition" TEXT,
     "audience" "Audience" NOT NULL,
     "colorFilterId" INTEGER NOT NULL,
+    "description" TEXT NOT NULL,
     "brandId" INTEGER NOT NULL,
     "tags" "ProductTag"[],
 
@@ -140,7 +140,7 @@ CREATE TABLE "ColorFilter" (
 CREATE TABLE "Size" (
     "id" SERIAL NOT NULL,
     "size" TEXT NOT NULL,
-    "audience" "Audience" NOT NULL,
+    "category" "CategorySize" NOT NULL,
 
     CONSTRAINT "Size_pkey" PRIMARY KEY ("id")
 );
@@ -227,4 +227,3 @@ ALTER TABLE "OrderItem" ADD CONSTRAINT "OrderItem_sizeId_fkey" FOREIGN KEY ("siz
 
 -- AddForeignKey
 ALTER TABLE "OrderItem" ADD CONSTRAINT "OrderItem_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-

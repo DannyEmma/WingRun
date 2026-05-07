@@ -1510,12 +1510,12 @@ export const ProductScalarFieldEnum = {
   colorway: 'colorway',
   year: 'year',
   price: 'price',
-  description: 'description',
   image: 'image',
   visuals: 'visuals',
   edition: 'edition',
   audience: 'audience',
   colorFilterId: 'colorFilterId',
+  description: 'description',
   brandId: 'brandId',
   tags: 'tags'
 } as const
@@ -1543,7 +1543,7 @@ export type ColorFilterScalarFieldEnum = (typeof ColorFilterScalarFieldEnum)[key
 export const SizeScalarFieldEnum = {
   id: 'id',
   size: 'size',
-  audience: 'audience'
+  category: 'category'
 } as const
 
 export type SizeScalarFieldEnum = (typeof SizeScalarFieldEnum)[keyof typeof SizeScalarFieldEnum]
@@ -1683,10 +1683,10 @@ export const ProductOrderByRelevanceFieldEnum = {
   model: 'model',
   colorway: 'colorway',
   year: 'year',
-  description: 'description',
   image: 'image',
   visuals: 'visuals',
-  edition: 'edition'
+  edition: 'edition',
+  description: 'description'
 } as const
 
 export type ProductOrderByRelevanceFieldEnum = (typeof ProductOrderByRelevanceFieldEnum)[keyof typeof ProductOrderByRelevanceFieldEnum]
@@ -1819,6 +1819,20 @@ export type ListEnumProductTagFieldRefInput<$PrismaModel> = FieldRefInputType<$P
  * Reference to a field of type 'ProductTag'
  */
 export type EnumProductTagFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductTag'>
+    
+
+
+/**
+ * Reference to a field of type 'CategorySize'
+ */
+export type EnumCategorySizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategorySize'>
+    
+
+
+/**
+ * Reference to a field of type 'CategorySize[]'
+ */
+export type ListEnumCategorySizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategorySize[]'>
     
 
 

@@ -72,6 +72,7 @@ export default async function CategoryPage({ searchParams }: { searchParams: Pro
       </div>
 
       {/* //---------- FILTER BAR ----------// */}
+
       {brandList && colorsFilter && pricesRange && sizesList && (
         <FilterBar brandList={brandList} colorsFilter={colorsFilter} pricesRange={pricesRange} sizesList={sizesList?.map((s) => s.size)} />
       )}

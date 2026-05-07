@@ -19,6 +19,10 @@ enum Audience {
     WOMEN
     BOY
     GIRL
+}
+enum CategorySize {
+    MEN
+    WOMEN
     KIDS
 }
 
@@ -124,18 +128,18 @@ model Product {
     colorway      String
     year          String
     price         Int
-    description   String
     image         String
     visuals       String[]
     edition       String?
     audience      Audience
-    colorFilter   ColorFilter   @relation(fields: [colorFilterId], references: [id])
     colorFilterId Int
-    sizes         ProductSize[]
-    brand         Brand         @relation(fields: [brandId], references: [id])
+    description   String
     brandId       Int
     tags          ProductTag[]
+    sizes         ProductSize[]
     orderItems    OrderItem[]
+    colorFilter   ColorFilter   @relation(fields: [colorFilterId], references: [id])
+    brand         Brand         @relation(fields: [brandId], references: [id])
 }
 
 model Brand {
@@ -154,7 +158,7 @@ model ColorFilter {
 model Size {
     id         Int           @id @default(autoincrement())
     size       String
-    audience   Audience
+    category   CategorySize
     products   ProductSize[]
     orderItems OrderItem[]
 }

@@ -37,19 +37,19 @@ export type SizeSumAggregateOutputType = {
 export type SizeMinAggregateOutputType = {
   id: number | null
   size: string | null
-  audience: $Enums.Audience | null
+  category: $Enums.CategorySize | null
 }
 
 export type SizeMaxAggregateOutputType = {
   id: number | null
   size: string | null
-  audience: $Enums.Audience | null
+  category: $Enums.CategorySize | null
 }
 
 export type SizeCountAggregateOutputType = {
   id: number
   size: number
-  audience: number
+  category: number
   _all: number
 }
 
@@ -65,19 +65,19 @@ export type SizeSumAggregateInputType = {
 export type SizeMinAggregateInputType = {
   id?: true
   size?: true
-  audience?: true
+  category?: true
 }
 
 export type SizeMaxAggregateInputType = {
   id?: true
   size?: true
-  audience?: true
+  category?: true
 }
 
 export type SizeCountAggregateInputType = {
   id?: true
   size?: true
-  audience?: true
+  category?: true
   _all?: true
 }
 
@@ -170,7 +170,7 @@ export type SizeGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type SizeGroupByOutputType = {
   id: number
   size: string
-  audience: $Enums.Audience
+  category: $Enums.CategorySize
   _count: SizeCountAggregateOutputType | null
   _avg: SizeAvgAggregateOutputType | null
   _sum: SizeSumAggregateOutputType | null
@@ -199,7 +199,7 @@ export type SizeWhereInput = {
   NOT?: Prisma.SizeWhereInput | Prisma.SizeWhereInput[]
   id?: Prisma.IntFilter<"Size"> | number
   size?: Prisma.StringFilter<"Size"> | string
-  audience?: Prisma.EnumAudienceFilter<"Size"> | $Enums.Audience
+  category?: Prisma.EnumCategorySizeFilter<"Size"> | $Enums.CategorySize
   products?: Prisma.ProductSizeListRelationFilter
   orderItems?: Prisma.OrderItemListRelationFilter
 }
@@ -207,7 +207,7 @@ export type SizeWhereInput = {
 export type SizeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   size?: Prisma.SortOrder
-  audience?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   products?: Prisma.ProductSizeOrderByRelationAggregateInput
   orderItems?: Prisma.OrderItemOrderByRelationAggregateInput
   _relevance?: Prisma.SizeOrderByRelevanceInput
@@ -219,7 +219,7 @@ export type SizeWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.SizeWhereInput[]
   NOT?: Prisma.SizeWhereInput | Prisma.SizeWhereInput[]
   size?: Prisma.StringFilter<"Size"> | string
-  audience?: Prisma.EnumAudienceFilter<"Size"> | $Enums.Audience
+  category?: Prisma.EnumCategorySizeFilter<"Size"> | $Enums.CategorySize
   products?: Prisma.ProductSizeListRelationFilter
   orderItems?: Prisma.OrderItemListRelationFilter
 }, "id">
@@ -227,7 +227,7 @@ export type SizeWhereUniqueInput = Prisma.AtLeast<{
 export type SizeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   size?: Prisma.SortOrder
-  audience?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   _count?: Prisma.SizeCountOrderByAggregateInput
   _avg?: Prisma.SizeAvgOrderByAggregateInput
   _max?: Prisma.SizeMaxOrderByAggregateInput
@@ -241,12 +241,12 @@ export type SizeScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SizeScalarWhereWithAggregatesInput | Prisma.SizeScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Size"> | number
   size?: Prisma.StringWithAggregatesFilter<"Size"> | string
-  audience?: Prisma.EnumAudienceWithAggregatesFilter<"Size"> | $Enums.Audience
+  category?: Prisma.EnumCategorySizeWithAggregatesFilter<"Size"> | $Enums.CategorySize
 }
 
 export type SizeCreateInput = {
   size: string
-  audience: $Enums.Audience
+  category: $Enums.CategorySize
   products?: Prisma.ProductSizeCreateNestedManyWithoutSizeInput
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutSizeInput
 }
@@ -254,14 +254,14 @@ export type SizeCreateInput = {
 export type SizeUncheckedCreateInput = {
   id?: number
   size: string
-  audience: $Enums.Audience
+  category: $Enums.CategorySize
   products?: Prisma.ProductSizeUncheckedCreateNestedManyWithoutSizeInput
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutSizeInput
 }
 
 export type SizeUpdateInput = {
   size?: Prisma.StringFieldUpdateOperationsInput | string
-  audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
+  category?: Prisma.EnumCategorySizeFieldUpdateOperationsInput | $Enums.CategorySize
   products?: Prisma.ProductSizeUpdateManyWithoutSizeNestedInput
   orderItems?: Prisma.OrderItemUpdateManyWithoutSizeNestedInput
 }
@@ -269,7 +269,7 @@ export type SizeUpdateInput = {
 export type SizeUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   size?: Prisma.StringFieldUpdateOperationsInput | string
-  audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
+  category?: Prisma.EnumCategorySizeFieldUpdateOperationsInput | $Enums.CategorySize
   products?: Prisma.ProductSizeUncheckedUpdateManyWithoutSizeNestedInput
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutSizeNestedInput
 }
@@ -277,18 +277,18 @@ export type SizeUncheckedUpdateInput = {
 export type SizeCreateManyInput = {
   id?: number
   size: string
-  audience: $Enums.Audience
+  category: $Enums.CategorySize
 }
 
 export type SizeUpdateManyMutationInput = {
   size?: Prisma.StringFieldUpdateOperationsInput | string
-  audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
+  category?: Prisma.EnumCategorySizeFieldUpdateOperationsInput | $Enums.CategorySize
 }
 
 export type SizeUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   size?: Prisma.StringFieldUpdateOperationsInput | string
-  audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
+  category?: Prisma.EnumCategorySizeFieldUpdateOperationsInput | $Enums.CategorySize
 }
 
 export type SizeOrderByRelevanceInput = {
@@ -300,7 +300,7 @@ export type SizeOrderByRelevanceInput = {
 export type SizeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   size?: Prisma.SortOrder
-  audience?: Prisma.SortOrder
+  category?: Prisma.SortOrder
 }
 
 export type SizeAvgOrderByAggregateInput = {
@@ -310,13 +310,13 @@ export type SizeAvgOrderByAggregateInput = {
 export type SizeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   size?: Prisma.SortOrder
-  audience?: Prisma.SortOrder
+  category?: Prisma.SortOrder
 }
 
 export type SizeMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   size?: Prisma.SortOrder
-  audience?: Prisma.SortOrder
+  category?: Prisma.SortOrder
 }
 
 export type SizeSumOrderByAggregateInput = {
@@ -326,6 +326,10 @@ export type SizeSumOrderByAggregateInput = {
 export type SizeScalarRelationFilter = {
   is?: Prisma.SizeWhereInput
   isNot?: Prisma.SizeWhereInput
+}
+
+export type EnumCategorySizeFieldUpdateOperationsInput = {
+  set?: $Enums.CategorySize
 }
 
 export type SizeCreateNestedOneWithoutProductsInput = {
@@ -358,14 +362,14 @@ export type SizeUpdateOneRequiredWithoutOrderItemsNestedInput = {
 
 export type SizeCreateWithoutProductsInput = {
   size: string
-  audience: $Enums.Audience
+  category: $Enums.CategorySize
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutSizeInput
 }
 
 export type SizeUncheckedCreateWithoutProductsInput = {
   id?: number
   size: string
-  audience: $Enums.Audience
+  category: $Enums.CategorySize
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutSizeInput
 }
 
@@ -387,27 +391,27 @@ export type SizeUpdateToOneWithWhereWithoutProductsInput = {
 
 export type SizeUpdateWithoutProductsInput = {
   size?: Prisma.StringFieldUpdateOperationsInput | string
-  audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
+  category?: Prisma.EnumCategorySizeFieldUpdateOperationsInput | $Enums.CategorySize
   orderItems?: Prisma.OrderItemUpdateManyWithoutSizeNestedInput
 }
 
 export type SizeUncheckedUpdateWithoutProductsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   size?: Prisma.StringFieldUpdateOperationsInput | string
-  audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
+  category?: Prisma.EnumCategorySizeFieldUpdateOperationsInput | $Enums.CategorySize
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutSizeNestedInput
 }
 
 export type SizeCreateWithoutOrderItemsInput = {
   size: string
-  audience: $Enums.Audience
+  category: $Enums.CategorySize
   products?: Prisma.ProductSizeCreateNestedManyWithoutSizeInput
 }
 
 export type SizeUncheckedCreateWithoutOrderItemsInput = {
   id?: number
   size: string
-  audience: $Enums.Audience
+  category: $Enums.CategorySize
   products?: Prisma.ProductSizeUncheckedCreateNestedManyWithoutSizeInput
 }
 
@@ -429,14 +433,14 @@ export type SizeUpdateToOneWithWhereWithoutOrderItemsInput = {
 
 export type SizeUpdateWithoutOrderItemsInput = {
   size?: Prisma.StringFieldUpdateOperationsInput | string
-  audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
+  category?: Prisma.EnumCategorySizeFieldUpdateOperationsInput | $Enums.CategorySize
   products?: Prisma.ProductSizeUpdateManyWithoutSizeNestedInput
 }
 
 export type SizeUncheckedUpdateWithoutOrderItemsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   size?: Prisma.StringFieldUpdateOperationsInput | string
-  audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
+  category?: Prisma.EnumCategorySizeFieldUpdateOperationsInput | $Enums.CategorySize
   products?: Prisma.ProductSizeUncheckedUpdateManyWithoutSizeNestedInput
 }
 
@@ -483,7 +487,7 @@ export type SizeCountOutputTypeCountOrderItemsArgs<ExtArgs extends runtime.Types
 export type SizeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   size?: boolean
-  audience?: boolean
+  category?: boolean
   products?: boolean | Prisma.Size$productsArgs<ExtArgs>
   orderItems?: boolean | Prisma.Size$orderItemsArgs<ExtArgs>
   _count?: boolean | Prisma.SizeCountOutputTypeDefaultArgs<ExtArgs>
@@ -492,22 +496,22 @@ export type SizeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type SizeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   size?: boolean
-  audience?: boolean
+  category?: boolean
 }, ExtArgs["result"]["size"]>
 
 export type SizeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   size?: boolean
-  audience?: boolean
+  category?: boolean
 }, ExtArgs["result"]["size"]>
 
 export type SizeSelectScalar = {
   id?: boolean
   size?: boolean
-  audience?: boolean
+  category?: boolean
 }
 
-export type SizeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "size" | "audience", ExtArgs["result"]["size"]>
+export type SizeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "size" | "category", ExtArgs["result"]["size"]>
 export type SizeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   products?: boolean | Prisma.Size$productsArgs<ExtArgs>
   orderItems?: boolean | Prisma.Size$orderItemsArgs<ExtArgs>
@@ -525,7 +529,7 @@ export type $SizePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     size: string
-    audience: $Enums.Audience
+    category: $Enums.CategorySize
   }, ExtArgs["result"]["size"]>
   composites: {}
 }
@@ -953,7 +957,7 @@ export interface Prisma__SizeClient<T, Null = never, ExtArgs extends runtime.Typ
 export interface SizeFieldRefs {
   readonly id: Prisma.FieldRef<"Size", 'Int'>
   readonly size: Prisma.FieldRef<"Size", 'String'>
-  readonly audience: Prisma.FieldRef<"Size", 'Audience'>
+  readonly category: Prisma.FieldRef<"Size", 'CategorySize'>
 }
     
 

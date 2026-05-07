@@ -1,17 +1,17 @@
-'use client'
+"use client"
 
-import styles from './Header.module.css'
-import Link from 'next/link'
-import { useUserStore } from '@/lib/stores/user.store'
-import { useEffect, useState, useTransition } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
-import SearchBar from '@/components/features/search/SearchBar/SearchBar'
-import ShoppingCart from '@/components/features/shopping/ShoppingCart/ShoppingCart'
-import HamburgerMenu from '@/components/layouts/HamburgerMenu/HamburgerMenu'
-import { usePageLoadingStore } from '@/lib/stores/page-loading.store'
+import styles from "./Header.module.css"
+import Link from "next/link"
+import { useUserStore } from "@/lib/stores/user.store"
+import { useEffect, useState, useTransition } from "react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import SearchBar from "@/components/features/search/SearchBar/SearchBar"
+import ShoppingCart from "@/components/features/shopping/ShoppingCart/ShoppingCart"
+import HamburgerMenu from "@/components/layouts/HamburgerMenu/HamburgerMenu"
+import { usePageLoadingStore } from "@/lib/stores/page-loading.store"
 
 interface HeaderProps {
-  theme: 'light' | 'dark' | 'transparent'
+  theme: "light" | "dark" | "transparent"
   brands: string[] | null
 }
 
@@ -19,7 +19,11 @@ export default function Header({ theme, brands }: HeaderProps) {
   const session = useUserStore((state) => state.session)
   const router = useRouter()
   const pathname = usePathname()
-  const [currentTheme, setCurrentTheme] = useState(pathname === '/' ? 'transparent' : theme)
+  const [currentTheme, setCurrentTheme] = useState(pathname === "/" ? "transparent" : theme)
+  const adultsParam = useSearchParams().get("adults")
+  const kidsParam = useSearchParams().get("kids")
+  const tagParam = useSearchParams().get("tag")
+  console.log(kidsParam)
 
   const setLoading = usePageLoadingStore((state) => state.setLoading)
   const [isPending, startTransition] = useTransition()
@@ -30,48 +34,48 @@ export default function Header({ theme, brands }: HeaderProps) {
   }, [isPending])
 
   //---------- EVENTS HANDLERS ----------//
-  const handleScroll = () => (window.scrollY > 0 ? setCurrentTheme('dark') : setCurrentTheme('transparent'))
+  const handleScroll = () => (window.scrollY > 0 ? setCurrentTheme("dark") : setCurrentTheme("transparent"))
 
   //---------- USE EFFECT ----------//
   //-- Use to change theme depending pathname or scroll event --
   //-- When reloading page, the theme is set on the RootLayout --
   useEffect(() => {
-    if (pathname === '/') {
-      setCurrentTheme('transparent')
+    if (pathname === "/") {
+      setCurrentTheme("transparent")
 
       //-- Animate header on scroll, only on the home page --
-      document.addEventListener('scroll', handleScroll)
+      document.addEventListener("scroll", handleScroll)
     } else {
-      setCurrentTheme('dark')
+      setCurrentTheme("dark")
     }
 
-    return () => document.removeEventListener('scroll', handleScroll)
+    return () => document.removeEventListener("scroll", handleScroll)
   }, [pathname])
 
   return (
-    <header className={`${styles['header']} ${styles[currentTheme]}`}>
+    <header className={`${styles["header"]} ${styles[currentTheme]}`}>
       {/* //---------- HAMBURGER MENU ----------// */}
       <HamburgerMenu />
       {/* //---------- LINKS ----------// */}
-      <nav className={styles['nav-links']}>
-        <ul className={styles['links']}>
-          <li>
-            <Link href="collections?tag=NEW_ARRIVAL" onClick={() => startTransition(() => router.push('collections?tag=NEW_ARRIVAL'))}>
+      <nav className={styles["nav-links"]}>
+        <ul className={styles["links"]}>
+          <li className={tagParam === "NEW_ARRIVAL" ? styles["active"] : ""}>
+            <Link href="collections?tag=NEW_ARRIVAL" onClick={() => startTransition(() => router.push("collections?tag=NEW_ARRIVAL"))}>
               nouveautés
             </Link>
           </li>
-          <li>
-            <Link href="/collections?adults=MEN" onClick={() => startTransition(() => router.push('/collections?adults=MEN'))}>
+          <li className={tagParam !== "NEW_ARRIVAL" && adultsParam === "MEN" ? styles["active"] : ""}>
+            <Link href="/collections?adults=MEN" onClick={() => startTransition(() => router.push("/collections?adults=MEN"))}>
               hommes
             </Link>
           </li>
-          <li>
-            <Link href="/collections?adults=WOMEN" onClick={() => startTransition(() => router.push('/collections?adults=WOMEN'))}>
+          <li className={tagParam !== "NEW_ARRIVAL" && adultsParam === "WOMEN" ? styles["active"] : ""}>
+            <Link href="/collections?adults=WOMEN" onClick={() => startTransition(() => router.push("/collections?adults=WOMEN"))}>
               femmes
             </Link>
           </li>
-          <li>
-            <Link href="/collections?kids=BOY,GIRL" onClick={() => startTransition(() => router.push('/collections?kids=BOY,GIRL'))}>
+          <li className={tagParam !== "NEW_ARRIVAL" && (kidsParam?.includes("BOY") || kidsParam?.includes("GIRL")) ? styles["active"] : ""}>
+            <Link href="/collections?kids=BOY,GIRL" onClick={() => startTransition(() => router.push("/collections?kids=BOY,GIRL"))}>
               enfants
             </Link>
           </li>
@@ -79,8 +83,8 @@ export default function Header({ theme, brands }: HeaderProps) {
       </nav>
 
       {/* //---------- LOGO ----------// */}
-      <Link href="/" onClick={() => startTransition(() => router.push('/'))}>
-        <svg className={`${styles['logo']}`} width="285" height="68" viewBox="0 0 285 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <Link href="/" onClick={() => startTransition(() => router.push("/"))}>
+        <svg className={`${styles["logo"]}`} width="285" height="68" viewBox="0 0 285 68" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="32" cy="36" r="32" fill="#514E49" />
           <path d="M44.7521 37.1065L45.0929 35.4025" stroke="#F4EFE9" strokeWidth="2" strokeLinecap="round" />
           <path d="M37.1412 46.0805C39.1481 45.1339 43.4798 42.0138 44.7521 37.1064" stroke="#F4EFE9" strokeWidth="2" strokeLinecap="round" />
@@ -147,14 +151,14 @@ export default function Header({ theme, brands }: HeaderProps) {
       </Link>
 
       {/* //---------- ICONS ----------// */}
-      <nav className={styles['nav-icons']}>
-        <ul className={styles['icons']}>
+      <nav className={styles["nav-icons"]}>
+        <ul className={styles["icons"]}>
           <li>
             <SearchBar brands={brands} />
           </li>
           <li>
-            <Link href={session ? '/account/profil' : '/login'} title="Compte utilisateur">
-              <svg className={styles['account-icon']} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <Link href={session ? "/account/profil" : "/login"} title="Compte utilisateur">
+              <svg className={styles["account-icon"]} width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M9 0C10.1935 0 11.3381 0.474106 12.182 1.31802C13.0259 2.16193 13.5 3.30653 13.5 4.5C13.5 5.69347 13.0259 6.83807 12.182 7.68198C11.3381 8.52589 10.1935 9 9 9C7.80653 9 6.66193 8.52589 5.81802 7.68198C4.97411 6.83807 4.5 5.69347 4.5 4.5C4.5 3.30653 4.97411 2.16193 5.81802 1.31802C6.66193 0.474106 7.80653 0 9 0ZM9 2.25C8.40326 2.25 7.83097 2.48705 7.40901 2.90901C6.98705 3.33097 6.75 3.90326 6.75 4.5C6.75 5.09674 6.98705 5.66903 7.40901 6.09099C7.83097 6.51295 8.40326 6.75 9 6.75C9.59674 6.75 10.169 6.51295 10.591 6.09099C11.0129 5.66903 11.25 5.09674 11.25 4.5C11.25 3.90326 11.0129 3.33097 10.591 2.90901C10.169 2.48705 9.59674 2.25 9 2.25ZM9 10.125C12.0038 10.125 18 11.6212 18 14.625V18H0V14.625C0 11.6212 5.99625 10.125 9 10.125ZM9 12.2625C5.65875 12.2625 2.1375 13.905 2.1375 14.625V15.8625H15.8625V14.625C15.8625 13.905 12.3413 12.2625 9 12.2625Z"
                   fill="#514E49"

@@ -213,6 +213,23 @@ export type EnumAudienceWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumAudienceFilter<$PrismaModel>
 }
 
+export type EnumCategorySizeFilter<$PrismaModel = never> = {
+  equals?: $Enums.CategorySize | Prisma.EnumCategorySizeFieldRefInput<$PrismaModel>
+  in?: $Enums.CategorySize[] | Prisma.ListEnumCategorySizeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CategorySize[] | Prisma.ListEnumCategorySizeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCategorySizeFilter<$PrismaModel> | $Enums.CategorySize
+}
+
+export type EnumCategorySizeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CategorySize | Prisma.EnumCategorySizeFieldRefInput<$PrismaModel>
+  in?: $Enums.CategorySize[] | Prisma.ListEnumCategorySizeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CategorySize[] | Prisma.ListEnumCategorySizeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCategorySizeWithAggregatesFilter<$PrismaModel> | $Enums.CategorySize
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCategorySizeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCategorySizeFilter<$PrismaModel>
+}
+
 export type EnumOrderStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.OrderStatus | Prisma.EnumOrderStatusFieldRefInput<$PrismaModel>
   in?: $Enums.OrderStatus[] | Prisma.ListEnumOrderStatusFieldRefInput<$PrismaModel>
@@ -440,6 +457,23 @@ export type NestedEnumAudienceWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumAudienceFilter<$PrismaModel>
   _max?: Prisma.NestedEnumAudienceFilter<$PrismaModel>
+}
+
+export type NestedEnumCategorySizeFilter<$PrismaModel = never> = {
+  equals?: $Enums.CategorySize | Prisma.EnumCategorySizeFieldRefInput<$PrismaModel>
+  in?: $Enums.CategorySize[] | Prisma.ListEnumCategorySizeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CategorySize[] | Prisma.ListEnumCategorySizeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCategorySizeFilter<$PrismaModel> | $Enums.CategorySize
+}
+
+export type NestedEnumCategorySizeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CategorySize | Prisma.EnumCategorySizeFieldRefInput<$PrismaModel>
+  in?: $Enums.CategorySize[] | Prisma.ListEnumCategorySizeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CategorySize[] | Prisma.ListEnumCategorySizeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCategorySizeWithAggregatesFilter<$PrismaModel> | $Enums.CategorySize
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCategorySizeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCategorySizeFilter<$PrismaModel>
 }
 
 export type NestedEnumOrderStatusFilter<$PrismaModel = never> = {

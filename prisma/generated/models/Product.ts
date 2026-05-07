@@ -47,11 +47,11 @@ export type ProductMinAggregateOutputType = {
   colorway: string | null
   year: string | null
   price: number | null
-  description: string | null
   image: string | null
   edition: string | null
   audience: $Enums.Audience | null
   colorFilterId: number | null
+  description: string | null
   brandId: number | null
 }
 
@@ -62,11 +62,11 @@ export type ProductMaxAggregateOutputType = {
   colorway: string | null
   year: string | null
   price: number | null
-  description: string | null
   image: string | null
   edition: string | null
   audience: $Enums.Audience | null
   colorFilterId: number | null
+  description: string | null
   brandId: number | null
 }
 
@@ -77,12 +77,12 @@ export type ProductCountAggregateOutputType = {
   colorway: number
   year: number
   price: number
-  description: number
   image: number
   visuals: number
   edition: number
   audience: number
   colorFilterId: number
+  description: number
   brandId: number
   tags: number
   _all: number
@@ -110,11 +110,11 @@ export type ProductMinAggregateInputType = {
   colorway?: true
   year?: true
   price?: true
-  description?: true
   image?: true
   edition?: true
   audience?: true
   colorFilterId?: true
+  description?: true
   brandId?: true
 }
 
@@ -125,11 +125,11 @@ export type ProductMaxAggregateInputType = {
   colorway?: true
   year?: true
   price?: true
-  description?: true
   image?: true
   edition?: true
   audience?: true
   colorFilterId?: true
+  description?: true
   brandId?: true
 }
 
@@ -140,12 +140,12 @@ export type ProductCountAggregateInputType = {
   colorway?: true
   year?: true
   price?: true
-  description?: true
   image?: true
   visuals?: true
   edition?: true
   audience?: true
   colorFilterId?: true
+  description?: true
   brandId?: true
   tags?: true
   _all?: true
@@ -244,12 +244,12 @@ export type ProductGroupByOutputType = {
   colorway: string
   year: string
   price: number
-  description: string
   image: string
   visuals: string[]
   edition: string | null
   audience: $Enums.Audience
   colorFilterId: number
+  description: string
   brandId: number
   tags: $Enums.ProductTag[]
   _count: ProductCountAggregateOutputType | null
@@ -284,18 +284,18 @@ export type ProductWhereInput = {
   colorway?: Prisma.StringFilter<"Product"> | string
   year?: Prisma.StringFilter<"Product"> | string
   price?: Prisma.IntFilter<"Product"> | number
-  description?: Prisma.StringFilter<"Product"> | string
   image?: Prisma.StringFilter<"Product"> | string
   visuals?: Prisma.StringNullableListFilter<"Product">
   edition?: Prisma.StringNullableFilter<"Product"> | string | null
   audience?: Prisma.EnumAudienceFilter<"Product"> | $Enums.Audience
   colorFilterId?: Prisma.IntFilter<"Product"> | number
+  description?: Prisma.StringFilter<"Product"> | string
   brandId?: Prisma.IntFilter<"Product"> | number
   tags?: Prisma.EnumProductTagNullableListFilter<"Product">
-  colorFilter?: Prisma.XOR<Prisma.ColorFilterScalarRelationFilter, Prisma.ColorFilterWhereInput>
   sizes?: Prisma.ProductSizeListRelationFilter
-  brand?: Prisma.XOR<Prisma.BrandScalarRelationFilter, Prisma.BrandWhereInput>
   orderItems?: Prisma.OrderItemListRelationFilter
+  colorFilter?: Prisma.XOR<Prisma.ColorFilterScalarRelationFilter, Prisma.ColorFilterWhereInput>
+  brand?: Prisma.XOR<Prisma.BrandScalarRelationFilter, Prisma.BrandWhereInput>
 }
 
 export type ProductOrderByWithRelationInput = {
@@ -305,18 +305,18 @@ export type ProductOrderByWithRelationInput = {
   colorway?: Prisma.SortOrder
   year?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   image?: Prisma.SortOrder
   visuals?: Prisma.SortOrder
   edition?: Prisma.SortOrderInput | Prisma.SortOrder
   audience?: Prisma.SortOrder
   colorFilterId?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   brandId?: Prisma.SortOrder
   tags?: Prisma.SortOrder
-  colorFilter?: Prisma.ColorFilterOrderByWithRelationInput
   sizes?: Prisma.ProductSizeOrderByRelationAggregateInput
-  brand?: Prisma.BrandOrderByWithRelationInput
   orderItems?: Prisma.OrderItemOrderByRelationAggregateInput
+  colorFilter?: Prisma.ColorFilterOrderByWithRelationInput
+  brand?: Prisma.BrandOrderByWithRelationInput
   _relevance?: Prisma.ProductOrderByRelevanceInput
 }
 
@@ -330,18 +330,18 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   colorway?: Prisma.StringFilter<"Product"> | string
   year?: Prisma.StringFilter<"Product"> | string
   price?: Prisma.IntFilter<"Product"> | number
-  description?: Prisma.StringFilter<"Product"> | string
   image?: Prisma.StringFilter<"Product"> | string
   visuals?: Prisma.StringNullableListFilter<"Product">
   edition?: Prisma.StringNullableFilter<"Product"> | string | null
   audience?: Prisma.EnumAudienceFilter<"Product"> | $Enums.Audience
   colorFilterId?: Prisma.IntFilter<"Product"> | number
+  description?: Prisma.StringFilter<"Product"> | string
   brandId?: Prisma.IntFilter<"Product"> | number
   tags?: Prisma.EnumProductTagNullableListFilter<"Product">
-  colorFilter?: Prisma.XOR<Prisma.ColorFilterScalarRelationFilter, Prisma.ColorFilterWhereInput>
   sizes?: Prisma.ProductSizeListRelationFilter
-  brand?: Prisma.XOR<Prisma.BrandScalarRelationFilter, Prisma.BrandWhereInput>
   orderItems?: Prisma.OrderItemListRelationFilter
+  colorFilter?: Prisma.XOR<Prisma.ColorFilterScalarRelationFilter, Prisma.ColorFilterWhereInput>
+  brand?: Prisma.XOR<Prisma.BrandScalarRelationFilter, Prisma.BrandWhereInput>
 }, "id">
 
 export type ProductOrderByWithAggregationInput = {
@@ -351,12 +351,12 @@ export type ProductOrderByWithAggregationInput = {
   colorway?: Prisma.SortOrder
   year?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   image?: Prisma.SortOrder
   visuals?: Prisma.SortOrder
   edition?: Prisma.SortOrderInput | Prisma.SortOrder
   audience?: Prisma.SortOrder
   colorFilterId?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   brandId?: Prisma.SortOrder
   tags?: Prisma.SortOrder
   _count?: Prisma.ProductCountOrderByAggregateInput
@@ -376,12 +376,12 @@ export type ProductScalarWhereWithAggregatesInput = {
   colorway?: Prisma.StringWithAggregatesFilter<"Product"> | string
   year?: Prisma.StringWithAggregatesFilter<"Product"> | string
   price?: Prisma.IntWithAggregatesFilter<"Product"> | number
-  description?: Prisma.StringWithAggregatesFilter<"Product"> | string
   image?: Prisma.StringWithAggregatesFilter<"Product"> | string
   visuals?: Prisma.StringNullableListFilter<"Product">
   edition?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
   audience?: Prisma.EnumAudienceWithAggregatesFilter<"Product"> | $Enums.Audience
   colorFilterId?: Prisma.IntWithAggregatesFilter<"Product"> | number
+  description?: Prisma.StringWithAggregatesFilter<"Product"> | string
   brandId?: Prisma.IntWithAggregatesFilter<"Product"> | number
   tags?: Prisma.EnumProductTagNullableListFilter<"Product">
 }
@@ -392,16 +392,16 @@ export type ProductCreateInput = {
   colorway: string
   year: string
   price: number
-  description: string
   image: string
   visuals?: Prisma.ProductCreatevisualsInput | string[]
   edition?: string | null
   audience: $Enums.Audience
+  description: string
   tags?: Prisma.ProductCreatetagsInput | $Enums.ProductTag[]
-  colorFilter: Prisma.ColorFilterCreateNestedOneWithoutProductsInput
   sizes?: Prisma.ProductSizeCreateNestedManyWithoutProductInput
-  brand: Prisma.BrandCreateNestedOneWithoutProductsInput
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutProductInput
+  colorFilter: Prisma.ColorFilterCreateNestedOneWithoutProductsInput
+  brand: Prisma.BrandCreateNestedOneWithoutProductsInput
 }
 
 export type ProductUncheckedCreateInput = {
@@ -411,12 +411,12 @@ export type ProductUncheckedCreateInput = {
   colorway: string
   year: string
   price: number
-  description: string
   image: string
   visuals?: Prisma.ProductCreatevisualsInput | string[]
   edition?: string | null
   audience: $Enums.Audience
   colorFilterId: number
+  description: string
   brandId: number
   tags?: Prisma.ProductCreatetagsInput | $Enums.ProductTag[]
   sizes?: Prisma.ProductSizeUncheckedCreateNestedManyWithoutProductInput
@@ -429,16 +429,16 @@ export type ProductUpdateInput = {
   colorway?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.StringFieldUpdateOperationsInput | string
   visuals?: Prisma.ProductUpdatevisualsInput | string[]
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ProductUpdatetagsInput | $Enums.ProductTag[]
-  colorFilter?: Prisma.ColorFilterUpdateOneRequiredWithoutProductsNestedInput
   sizes?: Prisma.ProductSizeUpdateManyWithoutProductNestedInput
-  brand?: Prisma.BrandUpdateOneRequiredWithoutProductsNestedInput
   orderItems?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
+  colorFilter?: Prisma.ColorFilterUpdateOneRequiredWithoutProductsNestedInput
+  brand?: Prisma.BrandUpdateOneRequiredWithoutProductsNestedInput
 }
 
 export type ProductUncheckedUpdateInput = {
@@ -448,12 +448,12 @@ export type ProductUncheckedUpdateInput = {
   colorway?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.StringFieldUpdateOperationsInput | string
   visuals?: Prisma.ProductUpdatevisualsInput | string[]
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
   colorFilterId?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   brandId?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.ProductUpdatetagsInput | $Enums.ProductTag[]
   sizes?: Prisma.ProductSizeUncheckedUpdateManyWithoutProductNestedInput
@@ -467,12 +467,12 @@ export type ProductCreateManyInput = {
   colorway: string
   year: string
   price: number
-  description: string
   image: string
   visuals?: Prisma.ProductCreatevisualsInput | string[]
   edition?: string | null
   audience: $Enums.Audience
   colorFilterId: number
+  description: string
   brandId: number
   tags?: Prisma.ProductCreatetagsInput | $Enums.ProductTag[]
 }
@@ -483,11 +483,11 @@ export type ProductUpdateManyMutationInput = {
   colorway?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.StringFieldUpdateOperationsInput | string
   visuals?: Prisma.ProductUpdatevisualsInput | string[]
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ProductUpdatetagsInput | $Enums.ProductTag[]
 }
 
@@ -498,12 +498,12 @@ export type ProductUncheckedUpdateManyInput = {
   colorway?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.StringFieldUpdateOperationsInput | string
   visuals?: Prisma.ProductUpdatevisualsInput | string[]
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
   colorFilterId?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   brandId?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.ProductUpdatetagsInput | $Enums.ProductTag[]
 }
@@ -537,12 +537,12 @@ export type ProductCountOrderByAggregateInput = {
   colorway?: Prisma.SortOrder
   year?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   image?: Prisma.SortOrder
   visuals?: Prisma.SortOrder
   edition?: Prisma.SortOrder
   audience?: Prisma.SortOrder
   colorFilterId?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   brandId?: Prisma.SortOrder
   tags?: Prisma.SortOrder
 }
@@ -561,11 +561,11 @@ export type ProductMaxOrderByAggregateInput = {
   colorway?: Prisma.SortOrder
   year?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   image?: Prisma.SortOrder
   edition?: Prisma.SortOrder
   audience?: Prisma.SortOrder
   colorFilterId?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   brandId?: Prisma.SortOrder
 }
 
@@ -576,11 +576,11 @@ export type ProductMinOrderByAggregateInput = {
   colorway?: Prisma.SortOrder
   year?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   image?: Prisma.SortOrder
   edition?: Prisma.SortOrder
   audience?: Prisma.SortOrder
   colorFilterId?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   brandId?: Prisma.SortOrder
 }
 
@@ -746,15 +746,15 @@ export type ProductCreateWithoutBrandInput = {
   colorway: string
   year: string
   price: number
-  description: string
   image: string
   visuals?: Prisma.ProductCreatevisualsInput | string[]
   edition?: string | null
   audience: $Enums.Audience
+  description: string
   tags?: Prisma.ProductCreatetagsInput | $Enums.ProductTag[]
-  colorFilter: Prisma.ColorFilterCreateNestedOneWithoutProductsInput
   sizes?: Prisma.ProductSizeCreateNestedManyWithoutProductInput
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutProductInput
+  colorFilter: Prisma.ColorFilterCreateNestedOneWithoutProductsInput
 }
 
 export type ProductUncheckedCreateWithoutBrandInput = {
@@ -764,12 +764,12 @@ export type ProductUncheckedCreateWithoutBrandInput = {
   colorway: string
   year: string
   price: number
-  description: string
   image: string
   visuals?: Prisma.ProductCreatevisualsInput | string[]
   edition?: string | null
   audience: $Enums.Audience
   colorFilterId: number
+  description: string
   tags?: Prisma.ProductCreatetagsInput | $Enums.ProductTag[]
   sizes?: Prisma.ProductSizeUncheckedCreateNestedManyWithoutProductInput
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
@@ -811,12 +811,12 @@ export type ProductScalarWhereInput = {
   colorway?: Prisma.StringFilter<"Product"> | string
   year?: Prisma.StringFilter<"Product"> | string
   price?: Prisma.IntFilter<"Product"> | number
-  description?: Prisma.StringFilter<"Product"> | string
   image?: Prisma.StringFilter<"Product"> | string
   visuals?: Prisma.StringNullableListFilter<"Product">
   edition?: Prisma.StringNullableFilter<"Product"> | string | null
   audience?: Prisma.EnumAudienceFilter<"Product"> | $Enums.Audience
   colorFilterId?: Prisma.IntFilter<"Product"> | number
+  description?: Prisma.StringFilter<"Product"> | string
   brandId?: Prisma.IntFilter<"Product"> | number
   tags?: Prisma.EnumProductTagNullableListFilter<"Product">
 }
@@ -827,15 +827,15 @@ export type ProductCreateWithoutColorFilterInput = {
   colorway: string
   year: string
   price: number
-  description: string
   image: string
   visuals?: Prisma.ProductCreatevisualsInput | string[]
   edition?: string | null
   audience: $Enums.Audience
+  description: string
   tags?: Prisma.ProductCreatetagsInput | $Enums.ProductTag[]
   sizes?: Prisma.ProductSizeCreateNestedManyWithoutProductInput
-  brand: Prisma.BrandCreateNestedOneWithoutProductsInput
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutProductInput
+  brand: Prisma.BrandCreateNestedOneWithoutProductsInput
 }
 
 export type ProductUncheckedCreateWithoutColorFilterInput = {
@@ -845,11 +845,11 @@ export type ProductUncheckedCreateWithoutColorFilterInput = {
   colorway: string
   year: string
   price: number
-  description: string
   image: string
   visuals?: Prisma.ProductCreatevisualsInput | string[]
   edition?: string | null
   audience: $Enums.Audience
+  description: string
   brandId: number
   tags?: Prisma.ProductCreatetagsInput | $Enums.ProductTag[]
   sizes?: Prisma.ProductSizeUncheckedCreateNestedManyWithoutProductInput
@@ -888,15 +888,15 @@ export type ProductCreateWithoutSizesInput = {
   colorway: string
   year: string
   price: number
-  description: string
   image: string
   visuals?: Prisma.ProductCreatevisualsInput | string[]
   edition?: string | null
   audience: $Enums.Audience
+  description: string
   tags?: Prisma.ProductCreatetagsInput | $Enums.ProductTag[]
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutProductInput
   colorFilter: Prisma.ColorFilterCreateNestedOneWithoutProductsInput
   brand: Prisma.BrandCreateNestedOneWithoutProductsInput
-  orderItems?: Prisma.OrderItemCreateNestedManyWithoutProductInput
 }
 
 export type ProductUncheckedCreateWithoutSizesInput = {
@@ -906,12 +906,12 @@ export type ProductUncheckedCreateWithoutSizesInput = {
   colorway: string
   year: string
   price: number
-  description: string
   image: string
   visuals?: Prisma.ProductCreatevisualsInput | string[]
   edition?: string | null
   audience: $Enums.Audience
   colorFilterId: number
+  description: string
   brandId: number
   tags?: Prisma.ProductCreatetagsInput | $Enums.ProductTag[]
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
@@ -939,15 +939,15 @@ export type ProductUpdateWithoutSizesInput = {
   colorway?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.StringFieldUpdateOperationsInput | string
   visuals?: Prisma.ProductUpdatevisualsInput | string[]
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ProductUpdatetagsInput | $Enums.ProductTag[]
+  orderItems?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
   colorFilter?: Prisma.ColorFilterUpdateOneRequiredWithoutProductsNestedInput
   brand?: Prisma.BrandUpdateOneRequiredWithoutProductsNestedInput
-  orderItems?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
 }
 
 export type ProductUncheckedUpdateWithoutSizesInput = {
@@ -957,12 +957,12 @@ export type ProductUncheckedUpdateWithoutSizesInput = {
   colorway?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.StringFieldUpdateOperationsInput | string
   visuals?: Prisma.ProductUpdatevisualsInput | string[]
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
   colorFilterId?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   brandId?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.ProductUpdatetagsInput | $Enums.ProductTag[]
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
@@ -974,14 +974,14 @@ export type ProductCreateWithoutOrderItemsInput = {
   colorway: string
   year: string
   price: number
-  description: string
   image: string
   visuals?: Prisma.ProductCreatevisualsInput | string[]
   edition?: string | null
   audience: $Enums.Audience
+  description: string
   tags?: Prisma.ProductCreatetagsInput | $Enums.ProductTag[]
-  colorFilter: Prisma.ColorFilterCreateNestedOneWithoutProductsInput
   sizes?: Prisma.ProductSizeCreateNestedManyWithoutProductInput
+  colorFilter: Prisma.ColorFilterCreateNestedOneWithoutProductsInput
   brand: Prisma.BrandCreateNestedOneWithoutProductsInput
 }
 
@@ -992,12 +992,12 @@ export type ProductUncheckedCreateWithoutOrderItemsInput = {
   colorway: string
   year: string
   price: number
-  description: string
   image: string
   visuals?: Prisma.ProductCreatevisualsInput | string[]
   edition?: string | null
   audience: $Enums.Audience
   colorFilterId: number
+  description: string
   brandId: number
   tags?: Prisma.ProductCreatetagsInput | $Enums.ProductTag[]
   sizes?: Prisma.ProductSizeUncheckedCreateNestedManyWithoutProductInput
@@ -1025,14 +1025,14 @@ export type ProductUpdateWithoutOrderItemsInput = {
   colorway?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.StringFieldUpdateOperationsInput | string
   visuals?: Prisma.ProductUpdatevisualsInput | string[]
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ProductUpdatetagsInput | $Enums.ProductTag[]
-  colorFilter?: Prisma.ColorFilterUpdateOneRequiredWithoutProductsNestedInput
   sizes?: Prisma.ProductSizeUpdateManyWithoutProductNestedInput
+  colorFilter?: Prisma.ColorFilterUpdateOneRequiredWithoutProductsNestedInput
   brand?: Prisma.BrandUpdateOneRequiredWithoutProductsNestedInput
 }
 
@@ -1043,12 +1043,12 @@ export type ProductUncheckedUpdateWithoutOrderItemsInput = {
   colorway?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.StringFieldUpdateOperationsInput | string
   visuals?: Prisma.ProductUpdatevisualsInput | string[]
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
   colorFilterId?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   brandId?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.ProductUpdatetagsInput | $Enums.ProductTag[]
   sizes?: Prisma.ProductSizeUncheckedUpdateManyWithoutProductNestedInput
@@ -1061,12 +1061,12 @@ export type ProductCreateManyBrandInput = {
   colorway: string
   year: string
   price: number
-  description: string
   image: string
   visuals?: Prisma.ProductCreatevisualsInput | string[]
   edition?: string | null
   audience: $Enums.Audience
   colorFilterId: number
+  description: string
   tags?: Prisma.ProductCreatetagsInput | $Enums.ProductTag[]
 }
 
@@ -1076,15 +1076,15 @@ export type ProductUpdateWithoutBrandInput = {
   colorway?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.StringFieldUpdateOperationsInput | string
   visuals?: Prisma.ProductUpdatevisualsInput | string[]
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ProductUpdatetagsInput | $Enums.ProductTag[]
-  colorFilter?: Prisma.ColorFilterUpdateOneRequiredWithoutProductsNestedInput
   sizes?: Prisma.ProductSizeUpdateManyWithoutProductNestedInput
   orderItems?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
+  colorFilter?: Prisma.ColorFilterUpdateOneRequiredWithoutProductsNestedInput
 }
 
 export type ProductUncheckedUpdateWithoutBrandInput = {
@@ -1094,12 +1094,12 @@ export type ProductUncheckedUpdateWithoutBrandInput = {
   colorway?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.StringFieldUpdateOperationsInput | string
   visuals?: Prisma.ProductUpdatevisualsInput | string[]
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
   colorFilterId?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ProductUpdatetagsInput | $Enums.ProductTag[]
   sizes?: Prisma.ProductSizeUncheckedUpdateManyWithoutProductNestedInput
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
@@ -1112,12 +1112,12 @@ export type ProductUncheckedUpdateManyWithoutBrandInput = {
   colorway?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.StringFieldUpdateOperationsInput | string
   visuals?: Prisma.ProductUpdatevisualsInput | string[]
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
   colorFilterId?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ProductUpdatetagsInput | $Enums.ProductTag[]
 }
 
@@ -1128,11 +1128,11 @@ export type ProductCreateManyColorFilterInput = {
   colorway: string
   year: string
   price: number
-  description: string
   image: string
   visuals?: Prisma.ProductCreatevisualsInput | string[]
   edition?: string | null
   audience: $Enums.Audience
+  description: string
   brandId: number
   tags?: Prisma.ProductCreatetagsInput | $Enums.ProductTag[]
 }
@@ -1143,15 +1143,15 @@ export type ProductUpdateWithoutColorFilterInput = {
   colorway?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.StringFieldUpdateOperationsInput | string
   visuals?: Prisma.ProductUpdatevisualsInput | string[]
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ProductUpdatetagsInput | $Enums.ProductTag[]
   sizes?: Prisma.ProductSizeUpdateManyWithoutProductNestedInput
-  brand?: Prisma.BrandUpdateOneRequiredWithoutProductsNestedInput
   orderItems?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
+  brand?: Prisma.BrandUpdateOneRequiredWithoutProductsNestedInput
 }
 
 export type ProductUncheckedUpdateWithoutColorFilterInput = {
@@ -1161,11 +1161,11 @@ export type ProductUncheckedUpdateWithoutColorFilterInput = {
   colorway?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.StringFieldUpdateOperationsInput | string
   visuals?: Prisma.ProductUpdatevisualsInput | string[]
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   brandId?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.ProductUpdatetagsInput | $Enums.ProductTag[]
   sizes?: Prisma.ProductSizeUncheckedUpdateManyWithoutProductNestedInput
@@ -1179,11 +1179,11 @@ export type ProductUncheckedUpdateManyWithoutColorFilterInput = {
   colorway?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   image?: Prisma.StringFieldUpdateOperationsInput | string
   visuals?: Prisma.ProductUpdatevisualsInput | string[]
   edition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audience?: Prisma.EnumAudienceFieldUpdateOperationsInput | $Enums.Audience
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   brandId?: Prisma.IntFieldUpdateOperationsInput | number
   tags?: Prisma.ProductUpdatetagsInput | $Enums.ProductTag[]
 }
@@ -1235,18 +1235,18 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   colorway?: boolean
   year?: boolean
   price?: boolean
-  description?: boolean
   image?: boolean
   visuals?: boolean
   edition?: boolean
   audience?: boolean
   colorFilterId?: boolean
+  description?: boolean
   brandId?: boolean
   tags?: boolean
-  colorFilter?: boolean | Prisma.ColorFilterDefaultArgs<ExtArgs>
   sizes?: boolean | Prisma.Product$sizesArgs<ExtArgs>
-  brand?: boolean | Prisma.BrandDefaultArgs<ExtArgs>
   orderItems?: boolean | Prisma.Product$orderItemsArgs<ExtArgs>
+  colorFilter?: boolean | Prisma.ColorFilterDefaultArgs<ExtArgs>
+  brand?: boolean | Prisma.BrandDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ProductCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["product"]>
 
@@ -1257,12 +1257,12 @@ export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   colorway?: boolean
   year?: boolean
   price?: boolean
-  description?: boolean
   image?: boolean
   visuals?: boolean
   edition?: boolean
   audience?: boolean
   colorFilterId?: boolean
+  description?: boolean
   brandId?: boolean
   tags?: boolean
   colorFilter?: boolean | Prisma.ColorFilterDefaultArgs<ExtArgs>
@@ -1276,12 +1276,12 @@ export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   colorway?: boolean
   year?: boolean
   price?: boolean
-  description?: boolean
   image?: boolean
   visuals?: boolean
   edition?: boolean
   audience?: boolean
   colorFilterId?: boolean
+  description?: boolean
   brandId?: boolean
   tags?: boolean
   colorFilter?: boolean | Prisma.ColorFilterDefaultArgs<ExtArgs>
@@ -1295,22 +1295,22 @@ export type ProductSelectScalar = {
   colorway?: boolean
   year?: boolean
   price?: boolean
-  description?: boolean
   image?: boolean
   visuals?: boolean
   edition?: boolean
   audience?: boolean
   colorFilterId?: boolean
+  description?: boolean
   brandId?: boolean
   tags?: boolean
 }
 
-export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "line" | "model" | "colorway" | "year" | "price" | "description" | "image" | "visuals" | "edition" | "audience" | "colorFilterId" | "brandId" | "tags", ExtArgs["result"]["product"]>
+export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "line" | "model" | "colorway" | "year" | "price" | "image" | "visuals" | "edition" | "audience" | "colorFilterId" | "description" | "brandId" | "tags", ExtArgs["result"]["product"]>
 export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  colorFilter?: boolean | Prisma.ColorFilterDefaultArgs<ExtArgs>
   sizes?: boolean | Prisma.Product$sizesArgs<ExtArgs>
-  brand?: boolean | Prisma.BrandDefaultArgs<ExtArgs>
   orderItems?: boolean | Prisma.Product$orderItemsArgs<ExtArgs>
+  colorFilter?: boolean | Prisma.ColorFilterDefaultArgs<ExtArgs>
+  brand?: boolean | Prisma.BrandDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ProductCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProductIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1325,10 +1325,10 @@ export type ProductIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Product"
   objects: {
-    colorFilter: Prisma.$ColorFilterPayload<ExtArgs>
     sizes: Prisma.$ProductSizePayload<ExtArgs>[]
-    brand: Prisma.$BrandPayload<ExtArgs>
     orderItems: Prisma.$OrderItemPayload<ExtArgs>[]
+    colorFilter: Prisma.$ColorFilterPayload<ExtArgs>
+    brand: Prisma.$BrandPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1337,12 +1337,12 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     colorway: string
     year: string
     price: number
-    description: string
     image: string
     visuals: string[]
     edition: string | null
     audience: $Enums.Audience
     colorFilterId: number
+    description: string
     brandId: number
     tags: $Enums.ProductTag[]
   }, ExtArgs["result"]["product"]>
@@ -1739,10 +1739,10 @@ readonly fields: ProductFieldRefs;
  */
 export interface Prisma__ProductClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  colorFilter<T extends Prisma.ColorFilterDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ColorFilterDefaultArgs<ExtArgs>>): Prisma.Prisma__ColorFilterClient<runtime.Types.Result.GetResult<Prisma.$ColorFilterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   sizes<T extends Prisma.Product$sizesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$sizesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductSizePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  brand<T extends Prisma.BrandDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BrandDefaultArgs<ExtArgs>>): Prisma.Prisma__BrandClient<runtime.Types.Result.GetResult<Prisma.$BrandPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   orderItems<T extends Prisma.Product$orderItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$orderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  colorFilter<T extends Prisma.ColorFilterDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ColorFilterDefaultArgs<ExtArgs>>): Prisma.Prisma__ColorFilterClient<runtime.Types.Result.GetResult<Prisma.$ColorFilterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  brand<T extends Prisma.BrandDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BrandDefaultArgs<ExtArgs>>): Prisma.Prisma__BrandClient<runtime.Types.Result.GetResult<Prisma.$BrandPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1778,12 +1778,12 @@ export interface ProductFieldRefs {
   readonly colorway: Prisma.FieldRef<"Product", 'String'>
   readonly year: Prisma.FieldRef<"Product", 'String'>
   readonly price: Prisma.FieldRef<"Product", 'Int'>
-  readonly description: Prisma.FieldRef<"Product", 'String'>
   readonly image: Prisma.FieldRef<"Product", 'String'>
   readonly visuals: Prisma.FieldRef<"Product", 'String[]'>
   readonly edition: Prisma.FieldRef<"Product", 'String'>
   readonly audience: Prisma.FieldRef<"Product", 'Audience'>
   readonly colorFilterId: Prisma.FieldRef<"Product", 'Int'>
+  readonly description: Prisma.FieldRef<"Product", 'String'>
   readonly brandId: Prisma.FieldRef<"Product", 'Int'>
   readonly tags: Prisma.FieldRef<"Product", 'ProductTag[]'>
 }

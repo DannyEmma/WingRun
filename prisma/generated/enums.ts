@@ -13,11 +13,19 @@ export const Audience = {
   MEN: 'MEN',
   WOMEN: 'WOMEN',
   BOY: 'BOY',
-  GIRL: 'GIRL',
-  KIDS: 'KIDS'
+  GIRL: 'GIRL'
 } as const
 
 export type Audience = (typeof Audience)[keyof typeof Audience]
+
+
+export const CategorySize = {
+  MEN: 'MEN',
+  WOMEN: 'WOMEN',
+  KIDS: 'KIDS'
+} as const
+
+export type CategorySize = (typeof CategorySize)[keyof typeof CategorySize]
 
 
 export const DestinationGroup = {
