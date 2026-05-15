@@ -6,11 +6,11 @@ import ResetCart from '@/components/providers/ResetCart/ResetCart'
 import { util } from '@/lib/utils'
 
 interface PaymentSuccessfulPageProps {
-  searchParams: any
+  searchParams: Promise<any>
 }
 
 export default async function PaymentSuccessfulPage({ searchParams }: PaymentSuccessfulPageProps) {
-  const { sessionId } = searchParams
+  const { sessionId } = await searchParams
 
   if (!sessionId) notFound()
 
