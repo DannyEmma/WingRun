@@ -11,15 +11,27 @@ interface CheckoutRequestBody {
   cart: CartItem[]
 }
 
+class WingRunNotification {
+  message: string
+  title: string
+
+  constructor(title: string, message: string) {
+    this.title = title
+    this.message = message
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { cart } = (await request.json()) as CheckoutRequestBody
 
     const session = await auth.api.getSession({ headers: await headers() })
-    if (!session) return
+
+    if (!session) throw new WingRunNotification('Connexion requise', 'Veuillez vous connecté avant de continuer !')
 
     const { data: user, error } = await service.user.getUser(session.user.id)
-    if (!user) return
+
+    if (!user) throw new WingRunNotification('Connexion requise', 'Veuillez vous connecté avant de continuer !')
 
     const userDefaultAdress = user.addresses.find((adress) => adress.isDefault)
 
@@ -69,7 +81,10 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ chekoutSession })
   } catch (error: any) {
-    // console.error('Erreur checkout:', error)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    if (error instanceof WingRunNotification) {
+      return NextResponse.json({ wingRunNotification: error }, { status: 401 })
+    }
+
+    return NextResponse.json({ error: error }, { status: 500 })
   }
 }

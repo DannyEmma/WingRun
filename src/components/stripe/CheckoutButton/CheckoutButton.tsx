@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { CartItem } from '@/lib/types'
 import CTA from '@/components/ui/CTA/CTA'
+import { toast } from 'sonner'
 
 export default function CheckoutButton() {
   const [loading, setLoading] = useState(false)
@@ -26,7 +27,11 @@ export default function CheckoutButton() {
         body: JSON.stringify(body),
       })
 
-      const { chekoutSession } = await response.json()
+      const { chekoutSession, error, wingRunNotification } = await response.json()
+
+      if (wingRunNotification) {
+        toast.warning(wingRunNotification.title, { description: wingRunNotification.message })
+      }
 
       if (chekoutSession) {
         router.push(chekoutSession.url)

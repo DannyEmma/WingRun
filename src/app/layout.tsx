@@ -56,14 +56,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <SessionInitializer session={session} />
 
         <Toaster
+          className={styles.toaster}
           position="top-right"
           toastOptions={{
-            classNames: {
-              toast: styles.toast,
-              title: styles.title,
-              description: styles.description,
-              closeButton: styles['close-button'],
-            },
             closeButton: true,
           }}
           icons={{
