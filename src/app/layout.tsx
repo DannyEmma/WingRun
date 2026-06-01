@@ -23,6 +23,9 @@ const oswald = Oswald({
 export const metadata: Metadata = {
   title: 'WingRun',
   description: 'Site de sneakers',
+  icons: {
+    icon: '/favicon.svg',
+  },
 }
 
 interface RootLayoutProps {
